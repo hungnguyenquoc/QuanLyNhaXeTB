@@ -104,6 +104,7 @@ namespace QuanLyNhaXe
             services.AddTransient<IAuthorizationHandler, UserAuthorizationHandler>();
             services.AddScoped<IUserService, UserServices>();
             services.AddScoped<IAuthoServicecs, AuthoService>();
+            services.AddScoped<ILoaiXeService, LoaiXeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

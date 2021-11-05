@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhaXe.DTOS
 {
-    public class InputLoaiXe
+    public class EditLoaiXe
     {
-        [Required]
+        [Display(Name ="Tên Loại Xe")]
         public string TenLoaiXe { get; set; }
-        [Required]
+        [Display(Name = "Số Tầng")]
         public int SoTang { get; set; }
-
-        public int SoLuong { get; set; }
     }
 }

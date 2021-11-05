@@ -50,7 +50,7 @@ namespace QuanLyNhaXe.Security.Requirement
             var appUser = TaskappUser.Result;
             if (appUser == null)
                 return false;
-            if (appUser.MucDoTruyCap != requirement.mucDoTruyCap)
+            if (appUser.MucDoTruyCap != requirement.MucDoTruyCap)
                 return false;
             return true;
         }
@@ -67,7 +67,7 @@ namespace QuanLyNhaXe.Security.Requirement
             var appUser = TaskappUser.Result;
             if (appUser == null)
                 return false;
-            if (appUser.MucDoTruyCap != requirement.mucDoTruyCap)
+            if (appUser.MucDoTruyCap != requirement.MucDoTruyCap)
                 return false;
 
             return true;
@@ -85,7 +85,7 @@ namespace QuanLyNhaXe.Security.Requirement
             var appUser = TaskappUser.Result;
             if (appUser == null)
                 return false;
-            if (appUser.MucDoTruyCap != requirement.mucDoTruyCap)
+            if (appUser.MucDoTruyCap != requirement.MucDoTruyCap)
                 return false;
             return true;
         }

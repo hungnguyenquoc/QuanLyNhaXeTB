@@ -10,8 +10,8 @@ namespace QuanLyNhaXe.Security.Requirement
     {
         public UserAuthorize3()
         {
-            mucDoTruyCap = 2;
+            MucDoTruyCap = 3;
         }
-        public int mucDoTruyCap { get; set; }
+        public int MucDoTruyCap { get; set; }
     }
 }

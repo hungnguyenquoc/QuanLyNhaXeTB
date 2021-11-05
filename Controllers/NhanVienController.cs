@@ -123,8 +123,8 @@ namespace QuanLyNhaXe.Controllers
                     return BadRequest(error: new { messsage = $"Cập Nhật Nhân Viên Có {MSNV} Không Thành Công" });
                 else
                 {
-                    var rs = await _userService.EditChucVuUser(edit);
-                    return Ok($"Cập thành công nhân viên có Tên là : {edit.HoTen}");
+                   await _userService.EditChucVuUser(edit);
+                   return Ok($"Cập thành công nhân viên có Tên là : {edit.HoTen}");
                 }    
             }
             return BadRequest(error: new { message = "Có Lỗi Xảy Ra Trong Dữ Liệu" });

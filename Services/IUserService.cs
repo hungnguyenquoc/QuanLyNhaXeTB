@@ -33,7 +33,7 @@ namespace QuanLyNhaXe.Services
 
     public class UserServices : IUserService
     {
-        private UserManager<UserIdentity> _userManager;
+        private readonly UserManager<UserIdentity> _userManager;
         private readonly SignInManager<UserIdentity> _signInManager;
         private readonly MyDbContext _myDbContext;
         private readonly IConfiguration _configuration;

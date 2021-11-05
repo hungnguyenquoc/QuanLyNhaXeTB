@@ -70,74 +70,6 @@ namespace QuanLyNhaXe.Migrations
                     b.ToTable("RoleClaims");
                 });
 
-<<<<<<< HEAD
-=======
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("Users");
-                });
-
->>>>>>> 66fa1536e099deff7461562395ae70cfa95b6c1b
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -218,7 +150,6 @@ namespace QuanLyNhaXe.Migrations
                     b.ToTable("UserTokens");
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("QuanLyNhaXe.Models.ChucVuUser", b =>
                 {
                     b.Property<string>("MSChucVu")
@@ -228,19 +159,10 @@ namespace QuanLyNhaXe.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TenChucVu")
-=======
-            modelBuilder.Entity("QuanLyNhaXe.Models.NhanVien", b =>
-                {
-                    b.Property<string>("MSNV")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ChucVu")
->>>>>>> 66fa1536e099deff7461562395ae70cfa95b6c1b
                         .IsRequired()
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
-<<<<<<< HEAD
                     b.Property<string>("VietTatChucVu")
                         .IsRequired()
                         .HasColumnType("nvarchar(5)")
@@ -280,26 +202,20 @@ namespace QuanLyNhaXe.Migrations
                     b.Property<string>("MSNV")
                         .HasColumnType("nvarchar(450)");
 
-=======
->>>>>>> 66fa1536e099deff7461562395ae70cfa95b6c1b
                     b.Property<string>("HoTen")
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
-<<<<<<< HEAD
                     b.Property<string>("MSChucVu")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-=======
->>>>>>> 66fa1536e099deff7461562395ae70cfa95b6c1b
                     b.Property<DateTime?>("NgaySinh")
                         .HasColumnType("datetime");
 
                     b.Property<string>("SoDienThoai")
                         .IsRequired()
-<<<<<<< HEAD
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("MSNV");
@@ -428,15 +344,6 @@ namespace QuanLyNhaXe.Migrations
                     b.ToTable("Xe");
                 });
 
-=======
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MSNV");
-
-                    b.ToTable("NhanVien");
-                });
-
->>>>>>> 66fa1536e099deff7461562395ae70cfa95b6c1b
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -448,11 +355,7 @@ namespace QuanLyNhaXe.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-<<<<<<< HEAD
                     b.HasOne("QuanLyNhaXe.Models.UserIdentity", null)
-=======
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
->>>>>>> 66fa1536e099deff7461562395ae70cfa95b6c1b
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -461,11 +364,7 @@ namespace QuanLyNhaXe.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-<<<<<<< HEAD
                     b.HasOne("QuanLyNhaXe.Models.UserIdentity", null)
-=======
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
->>>>>>> 66fa1536e099deff7461562395ae70cfa95b6c1b
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -480,11 +379,7 @@ namespace QuanLyNhaXe.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-<<<<<<< HEAD
                     b.HasOne("QuanLyNhaXe.Models.UserIdentity", null)
-=======
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
->>>>>>> 66fa1536e099deff7461562395ae70cfa95b6c1b
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -493,17 +388,12 @@ namespace QuanLyNhaXe.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-<<<<<<< HEAD
                     b.HasOne("QuanLyNhaXe.Models.UserIdentity", null)
-=======
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
->>>>>>> 66fa1536e099deff7461562395ae70cfa95b6c1b
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
-<<<<<<< HEAD
 
             modelBuilder.Entity("QuanLyNhaXe.Models.NhanVien", b =>
                 {
@@ -530,8 +420,6 @@ namespace QuanLyNhaXe.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
-=======
->>>>>>> 66fa1536e099deff7461562395ae70cfa95b6c1b
 #pragma warning restore 612, 618
         }
     }

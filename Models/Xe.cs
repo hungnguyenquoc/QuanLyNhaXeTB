@@ -19,9 +19,6 @@ namespace QuanLyNhaXe.Models
         [Required]
         [Display(Name ="Tổng Số Ghế Ngồi Trên Xe")]
         public int TongSoGhe { get; set; }
-        [Required]
-        [Display(Name = "Số Tầng Trên Xe")]
-        public int SoTang { get; set; }
         [Display(Name ="Tổng Số Ghế Tầng Trên")]
         public int SoGheTangTren { get; set; }
         [Required]

@@ -181,6 +181,9 @@ namespace QuanLyNhaXe.Migrations
                     b.Property<int>("SoLuong")
                         .HasColumnType("int");
 
+                    b.Property<int>("SoTang")
+                        .HasColumnType("int");
+
                     b.Property<string>("TenLoaiXe")
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
@@ -323,9 +326,6 @@ namespace QuanLyNhaXe.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SoGheTangTren")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoTang")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")

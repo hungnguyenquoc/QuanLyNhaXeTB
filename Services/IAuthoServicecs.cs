@@ -14,15 +14,18 @@ namespace QuanLyNhaXe.Services
         Task<bool> XoaChucVu(string MSCV);
 
         Task<ChucVuUser> SuaChucVu(string id, EditChucVu editChucVu);
+
     }
     public class AuthoService : IAuthoServicecs
     {
-        private readonly UserManager<UserIdentity> _userManager;
+        private UserManager<UserIdentity> _userManager;
+        private readonly SignInManager<UserIdentity> _signInManager;
         private readonly MyDbContext _myDbContext;
 
-        public AuthoService (UserManager<UserIdentity> userManager,MyDbContext myDbContext)
+        public AuthoService (UserManager<UserIdentity> userManager,SignInManager<UserIdentity> signInManager,MyDbContext myDbContext)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
             _myDbContext = myDbContext;
      
         }
@@ -62,7 +65,7 @@ namespace QuanLyNhaXe.Services
         }
         public async Task<ChucVuUser> SuaChucVu(string id, EditChucVu editchucVu)
         {
-            int tempCv;
+            int i=-1;
             if (id == null || editchucVu == null)
                 return null;
             var rs = await _myDbContext.chucVuUsers.FindAsync(id);
@@ -74,33 +77,23 @@ namespace QuanLyNhaXe.Services
                 rs.VietTatChucVu = editchucVu.VietTatChucVu;
             if(editchucVu.MucDoTruyCap>0 || editchucVu.MucDoTruyCap < 3)
             {
-                tempCv = editchucVu.MucDoTruyCap;
+                i=rs.MucDoTruyCap;
                 rs.MucDoTruyCap = editchucVu.MucDoTruyCap;
             }
-            else
-            {
-                tempCv = 3;
-                rs.MucDoTruyCap = 3;
-            }    
-               await _myDbContext.SaveChangesAsync();
-            if (!SuaChucVuUser(rs.MSChucVu,tempCv))
+            if (!SuaChucVuUser(i, editchucVu.MucDoTruyCap))
                 return null;
+               await _myDbContext.SaveChangesAsync();
             return rs;
         }
 
-        public bool SuaChucVuUser(string MSCV,int tempCv)
+        public bool SuaChucVuUser(int MucDoTruyCap, int newUpdate)
         {
-            if (tempCv == -1)
+            var rs = _myDbContext.Users.Where(us => us.MucDoTruyCap == MucDoTruyCap).ToList();
+            if (rs == null)
                 return false;
-            var nv = _myDbContext.NhanViens.Where(nv => nv.MSChucVu == MSCV).ToList();
-            if (nv == null)
-                return false;
-            foreach (var iteam in nv)
+            foreach(var iteam in rs)
             {
-                var user = _userManager.FindByNameAsync(iteam.MSNV);
-                {
-                    user.Result.MucDoTruyCap = iteam.ChucVuUser.MucDoTruyCap;
-                }
+                iteam.MucDoTruyCap = newUpdate;
             }
             _myDbContext.SaveChanges();
             return true;

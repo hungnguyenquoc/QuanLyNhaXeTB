@@ -95,7 +95,7 @@ namespace QuanLyNhaXe.Controllers
         {
             if(ModelState.IsValid)
             {
-                await _authoServices.XoaChucVu(id);
+                var rs = await _authoServices.XoaChucVu(id);
                 return Ok($"Xóa Thành Công Chức Vụ Có MSCV = {id} ");
             }
             return BadRequest(error: new { message = "Có Lỗi Xảy Ra Khi Thực Hiện Chức Năng Này" });

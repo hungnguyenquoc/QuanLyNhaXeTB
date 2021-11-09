@@ -9,6 +9,8 @@ namespace QuanLyNhaXe.DTOS
     public class InputLoaiXe
     {
         [Required]
+        public string MSLoaiXe { get; set; }
+        [Required]
         public string TenLoaiXe { get; set; }
         [Required]
         public int SoTang { get; set; }

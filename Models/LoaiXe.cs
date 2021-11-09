@@ -19,6 +19,9 @@ namespace QuanLyNhaXe.Models
         [Display(Name = "Tên Loại Xe")]
         [MaxLength(30,ErrorMessage ="Tối Đa 30 Ký Tự")]
         public string TenLoaiXe { get; set; }
+        [Required]
+        [Display(Name = "Số Tầng Trên Xe")]
+        public int SoTang { get; set; }
         [Display(Name = "Tổng Số Lượng")]
         public int SoLuong { get; set; }
         //Colect Navigate (Quan hệ nhiều) không có thay đổi gì cả

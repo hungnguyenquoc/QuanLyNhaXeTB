@@ -55,5 +55,7 @@ namespace QuanLyNhaXe.Models
         public DbSet<Xe> Xes { get; set; }
 
         public DbSet<ChucVuUser> chucVuUsers { get;set; }
+
+        public DbSet<GheXe> GheXes { get; set; }
     }
 }

@@ -19,6 +19,12 @@
     <Compile Remove="Migrations\20211104051944_QLyKhoXe.Designer.cs" />
     <Compile Remove="Migrations\20211104052149__DbV2.cs" />
     <Compile Remove="Migrations\20211104052149__DbV2.Designer.cs" />
+    <Compile Remove="Migrations\20211105134904_UpdateModelXe.cs" />
+    <Compile Remove="Migrations\20211105134904_UpdateModelXe.Designer.cs" />
+    <Compile Remove="Migrations\20211111075009_UpXeVaGhe.cs" />
+    <Compile Remove="Migrations\20211111075009_UpXeVaGhe.Designer.cs" />
+    <Compile Remove="Migrations\20211111075254_UpdataXeVaGhe.cs" />
+    <Compile Remove="Migrations\20211111075254_UpdataXeVaGhe.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +39,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
   </ItemGroup>
 
 

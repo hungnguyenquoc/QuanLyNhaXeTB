@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using QuanLyNhaXe.DTOS;
 using QuanLyNhaXe.Models;
 using QuanLyNhaXe.Security.Requirement;
@@ -101,6 +102,9 @@ namespace QuanLyNhaXe
                     policyBuilder.Requirements.Add(new UserAuthorize3());// Mức độ 1- Có Mức Độ = 2
                 });
             });
+            services.AddSwaggerGen(options => {
+                options.SwaggerDoc("V1", new OpenApiInfo { Title = "Swagger QuanLyNhaXe Solution", Version = "V1" });
+            });
             services.AddTransient<IAuthorizationHandler, UserAuthorizationHandler>();
             services.AddScoped<IUserService, UserServices>();
             services.AddScoped<IAuthoServicecs, AuthoService>();
@@ -120,6 +124,12 @@ namespace QuanLyNhaXe
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/V1/swagger.json","Swageer QuanLyNhaXe V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {

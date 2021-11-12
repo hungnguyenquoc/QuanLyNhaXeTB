@@ -21,6 +21,17 @@ namespace QuanLyNhaXe.Models
         public string TenLoaiXe { get; set; }
         [Display(Name = "Tổng Số Lượng")]
         public int SoLuong { get; set; }
+        [Required]
+        [Display(Name ="Số tầng trên xe")]
+        public int SoTang { get; set; }
+        [Required]
+        [Display(Name = "Tổng Số Ghế Tầng Trên")]
+        public int SoGheTangTren { get; set; }
+        [Required]
+        [Display(Name = "Tổng Số Ghế Tầng Dưới")]
+        public int SoGheTangDuoi { get; set; }
+        [Required]
+        [Display(Name = "Mã Xe")]
         //Colect Navigate (Quan hệ nhiều) không có thay đổi gì cả
         public virtual List<Xe> Xes { get; set; }
     }

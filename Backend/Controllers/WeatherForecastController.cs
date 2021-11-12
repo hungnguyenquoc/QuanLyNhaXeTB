@@ -10,8 +10,8 @@ namespace QuanLyNhaXe.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
-    [Authorize(Policy ="Mức 1")]
+   // [Authorize]
+    //[Authorize(Policy ="Mức 1")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

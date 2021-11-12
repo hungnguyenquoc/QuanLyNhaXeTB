@@ -173,12 +173,45 @@ namespace QuanLyNhaXe.Migrations
                     b.ToTable("ChucVuUser");
                 });
 
+            modelBuilder.Entity("QuanLyNhaXe.Models.GheXe", b =>
+                {
+                    b.Property<long>("MSGhe")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BienSoXe")
+                        .HasColumnType("nvarchar(9)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ViTri")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MSGhe");
+
+                    b.HasIndex("BienSoXe");
+
+                    b.ToTable("GheXe");
+                });
+
             modelBuilder.Entity("QuanLyNhaXe.Models.LoaiXe", b =>
                 {
                     b.Property<string>("MSLoaiXe")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("SoGheTangDuoi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SoGheTangTren")
+                        .HasColumnType("int");
+
                     b.Property<int>("SoLuong")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SoTang")
                         .HasColumnType("int");
 
                     b.Property<string>("TenLoaiXe")
@@ -319,19 +352,7 @@ namespace QuanLyNhaXe.Migrations
                     b.Property<int>("SoChuyenDi")
                         .HasColumnType("int");
 
-                    b.Property<int>("SoGheTangDuoi")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoGheTangTren")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoTang")
-                        .HasColumnType("int");
-
                     b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TongSoGhe")
                         .HasColumnType("int");
 
                     b.HasKey("BienSoXe");
@@ -391,6 +412,15 @@ namespace QuanLyNhaXe.Migrations
                     b.HasOne("QuanLyNhaXe.Models.UserIdentity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("QuanLyNhaXe.Models.GheXe", b =>
+                {
+                    b.HasOne("QuanLyNhaXe.Models.Xe", "Xe")
+                        .WithMany("GheXes")
+                        .HasForeignKey("BienSoXe")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -16,19 +16,6 @@ namespace QuanLyNhaXe.Models
         [Display(Name ="Biển Số Xe")]
         [StringLength(9,ErrorMessage ="Biển Số Xe Chỉ Có 9 Ký Tự")]
         public string BienSoXe { get; set; }
-        [Required]
-        [Display(Name ="Tổng Số Ghế Ngồi Trên Xe")]
-        public int TongSoGhe { get; set; }
-        [Required]
-        [Display(Name = "Số Tầng Trên Xe")]
-        public int SoTang { get; set; }
-        [Display(Name ="Tổng Số Ghế Tầng Trên")]
-        public int SoGheTangTren { get; set; }
-        [Required]
-        [Display(Name = "Tổng Số Ghế Tầng Dưới")]
-        public int SoGheTangDuoi { get; set; }
-        [Required]
-        [Display(Name ="Mã Số Loại Xe")]
         [DefaultValue(0)] // chưa xuất bến 0:chưa xuất bến 1: đã xuất bến 2: chờ xuất bến
         public int Status { get; set; }
         [DefaultValue(0)] //Thực hiện xuất bãi cộng 1 chuyến đi
@@ -47,5 +34,6 @@ namespace QuanLyNhaXe.Models
         [ForeignKey("MSLoaiXe")] //Đặt tên cho FK- mặc định nếu không set sẽ tự tạo theo tên PK trong bảng cha
         public virtual LoaiXe LoaiXe { get; set; } // Một xe chỉ thuộc về 1 Loại
 
+        public virtual List<GheXe> GheXes { get; set; }
     }
 }

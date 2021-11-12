@@ -86,7 +86,7 @@ namespace QuanLyNhaXe.Services
                 count++;
                 if (count >= 10)
                 {
-                    nhanVien.MSNV = $"{checkCV.VietTatChucVu}00{count}";
+                    nhanVien.MSNV = $"{checkCV.VietTatChucVu}0{count}";
                 }
                 else
                 {

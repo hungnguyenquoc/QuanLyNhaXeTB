@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhaXe.Models
 {
+    //Thêm 
     [Table("NhanVien")]
     public class NhanVien
     {

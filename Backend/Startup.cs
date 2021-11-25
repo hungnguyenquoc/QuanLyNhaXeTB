@@ -3,18 +3,23 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using QuanLyNhaXe.DTOS;
 using QuanLyNhaXe.Models;
 using QuanLyNhaXe.Security.Requirement;
 using QuanLyNhaXe.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace QuanLyNhaXe
 {
@@ -31,14 +36,17 @@ namespace QuanLyNhaXe
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<MyDbContext>(options =>
-            {
+            services.AddDbContext<MyDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("QuanLyNhaXe"));
             });
             services.AddDbContext<MyDbContext>(options =>
             {
-                options.UseLazyLoadingProxies();
+                options.UseLazyLoadingProxies(); 
             });
+
+            // add cors
+            services.AddCors();
+
             //services.AddControllers().AddNewtonsoftJson(x => 
             //x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddIdentity<UserIdentity, IdentityRole>(options =>
@@ -98,33 +106,9 @@ namespace QuanLyNhaXe
                     policyBuilder.Requirements.Add(new UserAuthorize3());// Mức độ 1- Có Mức Độ = 2
                 });
             });
-            services.AddSwaggerGen(options =>
-            {
+            services.AddSwaggerGen(options => {
                 options.SwaggerDoc("V1", new OpenApiInfo { Title = "Swagger QuanLyNhaXe Solution", Version = "V1" });
-                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-                {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
-                });
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                          {
-                                Reference = new OpenApiReference
-                                {
-                                        Type = ReferenceType.SecurityScheme,
-                                         Id = "Bearer"
-                                }
-                          },
-             new List<string> ()
-                    }
-                    });
-                });
+            });
             services.AddTransient<IAuthorizationHandler, UserAuthorizationHandler>();
             services.AddScoped<IUserService, UserServices>();
             services.AddScoped<IAuthoServicecs, AuthoService>();
@@ -145,11 +129,12 @@ namespace QuanLyNhaXe
 
             app.UseAuthorization();
 
+            app.UseCors(x => x.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+
             app.UseSwagger();
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/V1/swagger.json", "Swageer QuanLyNhaXe V1");
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/V1/swagger.json","Swageer QuanLyNhaXe V1");
             });
 
             app.UseEndpoints(endpoints =>

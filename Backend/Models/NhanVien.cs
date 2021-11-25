@@ -27,10 +27,16 @@ namespace QuanLyNhaXe.Models
         [Required]
         [Display(Name = "Số Điện Thoại")]
         public string SoDienThoai { set; get; }
+        [Display(Name = "Giới Tính")]
+        public int GioiTinh { set; get; }
+        [Display(Name = "CMND")]
+        public string CMND { set; get; }
         [Required]
         public string MSChucVu { get; set; }
         public virtual UserIdentity UserIdentity { get; set; }
         [ForeignKey("MSChucVu")]
         public virtual ChucVuUser ChucVuUser { get; set; }
+
+        public virtual ImageUser ImageUser { get; set; }
     }
 }

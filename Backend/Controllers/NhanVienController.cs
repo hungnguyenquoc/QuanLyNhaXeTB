@@ -18,11 +18,13 @@ namespace QuanLyNhaXe.Controllers
     {
         private readonly IUserService _userService;
         private readonly MyDbContext _conText;
+        private readonly IImageUserService _imageUserService;
 
-        public NhanVienController(IUserService userService, MyDbContext conText)
+        public NhanVienController(IUserService userService, MyDbContext conText, IImageUserService imageUserService)
         {
             _userService = userService;
             _conText = conText;
+            _imageUserService = imageUserService;
         }
         // GET: api/<NhanVienController>
         /// <summary>
@@ -30,8 +32,8 @@ namespace QuanLyNhaXe.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize]
-        [Authorize(Policy = "Mức 1")]
+        //[Authorize]
+        //[Authorize(Policy = "Mức 1")]
         public async Task<IEnumerable<UserView>> Get()
         {
             return await _conText.NhanViens.Select(p => new UserView
@@ -40,7 +42,10 @@ namespace QuanLyNhaXe.Controllers
                 UserName = p.MSNV,
                 ChucVu=p.ChucVuUser.TenChucVu,
                 HoTen = p.HoTen,
-                NgaySinh = p.NgaySinh.Value.ToString("dd-MM-yyyy") //Lấy giá trị xong convert
+                NgaySinh = p.NgaySinh.Value.ToString("dd-MM-yyyy"), //Lấy giá trị xong convert
+                GioiTinh=p.GioiTinh,
+                FileSize=p.ImageUser.FileSize,
+                ImagePath=p.ImageUser.ImagePath
             }).ToListAsync();
         }
 
@@ -108,6 +113,25 @@ namespace QuanLyNhaXe.Controllers
             return BadRequest(error: new { message = "Có Lỗi Xảy Ra Trong Dữ Liệu" });
         }
         /// <summary>
+        /// Thêm ảnh cho User
+        /// </summary>
+        /// <param name="img"></param>
+        /// <returns></returns>
+        [HttpPost("Image/{MSNV}")]
+        public async Task<IActionResult> PostImgUser(string MSNV,[FromForm] InputImage img)
+        {
+            if (ModelState.IsValid)
+            {
+                var resul = await _imageUserService.AddImage(MSNV, img);
+                if(!resul)
+                    return BadRequest(error: new { message = "Thêm Ảnh Không Thành Công" });
+                else
+                    return Ok($"Thêm Ảnh Cho {MSNV} Thành Công");
+            }
+
+            return BadRequest(error: new { message = "Có Lỗi Xảy Ra Khi Cập Nhật Ảnh" });
+        }
+        /// <summary>
         /// Edit dữ liệu user theo MSNV
         /// </summary>
         /// <param name="MSNV"></param>
@@ -128,6 +152,26 @@ namespace QuanLyNhaXe.Controllers
                 }    
             }
             return BadRequest(error: new { message = "Có Lỗi Xảy Ra Trong Dữ Liệu" });
+        }
+        /// <summary>
+        /// Sửa ảnh cho User
+        /// </summary>
+        /// <param name="MSNV"></param>
+        /// <param name="img"></param>
+        /// <returns></returns>
+        [HttpPut("Image/{MSNV}")]
+        public async Task<IActionResult> PutImgUser(string MSNV, [FromForm] InputImage img)
+        {
+            if (ModelState.IsValid)
+            {
+                var resul = await _imageUserService.UpdateImage(MSNV, img);
+                if (!resul)
+                    return BadRequest(error: new { message = "Cập Nhật Ảnh Không Thành Công" });
+                else
+                    return Ok($"Cập Nhật Ảnh Cho {MSNV} Thành Công");
+            }
+
+            return BadRequest(error: new { message = "Có Lỗi Xảy Ra Khi Cập Nhật Ảnh" });
         }
         /// <summary>
         /// Đổi mật khẩu của nhân viên
@@ -166,6 +210,25 @@ namespace QuanLyNhaXe.Controllers
                 return BadRequest(error: new { message = "Có Lỗi Trong Quá Trình Xóa Tài Khoản" });
             }
             return Ok(new { message = $"Đã Xóa Thành Công Tài Khoản Có MSNV {MSNV}" });
+        }
+        /// <summary>
+        /// Xóa ảnh cho user
+        /// </summary>
+        /// <param name="MSNV"></param>
+        /// <returns></returns>
+        [HttpDelete("Image/{MSNV}")]
+        public async Task<IActionResult> PutImgUser(string MSNV)
+        {
+            if (ModelState.IsValid)
+            {
+                var resul = await _imageUserService.RemoveImage(MSNV);
+                if (!resul)
+                    return BadRequest(error: new { message = " Xóa Ảnh Không Thành Công" });
+                else
+                    return Ok($"Xóa Ảnh Cho {MSNV} Thành Công");
+            }
+
+            return BadRequest(error: new { message = "Có Lỗi Xảy Ra Khi Xóa Ảnh" });
         }
     }
 }

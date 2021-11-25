@@ -5,6 +5,8 @@ import { push } from "connected-react-router";
 import * as actions from "./../../store/actions";
 import './Login.scss';
 
+import userService from '../../services/userService';
+
 class Login extends Component {
     // init state
     // 
@@ -12,9 +14,10 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: 'admin',
-            password: 'admin',
-            isShowPassword: false
+            username: 'ADMIN001',
+            password: '0911670071',
+            isShowPassword: false,
+            errorMessage: ''
         }
     }
     // handle function
@@ -32,10 +35,22 @@ class Login extends Component {
         });
         console.log(event.target.value)
     }
-    handleLogin = () => {
-        console.log('username: ' + this.state.username, 'password: ' + this.state.password);
-        console.log('all', this.state);
-
+    handleLogin = async () => {
+        // this.setState({
+        //     errorMessage: ''
+        // });
+        try {
+            let data = await userService.handleLogin(this.state.username, this.state.password);
+            console.log('success', data)
+        }
+        catch (error) {
+            // if (error.response) {
+            //     this.setState({
+            //         errorMessage: error.response.message
+            //     });
+            // }
+            console.log('loi',error.response);
+        }
     }
     handleShowHidePassword = () => {
         this.setState({
@@ -78,8 +93,9 @@ class Login extends Component {
                             />
                             <span onClick={() => this.handleShowHidePassword()}>Show</span>
                         </div>
-
-
+                        <div className="error" style={{color: 'red'}}>
+                                {this.state.errorMessage}
+                            </div>
                         <div className="form-group login">
                             <input
                                 id="btnLogin"

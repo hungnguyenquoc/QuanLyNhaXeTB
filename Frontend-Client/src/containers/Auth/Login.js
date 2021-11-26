@@ -17,7 +17,8 @@ class Login extends Component {
             username: 'ADMIN001',
             password: '0911670071',
             isShowPassword: false,
-            errorMessage: ''
+            errorMessage: '',
+            rememberPasword: true,
         }
     }
     // handle function

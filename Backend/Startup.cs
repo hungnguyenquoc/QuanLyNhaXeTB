@@ -113,6 +113,8 @@ namespace QuanLyNhaXe
             services.AddScoped<IUserService, UserServices>();
             services.AddScoped<IAuthoServicecs, AuthoService>();
             services.AddScoped<ILoaiXeService, LoaiXeService>();
+            services.AddScoped<IStorageService, FileStorageService>();
+            services.AddScoped<IImageUserService, ImageUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

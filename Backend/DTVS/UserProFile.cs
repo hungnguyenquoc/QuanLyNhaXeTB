@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace QuanLyNhaXe.DTOS
+namespace QuanLyNhaXe.DTVS
 {
-    public class UserView
-    {
-        [Required]
+    public class UserProFile
+    {    
         public string HoTen { get; set; }
         [Required]
         public string NgaySinh { get; set; }
@@ -21,8 +20,6 @@ namespace QuanLyNhaXe.DTOS
 
         public int GioiTinh { get; set; }
 
-        public string ImagePath { get; set; }
-
-        public long FileSize { get; set; }
+        public string Token { get; set; }
     }
 }

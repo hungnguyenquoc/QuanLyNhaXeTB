@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using QuanLyNhaXe.DTOS;
+using QuanLyNhaXe.DTVS;
 using QuanLyNhaXe.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -18,7 +19,7 @@ namespace QuanLyNhaXe.Services
         Task<NhanVien> DangKyNhanVien(DangKy dangKy);
         Task<bool> DangKyUser(string MSNV, NhanVien nhanVien);
 
-        Task<string> Login(Login loGin);
+        Task<UserProFile> Login(Login loGin);
 
         Task<UserView> GetUserByID(string MSNV);
 
@@ -106,16 +107,14 @@ namespace QuanLyNhaXe.Services
         /// </summary>
         /// <param name="loGin"></param>
         /// <returns></returns>
-        public async Task<string> Login(Login loGin)
+        public async Task<UserProFile> Login(Login loGin)
         {
-            var user = await _userManager.FindByNameAsync(loGin.UserName); //ADMIN001
-            //if (!user.UserName.Equals(loGin.UserName))
-            //{
-            //    return null;
-            //}
+            var user = await _myDbContext.Users.Include(us=>us.NhanVien).Include(us=>us.NhanVien.ChucVuUser).FirstOrDefaultAsync(us=>us.UserName.Equals(loGin.UserName)); //Sửa Chức Năng Đăng Nhập    
             if (loGin == null)
                 return null;
             if (user == null)
+                return null;
+            if (!user.UserName.Equals(loGin.UserName))
                 return null;
             var checkpass = await _signInManager.PasswordSignInAsync(user.UserName, loGin.Password, false, false);
             if (!checkpass.Succeeded)
@@ -134,26 +133,49 @@ namespace QuanLyNhaXe.Services
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
                 );
 
-            string Token = new JwtSecurityTokenHandler().WriteToken(token);
-            return Token;
+            string toKen = new JwtSecurityTokenHandler().WriteToken(token);
+            var rs = new UserProFile()
+            {
+                HoTen = user.NhanVien.HoTen,
+                GioiTinh = user.NhanVien.GioiTinh,
+                ChucVu = user.NhanVien.ChucVuUser.TenChucVu,
+                NgaySinh = user.NhanVien.NgaySinh.Value.ToString("dd-MM-yyyy"),
+                SoDienThoai=user.NhanVien.SoDienThoai,
+                UserName=user.UserName,
+                Token= toKen
+            };
+            return rs;
         }
         /// <summary>
         /// Lấy User bằng ID
         /// </summary>
         /// <param name="MSNV"></param>
         /// <returns></returns>
-        public async Task<UserView> GetUserByID(string MSNV)
+        public async Task<UserView> GetUserByID(string MSNV)//Sửa Lại Chức Năng
         {
-            var result = await _myDbContext.NhanViens.FirstOrDefaultAsync(nv => nv.MSNV == MSNV);
+            var user = new UserView();
+            var result = await _myDbContext.NhanViens.Include(nv=>nv.ChucVuUser).Include(nv=>nv.ImageUser).FirstOrDefaultAsync(nv => nv.MSNV == MSNV);
             if (result == null)
                 return null;
-            var user = new UserView
+            if (result.ImageUser==null)
             {
-                UserName = result.MSNV,
-                HoTen = result.HoTen,
-                SoDienThoai = result.SoDienThoai,
-                ChucVu = result.ChucVuUser.TenChucVu, //Sửa
-                NgaySinh = result.NgaySinh.Value.ToString("dd-MM-yyyy")
+                user.UserName = result.MSNV;
+                user.HoTen = result.HoTen;
+                user.SoDienThoai = result.SoDienThoai;
+                user.ChucVu = result.ChucVuUser.TenChucVu;
+                user.NgaySinh = result.NgaySinh.Value.ToString("dd-MM-yyyy");
+                user.GioiTinh = result.GioiTinh;             
+            }
+            else
+            {
+                user.UserName = result.MSNV;
+                user.HoTen = result.HoTen;
+                user.SoDienThoai = result.SoDienThoai;
+                user.ChucVu = result.ChucVuUser.TenChucVu; 
+                user.NgaySinh = result.NgaySinh.Value.ToString("dd-MM-yyyy");
+                user.GioiTinh= result.GioiTinh;
+                user.ImagePath=result.ImageUser.ImagePath;
+                user.FileSize = result.ImageUser.FileSize;
             };
             return user;
         }

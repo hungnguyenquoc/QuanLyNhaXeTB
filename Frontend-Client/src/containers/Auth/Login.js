@@ -4,6 +4,7 @@ import { push } from "connected-react-router";
 
 import * as actions from "./../../store/actions";
 import './Login.scss';
+import axios from 'axios';
 
 import userService from '../../services/userService';
 
@@ -18,7 +19,7 @@ class Login extends Component {
             password: '0911670071',
             isShowPassword: false,
             errorMessage: '',
-            rememberPasword: true,
+            loading: false
         }
     }
     // handle function
@@ -40,23 +41,33 @@ class Login extends Component {
         // this.setState({
         //     errorMessage: ''
         // });
-        try {
-            let data = await userService.handleLogin(this.state.username, this.state.password);
-            console.log('success', data)
-        }
-        catch (error) {
-            // if (error.response) {
-            //     this.setState({
-            //         errorMessage: error.response.message
-            //     });
-            // }
-            console.log('loi',error.response);
-        }
+        // try {
+        //     let data = await userService.handleLogin(this.state.username, this.state.password);
+        //     console.log('success', data)
+        // }
+        // catch (response) {
+        //     console.log('loi',response);
+        // }
+        this.setState({
+            errorMessage: null,
+            loading: true
+        });
+        axios.post('http://localhost:13730/api/NhanVien/Login', {
+            username: this.state.username, 
+            password: this.state.password
+        }).then(response => {
+            this.setState({loading: false});
+            console.log(response)
+        }).catch(error => {
+            this.setState({loading: false});
+            console.log('loi',error)
+        });
     }
     handleShowHidePassword = () => {
         this.setState({
             isShowPassword: !this.state.isShowPassword
-        })
+        });
+        
     }
 
     // 

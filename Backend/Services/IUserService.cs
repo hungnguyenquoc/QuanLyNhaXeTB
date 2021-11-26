@@ -109,10 +109,10 @@ namespace QuanLyNhaXe.Services
         public async Task<string> Login(Login loGin)
         {
             var user = await _userManager.FindByNameAsync(loGin.UserName); //ADMIN001
-            if (!user.UserName.Equals(loGin.UserName))
-            {
-                return null;
-            }
+            //if (!user.UserName.Equals(loGin.UserName))
+            //{
+            //    return null;
+            //}
             if (loGin == null)
                 return null;
             if (user == null)

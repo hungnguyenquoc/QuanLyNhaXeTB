@@ -15,10 +15,20 @@ import Home from '../routes/Home';
 import Login from './Auth/Login';
 
 import Header from './Header/Header';
+
+import HeaderAdmin from './Header-Admin/HeaderAdmin'
 import System from '../routes/System';
 
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
+
+// ant
+
+import ReactDOM from "react-dom";
+import { Button, DatePicker, version } from "antd";
+import "antd/dist/antd.css";
+
+// ant design
 
 class App extends Component {
 
@@ -46,8 +56,8 @@ class App extends Component {
                 <Router history={history}>
                     <div className="main-container">
                         <ConfirmModal />
-                        {this.props.isLoggedIn && <Header />}
-
+                        {this.props.isLoggedIn && <HeaderAdmin />}
+                        {/* {this.props.isLoggedIn && <Header/>} */}
                         <span className="content-container">
                             <Switch>
                                 <Route path={path.HOME} exact component={(Home)} />
@@ -72,7 +82,7 @@ class App extends Component {
 const mapStateToProps = state => {
     return {
         started: state.app.started,
-        isLoggedIn: state.admin.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn
     };
 };
 

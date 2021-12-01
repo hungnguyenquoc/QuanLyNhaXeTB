@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import './Navigator.scss';
 
+
 class MenuGroup extends Component {
 
     render() {

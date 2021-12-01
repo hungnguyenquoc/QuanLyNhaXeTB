@@ -6,6 +6,8 @@ import * as actions from "./../../store/actions";
 import './Login.scss';
 import axios from 'axios';
 
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import userService from '../../services/userService';
 
 class Login extends Component {
@@ -38,30 +40,51 @@ class Login extends Component {
         console.log(event.target.value)
     }
     handleLogin = async () => {
-        // this.setState({
-        //     errorMessage: ''
-        // });
-        // try {
-        //     let data = await userService.handleLogin(this.state.username, this.state.password);
-        //     console.log('success', data)
-        // }
-        // catch (response) {
-        //     console.log('loi',response);
-        // }
         this.setState({
-            errorMessage: null,
-            loading: true
+            errorMessage: ''
         });
-        axios.post('http://localhost:13730/api/NhanVien/Login', {
-            username: this.state.username, 
-            password: this.state.password
-        }).then(response => {
-            this.setState({loading: false});
-            console.log(response)
-        }).catch(error => {
-            this.setState({loading: false});
-            console.log('loi',error)
-        });
+        try {
+            let data = await userService.handleLogin(this.state.username, this.state.password);
+            if(data !== null || data !== undefined) {
+                this.props.userLoginSuccess(data.data);
+                console.log('success', data.data);
+            }
+            // if(data.data.username == '' || data.data.username == undefined || data.data.username == undefined) {
+            //     console.log('required')
+            // }
+        }
+        catch (error) {
+            if (error.response) {
+                if (error.response.data) {
+                    this.setState({
+                        errorMessage: error.response.data.message
+                    });
+                }
+            }
+            console.error(error.response);
+        }
+        // this.setState({
+        //     errorMessage: null,
+        //     loading: true
+        // });
+        // axios.post('http://localhost:13730/api/NhanVien/Login', {
+        //     username: this.state.username, 
+        //     password: this.state.password
+        // }).then(response => {
+        //     this.setState({loading: false});
+        //     userService.setUserSession(response.data.token, response.data.username)
+        //     console.log('ok',response);
+        //     this.props.history.push('/HOMEd');
+        // }).catch(error => {
+        //     if(error.response) {
+        //         if(error.response.data) {
+        //             this.setState({
+        //                 errorMessage: error.response.data.message
+        //             });
+        //             console.log('fsdfsd', error.response.data);
+        //         }
+        //     }
+        // });
     }
     handleShowHidePassword = () => {
         this.setState({
@@ -134,8 +157,9 @@ const mapDispatchToProps = dispatch => {
         navigate: (path) => dispatch(push(path)),
         adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
         adminLoginFail: () => dispatch(actions.adminLoginFail()),
+        userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo))
     };
 };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Login);
-export default (Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+// export default (Login);

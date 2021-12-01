@@ -22,6 +22,7 @@
             }
         }
         .menu-list {
+            // display: block;
             display: none;
             background-color: $bg-menu-color;
             box-shadow: 2px 2px 4px 0 $box-shadow-color;
@@ -41,6 +42,7 @@
                 }
                 .sub-menu-list {
                     display: none;
+                    // display: block;
                     background-color: $bg-menu-color;
                     box-shadow: 2px 2px 4px 0 $box-shadow-color;
                     -webkit-box-shadow: 2px 2px 4px 0 $box-shadow-color;

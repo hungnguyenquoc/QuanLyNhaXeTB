@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./scss/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- header -->
+        <div class="header__menu">
+            <div class="title">Manage <span>Garage</span></div>
+            <div class="sidebar__btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-bell"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-power-off"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- end header -->
+        <!-- side bar -->
+        <div class="sidebar">
+            <div class="sidebar__menu">
+                <div class="profile">
+                    <img src="./img/avatar.jpg" alt="">
+                    <p>Jessica</p>
+                </div>
+                <div class="menu__items">
+                    <li class="menu__item">
+                        <a href="#" class="menu__item--btn">
+                            <i class="fas fa-desktop"></i><span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="menu__item" id="profile">
+                        <a href="#profile" class="menu__item--btn">
+                            <i class="fas fa-users"></i><span>Profile <i class="fas fa-caret-down dropdown"></i></span>
+                        </a>
+                        <div class="sub__menu">
+                            <a href="#"><i class="fas fa-image"></i><span>Picture</span></a>
+                            <a href="#"><i class="far fa-address-card"></i><span>Info</span></a>
+                        </div>
+                    </li>
+                    <li class="menu__item" id="system">
+                        <a href="#system" class="menu__item--btn">
+                            <i class="fas fa-users"></i><span>System <i class="fas fa-caret-down dropdown"></i></span>
+                        </a>
+                        <div class="sub__menu">
+                            <a href="#"><i class="fas fa-image"></i><span>Picture</span></a>
+                            <a href="#"><i class="far fa-address-card"></i><span>Info</span></a>
+                        </div>
+                    </li>
+                </div>
+            </div>
+        </div>
+        <!-- end side bar -->
+        <div class="main__container">
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.sidebar__btn').click(function() {
+                $('.container').toggleClass('collapse');
+            })
+        });
+    </script>
+</body>
+
+</html>

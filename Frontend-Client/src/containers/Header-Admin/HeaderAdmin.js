@@ -17,17 +17,22 @@ class HeaderAdmin extends Component {
     this.setState({ collapsed });
   };
   render() {
-    const { processLogout } = this.props;
-    
+    const { processLogout, language, userInfo } = this.props;
+    console.log('check userinfo', userInfo);
     return (
         <div className="header-container">
             {/* thanh navigator */}
             <div className="header-tabs-container">
                 <Navigator menus={adminMenu} />
             </div>
-
+            <div className="languages">
+              <span className="languages__vi">VN</span>              
+              <span className="languages__en">EN</span>
+            </div>
             {/* nút logout */}
+            <span>{userInfo && userInfo.userName ? userInfo.userName : ''}</span>
             <div className="btn btn-logout" onClick={processLogout}>
+                Log out 1
                 <i className="fas fa-sign-out-alt"></i>
             </div>
         </div>
@@ -38,6 +43,8 @@ class HeaderAdmin extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
+    userInfo: state.user.userInfo,
+    // language: state.user.language
   };
 };
 

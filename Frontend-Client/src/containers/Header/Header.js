@@ -22,6 +22,7 @@ class Header extends Component {
                 
                 {/* nút logout */}
                 <div className="btn btn-logout" onClick={processLogout}>
+                    Log out dfsd
                     <i className="fas fa-sign-out-alt"></i>
                 </div>
             </div>

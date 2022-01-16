@@ -1,11 +1,10 @@
-import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
+import React from "react";
 import { connect } from "react-redux";
 import userService from "../../services/userService";
-import axios from "axios";
 import ModalUser from "./ModalUser";
-import ModalFunction from "./ModalFunction";
-
+import ModalEditUser from "./ModalEditUser";
+import roleService from "../../services/roleService";
+import { emitter } from "./../../utils/emitter";
 // ant design
 import "antd/dist/antd.css";
 import { Table, Input, Button, Space, Tag } from "antd";
@@ -13,12 +12,17 @@ import Highlighter from "react-highlight-words";
 import { SearchOutlined, DeleteOutlined } from "@ant-design/icons";
 import { EditOutlined } from "@ant-design/icons";
 // end ant design
-class UserManage extends Component {
+
+class UserManage extends React.Component {
   constructor(props) {
     super(props);
+    // props của thằng con là state của thằng cha
     this.state = {
       arrData: [],
+      // roleData: [],
       isOpenModal: false,
+      isOpenModalEditUser: false,
+      userEdit: {},
       gender: 0,
       searchText: "",
       searchedColumn: "",
@@ -26,16 +30,11 @@ class UserManage extends Component {
   }
 
   async componentDidMount() {
-    let response = await userService.getAllUsers("ALL");
-    if (response !== null && response !== undefined) {
-      this.setState({
-        arrData: response.data,
-      });
-    }
-    console.log("data", this.state.arrData);
+    await this.getAllUsers();
+    // await this.getAllRole();
   }
 
-  // handle Event 
+  // handle Event
   getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -132,31 +131,125 @@ class UserManage extends Component {
     this.setState({ searchText: "" });
   };
 
+  getAllUsers = async () => {
+    let response = await userService.getAllUsers("ALL");
+    if (response !== null && response !== undefined) {
+      this.setState({
+        arrData: response.data,
+      });
+    }
+    console.log("data", this.state.arrData);
+  };
+
   handleCreateUsers = () => {
     this.setState({
-      isOpenModal: true
+      isOpenModal: true,
     });
-  }
-  // mock data
+  };
+
+  createNewUser = async (data) => {
+    try {
+      let response = await userService.createUserService(data);
+      if (response !== null && response !== undefined) {
+        await this.getAllUsers();
+        this.setState({
+          isOpenModal: false,
+        });
+
+        emitter.emit("EVENT_CLEAR_MODAL_DATA");
+      } else {
+        console.log("loi api");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    console.log("data", data);
+  };
+
+  //
+  handleDeleteUser = async (userId) => {
+    console.log("user", userId);
+    try {
+      let response = await userService.deleteUser(userId.userName);
+      if (response !== null && response !== undefined) {
+        await this.getAllUsers();
+      } else {
+        console.log("loi api");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  toggleUserModal = () => {
+    this.setState({
+      isOpenModal: !this.state.isOpenModal,
+    });
+  };
+
+  toggleEditUserModal = () => {
+    this.setState({
+      isOpenModalEditUser: !this.state.isOpenModalEditUser,
+    });
+  };
+
+  // edit user
+  handleEditUser = (data) => {
+    console.log("data edit", data);
+    this.setState({
+      isOpenModalEditUser: true,
+      userEdit: data,
+    });
+  };
+
+  doEditUser = async (data) => {
+    try {
+      let response = await userService.updateUser(data.userName);
+      if (response !== null && response !== undefined) {
+        await this.getAllUsers();
+        this.setState({
+          isOpenModalEditUser: false,
+        });
+      } else {
+        console.log("loi api");
+      }
+    } catch (e) {
+      console.log("data edit do", data);
+    }
+  };
+
+  // // role
+  // getAllRole = async () => {
+  //   let response = await roleService.getAllRole("ALL");
+  //   if (response !== null && response !== undefined) {
+  //     this.setState({
+  //       roleData: response.data,
+  //     });
+  //   }
+  //   console.log("data role", this.state.roleData);
+  // };
 
   render() {
     const arrData = this.state.arrData;
-    const gender = this.state.gender;
+    console.log("render", arrData);
+    // const roleData = this.state.roleData;
+    // console.log("render role", roleData);
 
-    // 
+    //
     const data =
       arrData &&
       arrData.map((item, index) => ({
+        item: item,
         key: index + 1,
         userName: item.userName,
         hoTen: item.hoTen,
         soDienThoai: item.soDienThoai,
         ngaySinh: item.ngaySinh,
-        chucVu: item.chucVu,
+        chucVu: item.chucVu.tenChucVu,
         gioiTinh: item.gioiTinh,
       }));
-
-    // 
+    console.log("data list", data);
+    //
     const columns = [
       {
         title: "STT",
@@ -198,15 +291,27 @@ class UserManage extends Component {
       },
       {
         title: "",
-        dataIndex: "",
-        key: "",
-        render: () => (
-          <div style={{display: 'flex'}}>
-            <Button type="secondary" style={{ fontWeight: "bold" }}>
+        dataIndex: "item",
+        key: "item",
+        render: (item) => (
+          <div style={{ display: "flex" }}>
+            <Button
+              type="secondary"
+              style={{ fontWeight: "bold" }}
+              onClick={() => {
+                this.handleEditUser(item);
+              }}
+            >
               <EditOutlined />
             </Button>
-            <Button type="secondary" style={{ fontWeight: "bold" }}>
-              <DeleteOutlined />            
+            <Button
+              type="secondary"
+              style={{ fontWeight: "bold" }}
+              onClick={() => {
+                this.handleDeleteUser(item);
+              }}
+            >
+              <DeleteOutlined />
             </Button>
           </div>
         ),
@@ -214,12 +319,24 @@ class UserManage extends Component {
     ];
     return (
       <div style={{ padding: "5vw" }}>
-        <ModalFunction></ModalFunction>
-        <Button
-          type="primary"
-          onClick={() => this.handleCreateUsers(
-          )}
-        >
+        <ModalUser
+          isOpen={this.state.isOpenModal}
+          toggleFromParent={() => {
+            this.toggleUserModal();
+          }}
+          createNewUser={this.createNewUser}
+        />
+        {this.state.isOpenModalEditUser && (
+          <ModalEditUser
+            isOpen={this.state.isOpenModalEditUser}
+            toggleFromParent={() => {
+              this.toggleEditUserModal();
+            }}
+            currentUser={this.state.userEdit}
+            editUser={this.doEditUser}
+          />
+        )}
+        <Button type="primary" onClick={() => this.handleCreateUsers()}>
           Tạo mới
         </Button>
         <Table columns={columns} dataSource={data} />

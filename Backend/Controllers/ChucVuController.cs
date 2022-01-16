@@ -30,8 +30,8 @@ namespace QuanLyNhaXe.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize]
-        [Authorize(Policy ="Mức 1")]
+        //[Authorize]
+        //[Authorize(Policy ="Mức 1")]
         public IEnumerable<ChucVuUser> Get()
         {
             return _myDbContext.chucVuUsers.Select(p => new ChucVuUser

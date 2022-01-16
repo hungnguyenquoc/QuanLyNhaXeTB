@@ -1,45 +1,47 @@
-import React, { Component } from 'react'
-import { HashRouter, Route, Switch } from 'react-router-dom'
-import './scss/style.scss'
+import Sidebar from "./components/sidebar/Sidebar";
+import Topbar from "./components/topbar/Topbar";
+import "./App.css";
+import Home from "./pages/home/Home";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import UserList from "./pages/userList/UserList";
+import User from "./pages/user/User";
+import NewUser from "./pages/newUser/NewUser";
+import ProductList from "./pages/productList/ProductList";
+import Product from "./pages/product/Product";
+import NewProduct from "./pages/newProduct/NewProduct";
 
-const loading = (
-  <div className="pt-3 text-center">
-    <div className="sk-spinner sk-spinner-pulse"></div>
-  </div>
-)
-
-// Containers
-const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
-
-// Pages
-const Login = React.lazy(() => import('./views/pages/login/Login'))
-const Register = React.lazy(() => import('./views/pages/register/Register'))
-const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
-const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
-
-class App extends Component {
-  render() {
-    return (
-      <HashRouter>
-        <React.Suspense fallback={loading}>
-          <Switch>
-            <Route exact path="/login" name="Login Page" render={(props) => <Login {...props} />} />
-            <Route
-              exact
-              path="/register"
-              name="Register Page"
-              render={(props) => <Register {...props} />}
-            />
-            <Route exact path="/404" name="Page 404" render={(props) => <Page404 {...props} />} />
-            <Route exact path="/500" name="Page 500" render={(props) => <Page500 {...props} />} />
-
-            <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} />
-            {/* <Route path="/" name="Charts" render={(props) => <DefaultLayout {...props} />} /> */}
-          </Switch>
-        </React.Suspense>
-      </HashRouter>
-    )
-  }
+function App() {
+  return (
+    <Router>
+      <Topbar />
+      <div className="container">
+        <Sidebar />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/users">
+            <UserList />
+          </Route>
+          <Route path="/user/:userId">
+            <User />
+          </Route>
+          <Route path="/newUser">
+            <NewUser />
+          </Route>
+          <Route path="/products">
+            <ProductList />
+          </Route>
+          <Route path="/product/:productId">
+            <Product />
+          </Route>
+          <Route path="/newproduct">
+            <NewProduct />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;

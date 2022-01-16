@@ -19,6 +19,16 @@
         "sum": "Sum",
         "date-range-invalid": "Date range invalid"
     },
+    "home-header": {
+        "homePage": "HomePage",
+        "service" : "Services",
+        "bus-route": "Bus Route",
+        "bus-team": "Bus Team",
+        "about-us": "About Us",
+        "recruitment": "Recruitment",
+        "news": "News",
+        "contact": "Contact"
+    },
     "login": {
         "login": "Login",
         "username": "Username",
@@ -31,6 +41,7 @@
             "system-administrator": {
                 "header": "System Administrator",
                 "user-manage": "User manage",
+                "user-redux": "User redux",
                 "product-manage": "Package manage",
                 "register-package-group-or-account": "Register service package for group/account"
             },

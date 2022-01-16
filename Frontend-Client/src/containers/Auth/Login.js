@@ -63,28 +63,6 @@ class Login extends Component {
             }
             console.error(error.response);
         }
-        // this.setState({
-        //     errorMessage: null,
-        //     loading: true
-        // });
-        // axios.post('http://localhost:13730/api/NhanVien/Login', {
-        //     username: this.state.username, 
-        //     password: this.state.password
-        // }).then(response => {
-        //     this.setState({loading: false});
-        //     userService.setUserSession(response.data.token, response.data.username)
-        //     console.log('ok',response);
-        //     this.props.history.push('/HOMEd');
-        // }).catch(error => {
-        //     if(error.response) {
-        //         if(error.response.data) {
-        //             this.setState({
-        //                 errorMessage: error.response.data.message
-        //             });
-        //             console.log('fsdfsd', error.response.data);
-        //         }
-        //     }
-        // });
     }
     handleShowHidePassword = () => {
         this.setState({

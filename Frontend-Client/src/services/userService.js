@@ -8,29 +8,20 @@ const userService = {
     // 
     getAllUsers(msnv) {
         return axios.get(`/api/NhanVien?MSNV=${msnv}`);
+    },
+    createUserService(data) {
+        console.log('data service',data);
+        return axios.post('/api/NhanVien/Dky', data)
+    },
+    deleteUser(userId) {
+        console.log('delete user', userId);
+        return axios.delete(`/api/NhanVien/${userId}`);
+    },
+    updateUser(userId) {
+        console.log('update user', userId);
+        return axios.put(`/api/NhanVien/${userId}`);
+    }
     }
 
-
-    // getUser() {
-    //     const userStr = sessionStorage.getItem('user');
-    //     if (userStr) {
-    //         return JSON.parse(userStr);
-    //     }
-    //     else {
-    //         return null;
-    //     }
-    // },
-    // getToken() {
-    //     return sessionStorage.getItem('token') || null;
-    // },
-    // setUserSession(token, user) {
-    //     sessionStorage.setItem('token', token);
-    //     sessionStorage.setItem('user', JSON.stringify(user));
-    // }, 
-    // removeUserSession() {
-    //     sessionStorage.removeItem('token');
-    //     sessionStorage.removeItem('user');
-    // }
-}
 
 export default userService;

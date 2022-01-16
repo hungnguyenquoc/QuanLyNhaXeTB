@@ -1,0 +1,213 @@
+.section__layout {
+    .section__one {
+        position: relative;
+        display: block;
+        width: 1170px;
+        margin: 50px auto 50px auto;
+        .section__one--title {
+            text-align: center;
+            margin-bottom: 30px;
+            h1 {
+                font-size: 25px;
+                color: #2a771b;
+                font-weight: 700;
+            }
+            span {
+                color: #c70302;
+                font-weight: 500;
+                font-size: 20px;
+                text-transform: uppercase;
+            }
+            hr {
+                width: 10%;
+                height: 3px;
+                background-color: #2a771b;
+                margin: 0 auto 10px auto;
+                opacity: 1;
+            }
+        }
+        .section__one--block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .block__item {
+                cursor: pointer;
+                .block__item--txt {
+                    text-align: center;
+                    color: #2a771b;
+                    margin-top: 20px;
+                    span {
+                        font-size: 20px;
+                        font-weight: 500;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+    .section__two {
+        position: relative;
+        display: block;
+        background:#2a771b;
+        padding: 50px 0;
+        .section__two--title {
+            text-align: center;
+            margin-bottom: 30px;
+            span {
+                color: #fff;
+                font-weight: 500;
+                font-size: 20px;
+                text-transform: uppercase;
+            }
+            hr {
+                width: 10%;
+                height: 3px;
+                background-color: #fff;
+                margin: 0 auto 10px auto;
+                opacity: 1;
+            }
+        }
+        .section__two--block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 1170px;
+            margin: 0 auto;
+            .block__item {
+                .block__item--txt {
+                    text-align: center;
+                    color: #fff;
+                    margin-top: 20px;
+                    p {
+                        font-size: 18px;
+                        font-weight: 500;
+                        text-transform: uppercase;
+                    }
+                    .view__more {
+                        img {
+                            width: 26px;
+                            height: 26px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .section__three {
+        position: relative;
+        display: block;
+        background: url('https://thanhbuoi.com.vn/public/images/14_02.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: bottom center;
+        padding: 50px 0 0 0;
+        margin-bottom: 70px;
+        min-height: 450px;
+        .section__three--title {
+            text-align: center;
+            margin-bottom: 30px;
+            span {
+                color: #c70302;
+                font-weight: 500;
+                font-size: 25px;
+                text-transform: uppercase;
+            }
+            hr {
+                width: 10%;
+                height: 3px;
+                background-color: #2a771b;
+                margin: 0 auto 10px auto;
+                opacity: 1;
+            }
+            .sub__title {
+                width: 70%;
+                margin: 0 auto;
+                text-align: center;
+                color: #333;
+                font-size: 16px;
+            }
+        }
+        .section__three--block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 1170px;
+            margin: 0 auto;
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+            .block__item {
+                .block__item--txt {
+                    text-align: center;
+                    color: #fff;
+                    margin-top: 20px;
+                    p {
+                        font-size: 18px;
+                        font-weight: 500;
+                        text-transform: uppercase;
+                    }
+                    .view__more {
+                        img {
+                            width: 26px;
+                            height: 26px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .section__four {
+        position: relative;
+        display: block;
+        background:#2a771b;
+        padding: 50px 0 20px 0;
+        .section__four--title {
+            text-align: center;
+            margin-bottom: 30px;
+            span {
+                color: #fff;
+                font-weight: 500;
+                font-size: 20px;
+                text-transform: uppercase;
+            }
+            hr {
+                width: 10%;
+                height: 3px;
+                background-color: #fff;
+                margin: 0 auto 10px auto;
+                opacity: 1;
+            }
+        }
+        .section__four--block {
+            display: flex;
+            justify-content: space-between;
+            width: 1170px;
+            margin: 0 auto;
+            .block__item {
+                width: 30%;
+                text-align: center;
+                img {
+                    height: 60px;
+                }
+                .block__item--txt {
+                    text-align: center;
+                    color: #fff;
+                    margin-top: 20px;
+                    padding: 0 15px 0 15px;
+                    min-height: 100px;
+                    p {
+                        font-size: 15px;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+
+
+    
+}

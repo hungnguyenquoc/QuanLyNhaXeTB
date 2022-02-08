@@ -317,11 +317,12 @@ a:hover span {
     color: black;
     font-weight: 600;
     font-size: 25px;
+    margin-bottom: 0;
   }
   .card__btn {
     background: #28a745;
     border: 1px solid #28a745;
-    padding: 8px 8px;
+    padding: 3px 7px;
     cursor: pointer;
     border-radius: 5px;
     color: white;
@@ -329,7 +330,8 @@ a:hover span {
   }
   .card__btn.blue { 
     background: #17a2b8 ;
-    border: 1px solid #17a2b8 ;
+    border: 1px solid #17a2b8;
+    margin-right: 5px;
   } 
   .card__btn.red {  
     background: #dc3545 ;

@@ -2,90 +2,223 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="./scss/dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="./scss/dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div class="container">
-        <!-- header -->
-        <div class="header__menu">
-            <div class="title">Manage <span>Garage</span></div>
-            <div class="sidebar__btn">
-                <i class="fas fa-bars"></i>
-            </div>
-            <ul>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-search"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-bell"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-power-off"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <!-- end header -->
-        <!-- side bar -->
-        <div class="sidebar">
-            <div class="sidebar__menu">
-                <div class="profile">
-                    <img src="./img/avatar.jpg" alt="">
-                    <p>Jessica</p>
-                </div>
-                <div class="menu__items">
-                    <li class="menu__item">
-                        <a href="#" class="menu__item--btn">
-                            <i class="fas fa-desktop"></i><span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="menu__item" id="profile">
-                        <a href="#profile" class="menu__item--btn">
-                            <i class="fas fa-users"></i><span>Profile <i class="fas fa-caret-down dropdown"></i></span>
-                        </a>
-                        <div class="sub__menu">
-                            <a href="#"><i class="fas fa-image"></i><span>Picture</span></a>
-                            <a href="#"><i class="far fa-address-card"></i><span>Info</span></a>
-                        </div>
-                    </li>
-                    <li class="menu__item" id="system">
-                        <a href="#system" class="menu__item--btn">
-                            <i class="fas fa-users"></i><span>System <i class="fas fa-caret-down dropdown"></i></span>
-                        </a>
-                        <div class="sub__menu">
-                            <a href="#"><i class="fas fa-image"></i><span>Picture</span></a>
-                            <a href="#"><i class="far fa-address-card"></i><span>Info</span></a>
-                        </div>
-                    </li>
-                </div>
-            </div>
-        </div>
-        <!-- end side bar -->
-        <div class="main__container">
-
-        </div>
+  <div class="container">
+    <!-- header -->
+    <div class="header__menu">
+      <div class="title">Manage <span>Garage</span></div>
+      <div class="sidebar__btn">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul>
+        <li>
+          <a href="#">
+            <i class="fas fa-search"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-bell"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-power-off"></i>
+          </a>
+        </li>
+      </ul>
     </div>
+    <!-- end header -->
+    <!-- side bar -->
+    <div class="sidebar">
+      <div class="sidebar__menu">
+        <div class="profile">
+          <img src="./img/avatar.jpg" alt="" />
+          <p>Jessica</p>
+        </div>
+        <ul class="navbar">
+          <li>
+            <div class="navbar-link">
+                <span class="btn-dropdown">
+                    <i class="far fa-list-alt"></i>Manage Course
+                </span>
+                <ul>
+                    <li><a href="#">Add Course</a></li>
+                    <li><a href="#">Edit Course</a></li>
+                </ul>
+            </a>
+          </li>
+        </ul>
+        <!-- <ul class="menu__items">
+          <li class="menu__item">
+            <a href="#" class="menu__item--btn">
+              <i class="fas fa-desktop"></i><span>Dashboard</span>
+            </a>
+          </li>
+          <li class="menu__item active" id="profile">
+            <a href="#profile" class="menu__item--btn">
+              <i class="fas fa-users"></i><span>Profile <i class="fas fa-caret-down dropdown"></i></span>
+            </a>
+            <div class="sub__menu">
+              <a href="#"><i class="fas fa-image"></i><span>Picture</span></a>
+              <a href="#"><i class="far fa-address-card"></i><span>Info</span></a>
+            </div>
+          </li>
+          <li class="menu__item" id="system">
+            <a href="#system" class="menu__item--btn">
+              <i class="fas fa-users"></i><span>System <i class="fas fa-caret-down dropdown"></i></span>
+            </a>
+            <div class="sub__menu">
+              <a href="#"><i class="fas fa-image"></i><span>Picture</span></a>
+              <a href="#"><i class="far fa-address-card"></i><span>Info</span></a>
+            </div>
+          </li>
+        </ul> -->
+      </div>
+    </div>
+    <!-- end side bar -->
+    <div class="main__container">
+      <div class="breadcrumb__wrapper">
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fas fa-home"></i>
+            </a>
+          </li>
+          <li>Dashboard</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card__header">
+          <h3>Quản lý người dùng</h3>
+          <button class="card__btn">
+            <i class="fas fa-plus"></i>
+            Thêm mới
+          </button>
+        </div>
+        <div class="card__body">
+          <table class="content-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Points</th>
+                <th>Team</th>
+                <th>Points</th>
+                <th>Team</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Domenic</td>
+                <td>88,110</td>
+                <td>Domenic</td>
+                <td>88,110</td>
+                <td>dcode</td>
+                <td>
+                  <button class="card__btn blue">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="card__btn red">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr class="active-row">
+                <td>2</td>
+                <td>Sally</td>
+                <td>72,400</td>
+                <td>Students</td>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.sidebar__btn').click(function() {
-                $('.container').toggleClass('collapse');
-            })
-        });
-    </script>
+                <td>88,110</td>
+                <td>dcode</td>
+                <td>
+                  <button class="card__btn blue">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="card__btn red">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Nick</td>
+                <td>52,300</td>
+
+                <td>88,110</td>
+                <td>dcode</td>
+                <td>dcode</td>
+                <td>
+                  <button class="card__btn blue">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="card__btn red">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card__footer"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    // $(document).ready(function () {
+    //   $(".sidebar__btn").click(function () {
+    //     $(".container").toggleClass("collapse");
+    //   });
+    // });
+
+    $(document).ready(function () {
+      $(".sidebar__btn").click(function () {
+        $(".container").toggleClass("collapse");
+      });
+    });
+
+
+    
+const links = document.querySelectorAll(".navbar-link .btn-dropdown");
+const dropdown = document.querySelectorAll(".navbar-link ul");
+console.log('links', links);
+dropdown.forEach((element) => {
+  const height = element.offsetHeight;
+  element.style.marginTop = `${-height}px`;
+});
+
+links.forEach((link) => {
+  link.addEventListener("click", function (e) {
+    const target = e.currentTarget;
+    const ele = target.nextElementSibling;
+    console.log("abc", target);
+    console.log("abcd", ele);
+
+    dropdown.forEach((element) => {
+      if (element !== ele) {
+        element.previousElementSibling.classList.remove("active");
+        element.classList.remove("dropdown");
+      }
+    });
+    target.classList.toggle("active");
+    ele.classList.toggle("dropdown");
+  });
+});
+  </script>
 </body>
 
 </html>

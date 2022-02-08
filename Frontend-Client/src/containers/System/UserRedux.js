@@ -28,8 +28,9 @@ class UserRedux extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.roleRedux !== this.props.roleRedux) {
-      let arrRoles = this.props.roleRedux;
+    if (prevProps.arrRoles !== this.props.arrRoles) {
+      let arrRoles = this.props.arrRoles;
+      console.log('mang roles', arrRoles);
       this.setState({
         arrRoles: arrRoles,
         chucVu: arrRoles && arrRoles.length > 0 ? arrRoles[0].tenChucVu : "",
@@ -79,6 +80,8 @@ class UserRedux extends Component {
     console.log("input value", copyState[id]);
     this.setState({
       ...copyState,
+    }, () => {
+      console.log('check event input', this.state)
     });
   };
 
@@ -88,9 +91,6 @@ class UserRedux extends Component {
     let { hoTen, ngaySinh, soDienThoai, chucVu, gioiTinh, userName, passWord } =
       this.state;
 
-    console.log("loading", isLoading);
-    console.log("arr role", roles);
-    console.log("check props from redux", this.props.arrRoles);
     return (
       <>
         <div className="loading">{isLoading === true ? "Loading" : ""}</div>

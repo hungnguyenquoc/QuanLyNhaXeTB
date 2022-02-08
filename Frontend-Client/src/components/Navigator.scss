@@ -1,7 +1,7 @@
 @import "../styles/common.scss";
 
 .navigator-menu {
-    display: flex;
+    display: block;
     margin: 0;
     padding: 0;
     &.list-unstyled,
@@ -9,6 +9,7 @@
         list-style-type: none;
     }
     .menu-group {
+        margin-bottom: 50%;
         &:hover {
             cursor: pointer;
             background-color: darken($colormain, 5);
@@ -22,8 +23,7 @@
             }
         }
         .menu-list {
-            // display: block;
-            display: none;
+            display: block;
             background-color: $bg-menu-color;
             box-shadow: 2px 2px 4px 0 $box-shadow-color;
             -webkit-box-shadow: 2px 2px 4px 0 $box-shadow-color;
@@ -41,14 +41,13 @@
                     color: $text-in-light;
                 }
                 .sub-menu-list {
-                    display: none;
-                    // display: block;
+                    display: block;
                     background-color: $bg-menu-color;
                     box-shadow: 2px 2px 4px 0 $box-shadow-color;
                     -webkit-box-shadow: 2px 2px 4px 0 $box-shadow-color;
                     position: absolute;
-                    top: 0;
-                    left: 205px;
+                    // top: 0;
+                    // left: 205px;
                     padding: 0;
                     .sub-menu {
                         padding: 0 15px;
@@ -75,12 +74,12 @@
                     font-weight: 500;
                     color: $colormain;
                 }
-                &:hover {
-                    background-color: darken($bg-menu-color, 3);
-                    .sub-menu-list {
-                        display: block;
-                    }
-                }
+                // &:hover {
+                //     background-color: darken($bg-menu-color, 3);
+                //     .sub-menu-list {
+                //         display: block;
+                //     }
+                // }
                 .icon-right {
                     display: block;
                     position: absolute;

@@ -4,10 +4,6 @@ import { push } from "connected-react-router";
 
 import * as actions from "./../../store/actions";
 import './Login.scss';
-import axios from 'axios';
-
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import userService from '../../services/userService';
 
 class Login extends Component {
@@ -21,7 +17,8 @@ class Login extends Component {
             password: '0911670071',
             isShowPassword: false,
             errorMessage: '',
-            loading: false
+            loading: false,
+            sbvf: ''
         }
     }
     // handle function
@@ -49,9 +46,6 @@ class Login extends Component {
                 this.props.userLoginSuccess(data.data);
                 console.log('success', data.data);
             }
-            // if(data.data.username == '' || data.data.username == undefined || data.data.username == undefined) {
-            //     console.log('required')
-            // }
         }
         catch (error) {
             if (error.response) {
@@ -80,7 +74,6 @@ class Login extends Component {
                 <div className="login-container">
                     <div className="form_login">
                         <h2 className="title"> </h2>
-
                         <div className="form-group ">
                             <input
                                 placeholder=""
@@ -114,7 +107,7 @@ class Login extends Component {
                                 id="btnLogin"
                                 type="submit"
                                 className="btn"
-                                onClick={(event) => this.handleLogin()}
+                                onClick={() => this.handleLogin()}
                             />
                         </div>
                     </div>

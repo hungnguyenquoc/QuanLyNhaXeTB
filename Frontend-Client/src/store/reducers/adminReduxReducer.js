@@ -3,6 +3,7 @@ import actionTypes from "../actions/actionTypes";
 const initialState = {
   isLoading: false,
   arrRoles: [],
+  arrGenders: [],
   users: [],
 };
 
@@ -28,11 +29,13 @@ const adminReduxReducer = (state = initialState, action) => {
       };
     case actionTypes.FETCH_ALL_USER_SUCCESS:
       state.users = action.data;
+      state.arrGenders = action.data;
       return {
         ...state,
       };
     case actionTypes.FETCH_ALL_USER_FAIL:
       state.users = [];
+      state.arrGenders = [];
       return {
         ...state,
       };

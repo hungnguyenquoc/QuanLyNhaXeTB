@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useContext, useState } from "react";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 // @mui material components
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
+
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
@@ -18,17 +19,21 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
+
+// import from context
+// import {AuthContext} from "../../../context/authContext/AuthContext"
+// import { login } from "../../../context/authContext/apiCalls";
+
 function Basic() {
-  const [rememberMe, setRememberMe] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { isFetching, dispatch } = useContext(AuthContext);
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    login({ email, password }, dispatch);
-  };
+  const handleLogin = () => {
+    console.log('login ')
+  }
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
+  //   login({ username, password }, dispatch);
+  // };
 
   return (
     <BasicLayout image={bgImage}>
@@ -51,48 +56,21 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Tên tài khoản" fullWidth />
+              <MDInput type="email" label="Email" fullWidth 
+               onChange={(e) => setUsername(e.target.value)}
+              />
             </MDBox>
-            <input
-          type="text"
-          placeholder="email"
-          className="loginInput"
-          onChange={(e) => setEmail(e.target.value)}
-        />
             <MDBox mb={2}>
-              <MDInput type="password" label="Mật khẩu" fullWidth />
-            </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                onClick={handleSetRememberMe}
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;Duy trì đăng nhập
-              </MDTypography>
+              <MDInput type="password" label="Password" fullWidth
+                       onChange={(e) => setPassword(e.target.value)}
+              />
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" color="info" fullWidth
+                        onClick={handleLogin()}
+              >
                 Đăng Nhập
               </MDButton>
-            </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
-              <MDTypography variant="button" color="text">
-                Bạn đã có tài khoản ?{" "}
-                <MDTypography
-                  component={Link}
-                  to="/authentication/sign-up"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Đăng Nhập
-                </MDTypography>
-              </MDTypography>
             </MDBox>
           </MDBox>
         </MDBox>

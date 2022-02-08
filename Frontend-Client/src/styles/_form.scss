@@ -30,6 +30,26 @@ form {
         font-size: 18px;
       }
     }
+    .form__select {
+      border: 1px solid #dfdfdf;
+      font-family: "Montserrat";
+      font-weight: normal;
+      width: 100%;
+      height: 48px;
+      line-height: 48px;
+      padding: 5px 20px;
+      background-color: #fff;
+      border: 1px solid rgba(119,119,119,0.3);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+      -webkit-border-radius: 5px;
+      border-radius: 5px;
+      color: #000;
+      font-weight: 500;
+      font-size: 18px;
+      .form__select-option {
+        background-color: #dddddd;
+      }
+    }
     .form__error--txt {
     }
   }

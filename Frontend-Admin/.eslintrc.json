@@ -13,17 +13,10 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto",
-        "printWidth": 80,
-        "trailingComma": "es5",
-        "semi": false,
-        "singleQuote": true,
-        "no-mixed-spaces-and-tabs": ["error", "smart-tabs"]
-      }
-    ],
+    "prettier/prettier": 0,
+    "no-unused-vars": 0,   
+    "react/prop-types": 0,
+    "react/destructuring-assignment": 0,
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-props-no-spreading": [

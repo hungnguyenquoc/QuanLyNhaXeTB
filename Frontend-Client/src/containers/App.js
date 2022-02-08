@@ -23,14 +23,6 @@ import CustomScrollbars from '../components/CustomScrollbars';
 // import client component
 import HomePage from './Client/HomePage.js';
 
-// ant
-
-import ReactDOM from "react-dom";
-import { Button, DatePicker, version } from "antd";
-import "antd/dist/antd.css";
-
-// ant design
-
 class App extends Component {
 
     handlePersistorState = () => {

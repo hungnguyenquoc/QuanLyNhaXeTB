@@ -37,11 +37,12 @@
     },
     "menu": {
         "system": {
-            "header": "System",
+            "header": "System 1",
             "system-administrator": {
                 "header": "System Administrator",
                 "user-manage": "User manage",
                 "user-redux": "User redux",
+                "system-user-list":"Quản lý người dùng",
                 "product-manage": "Package manage",
                 "register-package-group-or-account": "Register service package for group/account"
             },

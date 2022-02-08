@@ -1,0 +1,103 @@
+
+/* sidebar */
+.sidebar {
+  z-index: 1;
+  background-color: #2f323a;
+  position: fixed;
+  top: 70px;
+  width: 250px;
+  height: 100vh;
+  transition: 0.3s;
+  transition-property: width;
+  overflow-y: auto;
+}
+
+.sidebar__menu {
+ overflow: hidden;
+}
+.sidebar .sidebar__menu .profile {
+  text-align: center;
+}
+.sidebar .sidebar__menu .profile img {
+  margin: 20px 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.sidebar .sidebar__menu .profile p {
+  color: #bbb;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.sidebar__menu .menu__items {
+  width: 250px;
+  overflow: hidden;
+}
+.sidebar__menu .menu__items .menu__item.active {
+  border-radius: 35px 1px 1px 35px;
+  margin-left: 10px;
+  background: #80808085;
+  color: #4ccee8;
+  /* opacity: 0.8; */
+  transition: 0.3s;
+}
+.menu__items .menu__item.active .menu__item--btn {
+  color: #4ccee8;
+  font-weight: 700;
+}
+.sidebar__menu .menu__item .menu__item--btn {
+  display: block;
+  color: #fff;
+  position: relative;
+  padding: 25px 30px;
+  transition: 0.3s;
+  transition-property: color;
+  font-size: 18px;
+}
+
+.sidebar__menu .menu__item .menu__item--btn:hover {
+  color: #4ccee8;
+}
+
+.sidebar__menu .menu__item .menu__item--btn i {
+  margin-right: 20px;
+}
+
+.sidebar__menu .menu__item .menu__item--btn .dropdown {
+  float: right;
+  font-size: 12px;
+  margin-top: 3px;
+  margin-right: 0;
+}
+.menu__item .sub__menu {
+  background: #3498db;
+  overflow: hidden;
+  transition: 0.3s;
+  max-height: 0;
+  transition-property: background, max-height;
+}
+
+.menu__item .sub__menu a{
+  display: block;
+  position: relative;
+  color: #fff;
+  white-space: nowrap;
+  font-size: 17px;
+  padding: 20px;
+  border-bottom: 1px solid #8fc5e9;
+  transition: 0.3s;
+  transition-property: background;
+}
+
+.menu__item .sub__menu a:hover{
+  background: #55b1f0;
+}
+
+.menu__item .sub__menu i{
+  padding-right: 20px;
+  font-size: 20px;
+}
+
+.menu__item:target .sub__menu {
+  max-height: 500px;
+}

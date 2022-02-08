@@ -1,12 +1,72 @@
-@import '~antd/dist/antd.css';
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
 
+body {
+  background: #fff;
+}
+.header__menu {
+  z-index: 1;
+  background-color: #22242a;
+  position: fixed;
+  width: calc(100% - 0%);
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  padding-left: 10px;
+}
+.header__menu .title {
+  color: #fff;
+  font-size: 25px;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+.header__menu .title span{
+  color: #4ccee8;
+}
+.header__menu .sidebar__btn {
+  color: #fff;
+  position: absolute;
+  margin-left: 240px;
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.header__menu .sidebar__btn:hover {
+  color: #4ccee8;
+}
+.header__menu ul {
+  display: flex;
+  margin-bottom: 0;
+}
+.header__menu ul li a{
+  background: #fff;
+  color: #000;
+  display: block;
+  margin: 0 10px;
+  font-size: 18px;
+  width: 34px;
+  height: 34px;
+  line-height: 35px;
+  text-align: center;
+  border-radius: 50%;
+  transition: 0.3s;
+  transition-property: background, color;
+}
 
-#components-layout-demo-side .logo {
-    height: 32px;
-    margin: 16px;
-    background: rgba(255, 255, 255, 0.3);
-  }
-  
-  .site-layout .site-layout-background {
-    background: #fff;
-  }
+.header__menu ul li a:hover{
+  background: #4ccee8;
+  color: #fff;
+}
+
+.header__menu ul li a:nth-child(3){
+  margin: 0;
+}

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLyNhaXe.Models;
 
 namespace QuanLyNhaXe.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220508045926_UpBanVeXe")]
+    partial class UpBanVeXe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,9 +180,6 @@ namespace QuanLyNhaXe.Migrations
                     b.Property<string>("MaCX")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("GioDi")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("MaLoaiXe")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -188,9 +187,6 @@ namespace QuanLyNhaXe.Migrations
                     b.Property<string>("MaTD")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("NgayDi")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("gia")
                         .IsRequired()
@@ -330,10 +326,6 @@ namespace QuanLyNhaXe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TenTD")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("MSTD");
 
                     b.ToTable("TuyenDuong");
@@ -416,10 +408,12 @@ namespace QuanLyNhaXe.Migrations
 
             modelBuilder.Entity("QuanLyNhaXe.Models.Vexe", b =>
                 {
-                    b.Property<long>("MsVe")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("soGhe")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("NgayDi")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("NgaySinhKH")
                         .HasColumnType("int");
@@ -437,23 +431,14 @@ namespace QuanLyNhaXe.Migrations
                     b.Property<int>("ThanhToan")
                         .HasColumnType("int");
 
-                    b.Property<string>("chuyenXeMaCX")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<bool>("isRoundTrip")
                         .HasColumnType("bit");
-
-                    b.Property<string>("soGhe")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("tenKH")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("MsVe");
-
-                    b.HasIndex("chuyenXeMaCX");
+                    b.HasKey("soGhe");
 
                     b.ToTable("VeXe");
                 });
@@ -601,13 +586,6 @@ namespace QuanLyNhaXe.Migrations
                         .WithOne("UserIdentity")
                         .HasForeignKey("QuanLyNhaXe.Models.UserIdentity", "UserName")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("QuanLyNhaXe.Models.Vexe", b =>
-                {
-                    b.HasOne("QuanLyNhaXe.Models.ChuyenXe", "chuyenXe")
-                        .WithMany("veXes")
-                        .HasForeignKey("chuyenXeMaCX");
                 });
 
             modelBuilder.Entity("QuanLyNhaXe.Models.Xe", b =>

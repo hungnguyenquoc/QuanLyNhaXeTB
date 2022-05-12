@@ -33,7 +33,7 @@ namespace QuanLyNhaXe.Models
         [Required]
         [ForeignKey("MSLoaiXe")] //Đặt tên cho FK- mặc định nếu không set sẽ tự tạo theo tên PK trong bảng cha
         public virtual LoaiXe LoaiXe { get; set; } // Một xe chỉ thuộc về 1 Loại
-
-        public virtual List<GheXe> GheXes { get; set; }
+        
+        public virtual List<ThongTinChuyenXe> thongTinChuyenXes { get; set; }
     }
 }

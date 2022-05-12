@@ -29,8 +29,7 @@ namespace QuanLyNhaXe.Controllers
             return _myDbConText.LoaiXes.Select(lx => new LoaiXe
             {
                 MSLoaiXe = lx.MSLoaiXe,
-                TenLoaiXe = lx.TenLoaiXe,    
-                SoLuong = lx.SoLuong
+                TenLoaiXe = lx.TenLoaiXe,               
             }).ToList();
         }
 
@@ -39,7 +38,7 @@ namespace QuanLyNhaXe.Controllers
         public async Task<IActionResult> Get (string MSLX)
         {
             if (MSLX == null)
-                return BadRequest(error: new { message = $" Chưa nhập MSLX đề tìm kiếm " });
+                return BadRequest(error: new { message = " Chưa nhập MSLX đề tìm kiếm " });
             var rs = await _myDbConText.LoaiXes.FindAsync(MSLX);
             if (rs == null)
                 return BadRequest(error: new { message = $"Không lấy được thông tin loai xe có MSLX: {MSLX}" });

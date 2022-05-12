@@ -132,6 +132,27 @@ namespace QuanLyNhaXe.Controllers
             return BadRequest(error: new { message = "Có Lỗi Xảy Ra Khi Cập Nhật Ảnh" });
         }
         /// <summary>
+        /// Cập nhật trạng thái tài khoản
+        /// </summary>
+        /// <param name="MSNV"></param>
+        /// <param name="editUser"></param>
+        /// <returns></returns>
+        [HttpPut("Status/{MSNV}")]
+        public async Task<IActionResult> PutStatus(string MSNV)
+        {
+            if (ModelState.IsValid)
+            {
+                var edit = await _userService.EditStatus(MSNV);
+                if (!edit)
+                    return BadRequest(error: new { messsage = $"Cập Nhật Trạng Thái Cho NV có MS:{MSNV} Không Thành Công" });
+                else
+                {                  
+                    return Ok($"Cập Nhật Trạng Thái Cho NV có MS : {MSNV} Thành Công");
+                }
+            }
+            return BadRequest(error: new { message = "Có Lỗi Xảy Ra Trong Dữ Liệu" });
+        }
+        /// <summary>
         /// Edit dữ liệu user theo MSNV
         /// </summary>
         /// <param name="MSNV"></param>

@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhaXe.DTOS
 {
-    public class Editxe
+    public class InputTuyenDuong
     {
         [Required]
-        public string TenLoaiXe { get; set; }
-
+        [Display(Name ="Điểm Đi")]
+        public string DiemDi;
+        [Required]
+        [Display(Name = "Điểm Đến")]
+        public string DiemDen;
     }
 }

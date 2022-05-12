@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +9,7 @@ using QuanLyNhaXe.DTVS;
 using QuanLyNhaXe.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -30,6 +33,8 @@ namespace QuanLyNhaXe.Services
         Task<bool> ChangePassWord(string MSNV, ChangePass changePass);
 
         Task<bool> EditChucVuUser(NhanVien nhanVien);
+
+        Task<bool> EditStatus(string MSNV);
     }
 
     public class UserServices : IUserService
@@ -38,13 +43,15 @@ namespace QuanLyNhaXe.Services
         private readonly SignInManager<UserIdentity> _signInManager;
         private readonly MyDbContext _myDbContext;
         private readonly IConfiguration _configuration;
-
-        public UserServices(UserManager<UserIdentity> userManager, MyDbContext myDbContext, IConfiguration configuration, SignInManager<UserIdentity> signInManager)
+        private IWebHostEnvironment _environment;
+        private string fileName = "Avatar";
+        public UserServices(UserManager<UserIdentity> userManager, MyDbContext myDbContext, IConfiguration configuration, SignInManager<UserIdentity> signInManager, IWebHostEnvironment environment)
         {
             _userManager = userManager;
             _myDbContext = myDbContext;
             _configuration = configuration;
             _signInManager = signInManager;
+            _environment = environment;
         }
         /// <summary>
         /// Đăng Ký User
@@ -97,6 +104,7 @@ namespace QuanLyNhaXe.Services
                 nhanVien.NgaySinh = DateTime.ParseExact(dangKy.NgaySinh, "dd/MM/yyyy", null);
                 nhanVien.SoDienThoai = dangKy.SoDienThoai;
                 nhanVien.MSChucVu = checkCV.MSChucVu; //Sửa
+                nhanVien.ImageUser.ImagePath = Path.Combine(_environment.WebRootPath, "user-image", fileName);
                 await _myDbContext.AddAsync(nhanVien);
                 await _myDbContext.SaveChangesAsync();
                 return nhanVien;
@@ -262,6 +270,25 @@ namespace QuanLyNhaXe.Services
                 return false;
             await _userManager.ChangePasswordAsync(user, changePass.CurrentPassWord, changePass.PassWord);
             return true;
+        }
+
+        public async Task<bool> EditStatus(string MSNV)
+        {
+            var user = await _userManager.FindByNameAsync(MSNV);
+            if (user == null)
+                return false;
+            else
+            {
+                switch (user.Status)
+                {
+                    case 0: user.Status = 1;
+                        break;
+                    case 1: user.Status = 0;
+                        break;
+                }
+                await _myDbContext.SaveChangesAsync();
+                return true;
+            }   
         }
     }
 }

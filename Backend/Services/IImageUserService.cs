@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using QuanLyNhaXe.DTOS;
 using QuanLyNhaXe.Models;
 using System;
@@ -38,9 +39,11 @@ namespace QuanLyNhaXe.Services
 
         public async Task<bool> AddImage(string MSNV, InputImage img)
         {
-            var user = await _context.NhanViens.FindAsync(MSNV);
+            var user = await _context.NhanViens.Include(us => us.ImageUser).FirstOrDefaultAsync(us => us.MSNV.Equals(MSNV));
             if (user == null)
                 return false;
+            if(user.ImageUser!=null)
+                    return false;
             var image = new ImageUser();
             if (img.ImgageFile!=null)
             {
@@ -73,11 +76,10 @@ namespace QuanLyNhaXe.Services
                 return false;
             if (user.ImagePath == null)
                 return false;
-            var image = new ImageUser();
             if (img.ImgageFile != null)
             {
-                image.ImagePath = await this.SaveFile(img.ImgageFile);
-                image.FileSize = img.ImgageFile.Length;
+                user.ImagePath = await this.SaveFile(img.ImgageFile);
+                user.FileSize = img.ImgageFile.Length;
             }
             await _context.SaveChangesAsync();
             return true;

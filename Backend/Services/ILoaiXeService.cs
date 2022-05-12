@@ -31,18 +31,17 @@ namespace QuanLyNhaXe.Services
         public async Task<bool> ThemLoaiXe(InputLoaiXe inputLoaiXe)
         {
             var check = _myDbContext.LoaiXes.Where(lx => lx.TenLoaiXe == inputLoaiXe.TenLoaiXe).FirstOrDefault();
-            if (check == null)
+            if (check != null)
                 return false;
             if (inputLoaiXe == null)
                 return false;
-            if (inputLoaiXe.SoLuong == 0)
-                inputLoaiXe.SoLuong++;
-            int count = _myDbContext.LoaiXes.Select(lx => lx.MSLoaiXe).Count();
+            var MsCuoi = _myDbContext.LoaiXes.Max(lx=>lx.MSLoaiXe);
+            int count = Convert.ToInt32(MsCuoi.Substring(4));
+            count++;
             await _myDbContext.LoaiXes.AddAsync(new LoaiXe
             {
-                MSLoaiXe = $"MSLX:{count}",
+                MSLoaiXe = $"MSLX{count}",
                 TenLoaiXe = inputLoaiXe.TenLoaiXe,              
-                SoLuong = inputLoaiXe.SoLuong
             });
             await _myDbContext.SaveChangesAsync();
             return true;

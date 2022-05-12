@@ -49,6 +49,10 @@ namespace QuanLyNhaXe.Models
                 entity.HasIndex(x => x.MSLoaiXe)
                 .IsUnique(true);
             });
+            modelBuilder.Entity<ThongTinChuyenXe>(entity =>
+            {
+                entity.HasOne(entity => entity.chuyenXe).WithOne(cx => cx.thongTinChuyenXe).OnDelete(DeleteBehavior.NoAction);
+            });
         }
         public DbSet<NhanVien> NhanViens { get; set; }
         public DbSet<LoaiXe> LoaiXes { get; set; }
@@ -59,6 +63,12 @@ namespace QuanLyNhaXe.Models
 
         public DbSet<ImageUser> imageUsers { get; set; }
 
-        public DbSet<GheXe> GheXes { get; set; }
+        public DbSet<Vexe> VeXes { get; set; }
+
+        public DbSet<TuyenDuong> TuyenDuongs { get; set; }
+
+        public DbSet<ChuyenXe> ChuyenXes { get; set; }
+
+        public DbSet<ThongTinChuyenXe> ThongTinChuyenXes { get; set; }
     }
 }

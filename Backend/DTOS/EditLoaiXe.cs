@@ -10,7 +10,5 @@ namespace QuanLyNhaXe.DTOS
     {
         [Display(Name ="Tên Loại Xe")]
         public string TenLoaiXe { get; set; }
-        [Display(Name = "Số Tầng")]
-        public int SoTang { get; set; }
     }
 }

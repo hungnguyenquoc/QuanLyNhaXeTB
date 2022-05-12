@@ -12,13 +12,15 @@ namespace QuanLyNhaXe.Services
         Task<bool> ThemXe(InputXe inputXe);
 
         Task<bool> XoaXe(string BienSo);
+
+        Task<bool> SuaXe(string BSXE,Editxe editxe);
     }
     public class XeService : IXeService
     {
-        private readonly MyDbContext _myDbContext;
+        private readonly MyDbContext _context;
         public XeService(MyDbContext myDbContext)
         {
-            _myDbContext = myDbContext;
+            _context = myDbContext;
         }
         /// <summary>
         /// Thêm Xe 
@@ -29,27 +31,15 @@ namespace QuanLyNhaXe.Services
         {
             if (inputXe == null)
                 return false;
-            var check = await _myDbContext.Xes.FindAsync(inputXe.BienSoXe);
+            var check = await _context.Xes.FindAsync(inputXe.BienSoXe);
             if (check != null)
                 return false;
-            var loaixe = await _myDbContext.LoaiXes.FindAsync(inputXe.TenLoaiXe);
+            var loaixe = _context.LoaiXes.Where(lx=>lx.TenLoaiXe==inputXe.TenLoaiXe).FirstOrDefault();
             if (loaixe == null)
                 return false;
-            if (loaixe.SoTang == 1)
-            {
-                _myDbContext.Xes.Add(new Xe
-                {
-                    BienSoXe = inputXe.BienSoXe,                    
-                    SoChuyenDi = 0,                  
-                    MSLoaiXe = loaixe.MSLoaiXe,
-                    Status = 0,
-                    NgayVaoBai = DateTime.Now,
-                    NgayXuatBai = null,
-                });
-            }
             else
             {
-                _myDbContext.Xes.Add(new Xe
+                await _context.Xes.AddAsync(new Xe
                 {
                     BienSoXe = inputXe.BienSoXe,                  
                     SoChuyenDi = 0,
@@ -59,8 +49,7 @@ namespace QuanLyNhaXe.Services
                     NgayXuatBai = null
                 });
             }
-            loaixe.SoLuong++;
-            await _myDbContext.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return true;
         }
         /// <summary>
@@ -72,14 +61,29 @@ namespace QuanLyNhaXe.Services
         {
             if (BienSo == null)
                 return false;
-            var xe = await _myDbContext.Xes.FindAsync(BienSo);
+            var xe = await _context.Xes.FindAsync(BienSo);
             if (xe == null)
                 return false;
-            _myDbContext.Remove(xe);
-            xe.LoaiXe.SoLuong--;
-            await _myDbContext.SaveChangesAsync();
+            _context.Remove(xe);
+            await _context.SaveChangesAsync();
             return true;
         }
-
+        public async Task<bool> SuaXe (string BSXE,Editxe editxe)
+        {
+            if (editxe == null)
+                return false;
+            else
+            {
+                var xe = await _context.Xes.FindAsync(BSXE);
+                var loaixe = _context.LoaiXes.Where(lx => lx.TenLoaiXe == editxe.TenLoaiXe).FirstOrDefault();
+                if (xe == null)
+                    return false;
+                if (loaixe == null)
+                    return false;
+                xe.MSLoaiXe = loaixe.MSLoaiXe;
+                await _context.SaveChangesAsync();
+                return true;
+            }                  
+        }
     }
 }

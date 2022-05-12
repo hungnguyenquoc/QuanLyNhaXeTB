@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLyNhaXe.Models;
 
 namespace QuanLyNhaXe.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220508062425_SuaChuyenXeThoiGianDi")]
+    partial class SuaChuyenXeThoiGianDi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -327,10 +329,6 @@ namespace QuanLyNhaXe.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DiemDi")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TenTD")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

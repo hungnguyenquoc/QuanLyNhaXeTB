@@ -15,14 +15,5 @@ namespace QuanLyNhaXe.DTOS
         [Required]
         [Display(Name = "Tên Loại Xe ")]
         public string TenLoaiXe { get; set; }
-        [Required]
-        [Display(Name = "Số Tầng Trên Xe")]
-        public int SoTang { get; set; }
-        [Required]
-        [Display(Name = "Tổng Số Ghế Tầng Trên")]
-        public int SoGheTangTren { get; set; }
-        [Required]
-        [Display(Name = "Tổng Số Ghế Tầng Dưới")]
-        public int SoGheTangDuoi { get; set; }
     }
 }

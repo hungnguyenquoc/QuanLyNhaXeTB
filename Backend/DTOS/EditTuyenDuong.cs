@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhaXe.DTOS
 {
-    public class InputTuyenDuong
+    public class EditTuyenDuong
     {
         [Required]
-        [Display(Name = "Điểm Đi")]
+        [Display(Name="Điểm Đi")]
         public string DiemDi { get; set; }
         [Required]
         [Display(Name = "Điểm Đến")]

@@ -101,7 +101,7 @@ namespace QuanLyNhaXe.Services
                     nhanVien.MSNV = $"{ checkCV.VietTatChucVu}00{count}";
                 }
                 nhanVien.HoTen = dangKy.HoTen;
-                nhanVien.NgaySinh = DateTime.ParseExact(dangKy.NgaySinh, "dd/MM/yyyy", null);
+                nhanVien.NgaySinh = DateTime.ParseExact(dangKy.NgaySinh, "dd/MM/yyyy", null); 
                 nhanVien.SoDienThoai = dangKy.SoDienThoai;
                 nhanVien.MSChucVu = checkCV.MSChucVu; //Sửa
                 nhanVien.ImageUser.ImagePath = Path.Combine(_environment.WebRootPath, "user-image", fileName);

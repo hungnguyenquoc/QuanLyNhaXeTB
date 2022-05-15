@@ -38,12 +38,7 @@ namespace QuanLyNhaXe
             services.AddControllers();
             services.AddDbContext<MyDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("QuanLyNhaXe"));
-            });
-            services.AddDbContext<MyDbContext>(options =>
-            {
-                options.UseLazyLoadingProxies(); 
-            });
-
+            });         
             // add cors
             services.AddCors();
 

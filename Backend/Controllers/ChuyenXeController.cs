@@ -32,10 +32,20 @@ namespace QuanLyNhaXe.Controllers
         }
 
         // GET api/<ChuyenXeController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{MSCX}")]
+        public async Task<IActionResult> Get(string MSCX)
         {
-            return "value";
+            var cx = await _context.ChuyenXes.FindAsync(MSCX);
+            if (cx == null)
+                return BadRequest($"Không có chuyến xe có MSCX : {MSCX}");
+            else
+                return Ok(new { 
+                gia=cx.gia,
+                GioDi=cx.GioDi,
+                NgayDi=cx.NgayDi,
+                TenTuyenDuong=cx.tuyenDuong.TenTD,
+                LoaiXe= cx.loaiXe.TenLoaiXe
+                });
         }
         /// <summary>
         /// Thêm Chuyến Xe
@@ -58,15 +68,38 @@ namespace QuanLyNhaXe.Controllers
                 return BadRequest("Có lỗi xảy ra trong quá trình cập nhật dữ liệu");
         }
         // PUT api/<ChuyenXeController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{MSCX}")]
+        public async Task<IActionResult> Put(string MSCX, [FromBody] EditChuyenXe editChuyenXe)
         {
+            if (ModelState.IsValid)
+            {
+                var kq = await _chuyenXeService.SuaChuyenXe(editChuyenXe, MSCX);
+                if (kq.rs)
+                    return Ok(kq.message);
+                else
+                    return BadRequest(kq.message);
+            }
+            else
+                return BadRequest("Đã có lỗi xảy ra trong quá trình cập nhật dữ liệu");
+
         }
 
         // DELETE api/<ChuyenXeController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{MSCX}")]
+        public async Task<IActionResult> Delete(string MSCX)
         {
+            if (ModelState.IsValid)
+            {
+                var kq = await _chuyenXeService.XoaChuyenXe(MSCX);
+                if (kq.rs)
+                    return Ok(kq.message);
+                else
+                    return BadRequest(kq.message);
+            }
+            else
+            {
+                return BadRequest("Quá trình xử lý cơ sở dữ liệu bị lỗi");
+            }    
         }
     }
 }

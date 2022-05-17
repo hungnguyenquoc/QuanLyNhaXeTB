@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuanLyNhaXe.DTOS;
+using QuanLyNhaXe.DTVS;
 using QuanLyNhaXe.Models;
 using QuanLyNhaXe.Services;
 using System;
@@ -26,11 +27,17 @@ namespace QuanLyNhaXe.Controllers
 
         // GET: api/<ChuyenXeController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<ChuyenXeView> Get()
         {
-            return new string[] { "value1", "value2" };
+            var kq = _context.ChuyenXes.Select(cx=>new ChuyenXeView { 
+            Gia=cx.gia,
+            GioDi=cx.GioDi.ToString(),
+            NgayDi=cx.NgayDi.ToString(),
+            TenLX=cx.loaiXe.TenLoaiXe,
+            TenTD=cx.tuyenDuong.TenTD
+            }).ToList();
+            return kq;
         }
-
         // GET api/<ChuyenXeController>/5
         [HttpGet("{MSCX}")]
         public async Task<IActionResult> Get(string MSCX)

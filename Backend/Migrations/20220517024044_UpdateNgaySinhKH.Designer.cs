@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLyNhaXe.Models;
 
 namespace QuanLyNhaXe.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220517024044_UpdateNgaySinhKH")]
+    partial class UpdateNgaySinhKH
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -421,9 +423,8 @@ namespace QuanLyNhaXe.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("MaCX")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<DateTime>("NgayDi")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("NgaySinh")
                         .HasColumnType("datetime2");
@@ -441,6 +442,9 @@ namespace QuanLyNhaXe.Migrations
                     b.Property<int>("ThanhToan")
                         .HasColumnType("int");
 
+                    b.Property<string>("chuyenXeMaCX")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool>("isRoundTrip")
                         .HasColumnType("bit");
 
@@ -454,7 +458,7 @@ namespace QuanLyNhaXe.Migrations
 
                     b.HasKey("MsVe");
 
-                    b.HasIndex("MaCX");
+                    b.HasIndex("chuyenXeMaCX");
 
                     b.ToTable("VeXe");
                 });
@@ -608,9 +612,7 @@ namespace QuanLyNhaXe.Migrations
                 {
                     b.HasOne("QuanLyNhaXe.Models.ChuyenXe", "chuyenXe")
                         .WithMany("veXes")
-                        .HasForeignKey("MaCX")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("chuyenXeMaCX");
                 });
 
             modelBuilder.Entity("QuanLyNhaXe.Models.Xe", b =>

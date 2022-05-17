@@ -421,12 +421,8 @@ namespace QuanLyNhaXe.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("MaCX")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("NgaySinh")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("NgaySinhKH")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("NgayVe")
                         .HasColumnType("datetime2");
@@ -441,6 +437,9 @@ namespace QuanLyNhaXe.Migrations
                     b.Property<int>("ThanhToan")
                         .HasColumnType("int");
 
+                    b.Property<string>("chuyenXeMaCX")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool>("isRoundTrip")
                         .HasColumnType("bit");
 
@@ -454,7 +453,7 @@ namespace QuanLyNhaXe.Migrations
 
                     b.HasKey("MsVe");
 
-                    b.HasIndex("MaCX");
+                    b.HasIndex("chuyenXeMaCX");
 
                     b.ToTable("VeXe");
                 });
@@ -608,9 +607,7 @@ namespace QuanLyNhaXe.Migrations
                 {
                     b.HasOne("QuanLyNhaXe.Models.ChuyenXe", "chuyenXe")
                         .WithMany("veXes")
-                        .HasForeignKey("MaCX")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("chuyenXeMaCX");
                 });
 
             modelBuilder.Entity("QuanLyNhaXe.Models.Xe", b =>

@@ -31,15 +31,12 @@ namespace QuanLyNhaXe.Models
         [Display(Name ="Số Điện Thoại")]
         public string SDT { get; set; }
         [Required]
-        [Display(Name = "Ngày Sinh KH")]
-        public DateTime NgaySinh { get; set; }
+        [Display(Name = "Ngày Sinh Khách Hàng")]
+        public int NgaySinhKH { get; set; }
         public DateTime ? NgayVe { get; set; }
         [Display(Name ="Khứ Hồi")]
         public bool isRoundTrip { get; set; }
-        [Required]
-        [Display(Name ="Mã Số Chuyến Xe")]
-        public string MaCX { get; set; }
-        [ForeignKey("MaCX")]
+
         public virtual ChuyenXe chuyenXe { get; set; }
     }
 }

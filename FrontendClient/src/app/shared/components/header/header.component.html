@@ -1,4 +1,14 @@
-<p>header works!</p>
+<!-- <p>header works!</p>
 <a [routerLink]="['/authen']" routerLinkActive="router-link-active" >AUTHEN</a>
 
-<a [routerLink]="['/booking-ticket']" routerLinkActive="router-link-active" >AUTfdsfsdHEN</a>
+<a [routerLink]="['/booking-ticket']" routerLinkActive="router-link-active" >AUTfdsfsdHEN</a> -->
+
+<header class="d-flex flex-column flex-md-row align-items-center justify-content-between
+     p-3 px-md-4 mb-3 bg-secondary border-bottom shadow-sm fixed-top">
+  <img src="https://thanhbuoi.com.vn/upload/logo/thumb/Artboard_6100_thumb.png" style="max-height: 70px;" alt="logo" class="logo" routerLink="/">
+  <nav class="my-2 my-md-0 me-md-3 " style="font-size: larger;">
+    <a class="p-2" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Trang chủ</a>
+    <a class="p-2" routerLink="/booking-ticket" routerLinkActive="active">Đặt vé</a>
+    <a class="p-2" routerLink="/authen" routerLinkActive="active">Đăng nhập</a>
+  </nav>
+</header>

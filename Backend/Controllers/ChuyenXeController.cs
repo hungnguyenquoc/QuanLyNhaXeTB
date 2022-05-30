@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QuanLyNhaXe.DTOS;
 using QuanLyNhaXe.Models;
 using QuanLyNhaXe.Services;
@@ -24,13 +25,20 @@ namespace QuanLyNhaXe.Controllers
             _chuyenXeService = chuyenXeService;
         }
 
-        // GET: api/<ChuyenXeController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        // Search Data
+        [HttpGet("SearchChuyenXe/{maTD}/{ngayDi}")]
+        public async Task<ActionResult<ChuyenXe>> SearchChuyenXe(string maTD, string ngayDi)
         {
-            return new string[] { "value1", "value2" };
+            var data = await _context.ChuyenXes.Where(x => x.MaTD == maTD && x.NgayDi.ToString("yyyy-MM-dd") == ngayDi ).ToListAsync();
+            return Ok(data);
         }
 
+        //// GET: api/<ChuyenXeController>
+        [HttpGet]
+        public IEnumerable<ChuyenXe> Get()
+        {
+            return _context.ChuyenXes.Include(x => x.tuyenDuong).Include(x => x.thongTinChuyenXe).ToList();
+        }
         // GET api/<ChuyenXeController>/5
         [HttpGet("{MSCX}")]
         public async Task<IActionResult> Get(string MSCX)
@@ -39,12 +47,13 @@ namespace QuanLyNhaXe.Controllers
             if (cx == null)
                 return BadRequest($"Không có chuyến xe có MSCX : {MSCX}");
             else
-                return Ok(new { 
-                gia=cx.gia,
-                GioDi=cx.GioDi,
-                NgayDi=cx.NgayDi,
-                TenTuyenDuong=cx.tuyenDuong.TenTD,
-                LoaiXe= cx.loaiXe.TenLoaiXe
+                return Ok(new
+                {
+                    gia = cx.gia,
+                    GioDi = cx.GioDi,
+                    NgayDi = cx.NgayDi,
+                    TenTuyenDuong = cx.tuyenDuong.TenTD,
+                    LoaiXe = cx.loaiXe.TenLoaiXe
                 });
         }
         /// <summary>

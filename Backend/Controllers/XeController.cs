@@ -22,6 +22,8 @@ namespace QuanLyNhaXe.Controllers
             _xeService=xeService;
             _conText=myDbContext;
         }
+
+
         // GET: api/<XeController>
         [HttpGet]
         public IEnumerable<Xe> Get()

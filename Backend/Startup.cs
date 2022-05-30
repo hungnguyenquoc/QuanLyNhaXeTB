@@ -113,6 +113,10 @@ namespace QuanLyNhaXe
             services.AddScoped<IXeService, XeService>();
             services.AddScoped<ITuyenDuongService, TuyenDuongService>();
             services.AddScoped<IChuyenXeService, ChuyenXeService>();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -129,7 +133,7 @@ namespace QuanLyNhaXe
 
             app.UseAuthorization();
 
-            app.UseCors(x => x.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+            app.UseCors(x => x.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
             app.UseSwagger();
 

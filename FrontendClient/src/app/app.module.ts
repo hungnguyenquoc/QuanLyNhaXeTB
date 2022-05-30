@@ -9,6 +9,7 @@ import { AuthenticationComponent } from './pages/authentication/authentication.c
 import { AuthenticationModule } from './pages/authentication/authentication.module';
 import { BookingTicketComponent } from './pages/booking-ticket/booking-ticket.component';
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent
@@ -17,7 +18,8 @@ import { BookingTicketComponent } from './pages/booking-ticket/booking-ticket.co
     BrowserModule,
     AppRoutingModule,
     MainLayoutModule,
-    AuthenticationModule
+    AuthenticationModule,
+    HttpClientModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

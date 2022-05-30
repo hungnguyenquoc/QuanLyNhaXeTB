@@ -108,5 +108,15 @@ namespace QuanLyNhaXe.Controllers
                 return BadRequest("Quá trình xử lý cơ sở dữ liệu bị lỗi");
             }    
         }
+        // Search Data
+        [HttpGet("SearchChuyenXe1/{maTD}/{ngayDi}/{tenLX}")]
+        public IActionResult SearchChuyenXe1(string maTD, string ngayDi,string tenLX)
+        {
+            var kq = _chuyenXeService.SearchChuyenXe(maTD, ngayDi,tenLX);
+            if (kq != null)
+                return Ok(kq);
+            else
+                return NotFound("Không tìm thấy thông tin chuyến xe");
+        }
     }
 }

@@ -15,6 +15,8 @@ namespace QuanLyNhaXe.Services
         Task<MessageReponse> SuaChuyenXe(EditChuyenXe editChuyenXe, string MSCX);
 
         Task<MessageReponse> XoaChuyenXe(string MSCX);
+
+        IEnumerable<ChuyenXeView> SearchChuyenXe(string maTD, string ngayDi,string tenLX);
     }
     public class ChuyenXeService : IChuyenXeService
     {
@@ -25,7 +27,7 @@ namespace QuanLyNhaXe.Services
             _context = context;
         }
 
-        public async Task<MessageReponse> ThemChuyenXe (InputChuyenXe inputChuyenXe)
+        public async Task<MessageReponse> ThemChuyenXe(InputChuyenXe inputChuyenXe)
         {
             int count = 0;
             var msCX = _context.ChuyenXes.Select(cx => cx.MaCX).Max();
@@ -33,7 +35,7 @@ namespace QuanLyNhaXe.Services
             {
                 count = Convert.ToInt32(msCX.Substring(4));
                 count++;
-            }    
+            }
             if (inputChuyenXe == null)
                 return new MessageReponse
                 {
@@ -43,7 +45,7 @@ namespace QuanLyNhaXe.Services
             else
             {
                 var td = _context.TuyenDuongs.Where(td => td.TenTD == inputChuyenXe.TenTD).FirstOrDefault();
-                var lx = _context.LoaiXes.Where(lx => lx.TenLoaiXe == inputChuyenXe.TenLoaiXe).FirstOrDefault();              
+                var lx = _context.LoaiXes.Where(lx => lx.TenLoaiXe == inputChuyenXe.TenLoaiXe).FirstOrDefault();
                 if (td == null)
                     return new MessageReponse
                     {
@@ -58,10 +60,10 @@ namespace QuanLyNhaXe.Services
                     };
                 var cx = new ChuyenXe
                 {
-                    MaCX=$"MSCX00{count}",
+                    MaCX = $"MSCX00{count}",
                     gia = inputChuyenXe.Gia,
-                    NgayDi = DateTime.ParseExact(inputChuyenXe.NgayDi,"dd/MM/yyyy", null),
-                    GioDi = DateTime.ParseExact(inputChuyenXe.GioDi,"HH:mm",null),
+                    NgayDi = DateTime.ParseExact(inputChuyenXe.NgayDi, "yyyy-MM-dd", null),
+                    GioDi = DateTime.ParseExact(inputChuyenXe.GioDi, "HH:mm", null),
                     MaTD = td.MSTD,
                     MaLoaiXe = lx.MSLoaiXe,
                 };
@@ -72,44 +74,44 @@ namespace QuanLyNhaXe.Services
                     rs = true,
                     message = $"Thêm thành công chuyến xe mới"
                 };
-            }    
+            }
         }
         public async Task<MessageReponse> SuaChuyenXe(EditChuyenXe editChuyenXe, string MSCX)
-        {  
+        {
             if (editChuyenXe == null)
                 return new MessageReponse
                 {
-                    rs=false,
-                    message="Cần nhập thông tin để tiến hành cập nhật"
+                    rs = false,
+                    message = "Cần nhập thông tin để tiến hành cập nhật"
                 };
             else
             {
                 var cx = await _context.ChuyenXes.FindAsync(MSCX);
                 var lx = _context.LoaiXes.Where(lx => lx.TenLoaiXe == editChuyenXe.TenLX).FirstOrDefault();
                 var td = _context.TuyenDuongs.Where(td => td.TenTD == editChuyenXe.TenTD).FirstOrDefault();
-                    if (cx == null)
+                if (cx == null)
                     return new MessageReponse
                     {
-                        rs=false,
-                        message=$"Hiện không tồn tại chuyến xe có MSCX : {MSCX}"
+                        rs = false,
+                        message = $"Hiện không tồn tại chuyến xe có MSCX : {MSCX}"
                     };
                 if (lx != null)
                     cx.MaLoaiXe = lx.MSLoaiXe;
                 if (td != null)
                     cx.MaTD = td.MSTD;
-                if(editChuyenXe.Gia!=null)
+                if (editChuyenXe.Gia != null)
                     cx.gia = editChuyenXe.Gia;
                 if (editChuyenXe.GioDi != null)
-                    cx.GioDi = DateTime.ParseExact(editChuyenXe.GioDi,"dd/MM/yyyy",null);
+                    cx.GioDi = DateTime.ParseExact(editChuyenXe.GioDi, "dd/MM/yyyy", null);
                 if (editChuyenXe.NgayDi != null)
-                    cx.NgayDi = DateTime.ParseExact(editChuyenXe.NgayDi,"HH:mm",null);
+                    cx.NgayDi = DateTime.ParseExact(editChuyenXe.NgayDi, "HH:mm", null);
                 await _context.SaveChangesAsync();
                 return new MessageReponse
                 {
                     rs = true,
-                    message=$"Cập nhật thông tin mới thành công cho chuyên xe có MSCX là {MSCX}"
+                    message = $"Cập nhật thông tin mới thành công cho chuyên xe có MSCX là {MSCX}"
                 };
-            }    
+            }
         }
         public async Task<MessageReponse> XoaChuyenXe(string MSCX)
         {
@@ -129,7 +131,7 @@ namespace QuanLyNhaXe.Services
                     rs = true,
                     message = $"Xóa thành công chuyến xe có MSCX : {MSCX}"
                 };
-            }    
+            }
             else
             {
                 return new MessageReponse
@@ -137,7 +139,36 @@ namespace QuanLyNhaXe.Services
                     rs = false,
                     message = $"Thông tin chuyến xe có MSCX : {MSCX} không tồn tại nên không thể xóa dữ liệu"
                 };
-            }    
+            }
+        }
+        //search data
+        public IEnumerable<ChuyenXeView> SearchChuyenXe(string maTD, string ngayDi,string tenLX)
+        {
+            DateTime ngayDi1;
+            if (DateTime.TryParse(ngayDi, out DateTime Temp) == true)
+            {
+                ngayDi1 = DateTime.ParseExact(ngayDi, "yyyy-MM-dd", null);
+            }
+            else
+            {
+                return null;
+            }
+            List<ChuyenXeView> MyList = new List<ChuyenXeView>();
+            var data = _context.ChuyenXes.Where(cx => cx.MaTD == maTD && cx.NgayDi == ngayDi1&& cx.loaiXe.TenLoaiXe == tenLX).ToList();
+            foreach (var item in data)
+            {
+                MyList.Add(new ChuyenXeView
+                {
+                    Gia = item.gia,
+                    NgayDi = item.NgayDi.ToShortDateString(),
+                    GioDi = item.GioDi.ToShortTimeString(),
+                    TenLX = item.loaiXe.TenLoaiXe,
+                    TenTD = item.tuyenDuong.TenTD
+                });
+            }
+            if (MyList.Count <= 0)
+                return null;
+            return MyList;
         }
     }
 }

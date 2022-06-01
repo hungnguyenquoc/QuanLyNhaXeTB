@@ -12,22 +12,25 @@
                   <span cInputGroupText>
                     <svg cIcon name="cilUser"></svg>
                   </span>
-                  <input autoComplete="username" cFormControl placeholder="Username" />
+                  <input type="text" autoComplete="username" cFormControl placeholder="Username" [value]="login.UserName" />
                 </c-input-group>
                 <c-input-group class="mb-4">
                   <span cInputGroupText>
                     <svg cIcon name="cilLockLocked"></svg>
                   </span>
-                  <input
+                  <input 
+                    (keyup.enter)="loginSubmit()"
+                    [value]="login.Password"
                     autoComplete="current-password"
                     cFormControl
                     placeholder="Password"
                     type="password"
+    
                   />
                 </c-input-group>
                 <c-row>
                   <c-col xs="6">
-                    <button cButton class="px-4" color="primary">
+                    <button (click)="loginSubmit()"  cButton class="px-4" color="primary">
                       Login
                     </button>
                   </c-col>

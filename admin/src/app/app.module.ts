@@ -1,8 +1,10 @@
+import { DataService } from './Services/data.service';
+import { ServerHttpService } from './Services/server-http.service';
 import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 import {
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface,
@@ -65,6 +67,7 @@ const APP_CONTAINERS = [
     AvatarModule,
     BreadcrumbModule,
     FooterModule,
+    FormModule,
     DropdownModule,
     GridModule,
     HeaderModule,
@@ -73,7 +76,6 @@ const APP_CONTAINERS = [
     PerfectScrollbarModule,
     NavModule,
     ButtonModule,
-    FormModule,
     UtilitiesModule,
     ButtonGroupModule,
     ReactiveFormsModule,
@@ -86,6 +88,7 @@ const APP_CONTAINERS = [
     ListGroupModule,
     CardModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [
     {
@@ -97,7 +100,8 @@ const APP_CONTAINERS = [
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
     IconSetService,
-    Title
+    ServerHttpService,
+    DataService
   ],
   bootstrap: [AppComponent],
 })

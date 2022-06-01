@@ -119,9 +119,16 @@ namespace QuanLyNhaXe
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(x => x.WithOrigins("http://localhost:4200/#").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+
+                app.UseSwaggerUI(c => {
+                    c.SwaggerEndpoint("/swagger/V1/swagger.json", "Swageer QuanLyNhaXe V1");
+                });
             }
 
             app.UseRouting();
@@ -130,13 +137,12 @@ namespace QuanLyNhaXe
 
             app.UseAuthorization();
 
-            app.UseCors(x => x.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
-            app.UseSwagger();
+            //app.UseSwagger();
 
-            app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/V1/swagger.json","Swageer QuanLyNhaXe V1");
-            });
+            //app.UseSwaggerUI(c => {
+            //    c.SwaggerEndpoint("/swagger/V1/swagger.json","Swageer QuanLyNhaXe V1");
+            //});
 
             app.UseEndpoints(endpoints =>
             {

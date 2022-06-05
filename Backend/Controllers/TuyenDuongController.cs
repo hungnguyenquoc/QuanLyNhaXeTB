@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuanLyNhaXe.DTOS;
+using QuanLyNhaXe.DTVS;
 using QuanLyNhaXe.Models;
 using QuanLyNhaXe.Services;
 using System;
@@ -26,9 +27,13 @@ namespace QuanLyNhaXe.Controllers
 
         // GET: api/<TuyenDuongController>
         [HttpGet]
-        public IEnumerable<TuyenDuong> Get()
+        public IEnumerable<TuyenDuongView> Get()
         {
-            return _context.TuyenDuongs.Select(td => td).ToList();
+            return _context.TuyenDuongs.Select(td => new TuyenDuongView
+            {
+            MSTD=td.MSTD,
+            TenTD=td.TenTD,
+            }).ToList();
         }
 
         // GET api/<TuyenDuongController>/5

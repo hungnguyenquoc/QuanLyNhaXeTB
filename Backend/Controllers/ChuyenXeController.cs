@@ -31,8 +31,8 @@ namespace QuanLyNhaXe.Controllers
         {
             var kq = _context.ChuyenXes.Select(cx=>new ChuyenXeView { 
             Gia=cx.gia,
-            GioDi=cx.GioDi.ToString(),
-            NgayDi=cx.NgayDi.ToString(),
+            GioDi=cx.GioDi.ToShortTimeString(),
+            NgayDi=cx.NgayDi.Date.ToString(),
             TenLX=cx.loaiXe.TenLoaiXe,
             TenTD=cx.tuyenDuong.TenTD
             }).ToList();

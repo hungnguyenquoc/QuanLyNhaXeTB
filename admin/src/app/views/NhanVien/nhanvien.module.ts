@@ -1,6 +1,9 @@
+import { AddNhanVienComponent } from './../Add-NhanVien/Add-NhanVien.component';
+import { NhanVienComponent } from './nhanvien.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms'
 
 import {
   AvatarModule,
@@ -17,14 +20,9 @@ import {
 import { IconModule } from '@coreui/icons-angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
-
-import { WidgetsModule } from '../widgets/widgets.module';
 
 @NgModule({
   imports: [
-    DashboardRoutingModule,
     CardModule,
     NavModule,
     IconModule,
@@ -40,9 +38,9 @@ import { WidgetsModule } from '../widgets/widgets.module';
     ChartjsModule,
     AvatarModule,
     TableModule,
-    WidgetsModule
+    FormsModule,
   ],
-  declarations: [DashboardComponent]
+  declarations: [NhanVienComponent, AddNhanVienComponent]
 })
-export class DashboardModule {
+export class NhanVienModule {
 }

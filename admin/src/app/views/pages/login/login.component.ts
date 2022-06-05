@@ -5,7 +5,6 @@ import { ServerHttpService } from './../../../Services/server-http.service';
 import { Login } from './../../../../models/Login';
 
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +14,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class LoginComponent implements OnInit{
  login : Login;
- btnDisabled = true;
- url = "http://localhost:5000/api/NhanVien/Login";
+
+ url = 'http://localhost:13730/api/NhanVien/Login';
   constructor(private rest : ServerHttpService , private router : Router ,private data : DataService) {
     this.login = new Login();
    }
@@ -27,17 +26,17 @@ export class LoginComponent implements OnInit{
     return true;
   }
 async loginSubmit(){
-  this.btnDisabled = true;
   if(this.validate())
 this.rest.post(this.url,this.login,).then(data =>{
-  
   let result = data as {token : string};
   localStorage.setItem('token', result.token);
 
-  this.router.navigate(['dashboard']);
+  this.router.navigate(['NhanVien']);
 }).catch(error=>{
-  this.data.error(error['error']);
-  this.btnDisabled=false;
+  if(error !=null)
+  {
+    alert('Tên Đăng Nhập Hoặc Mật Khẩu Không Chính Xác');
+  }
 })
 }
 }

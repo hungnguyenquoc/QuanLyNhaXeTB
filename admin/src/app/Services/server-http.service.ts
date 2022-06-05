@@ -14,20 +14,20 @@ constructor(private http: HttpClient) {}
   CRUD Methods for consuming RESTful API
 =========================================*/
 // Http Options
-get(link:string){
+public get(link:string){
   return this.http.get(link).toPromise();
 }
-getOne(link:string,id:string){
-  return this.http.get(link).toPromise();
-} 
-post(link:string,body:any){
+public getOne(link:string,id:string){
+  return this.http.get(link+'/'+id).toPromise();
+}
+public post(link:string,body:any){
   return this.http.post(link,body).toPromise();
 }
-put(link:string,id:string,body:any){
-  return this.http.get(link).toPromise();
+public put(link:string,id:string,body:any){
+  return this.http.put(link+'/'+id,body).toPromise();
 }
-delete(link:string,id:string){
-  return this.http.get(link).toPromise();
+public delete(link:string,id:string){
+  return this.http.delete(link+'/'+id).toPromise();
 }
 
 }

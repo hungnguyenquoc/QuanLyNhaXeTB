@@ -1,7 +1,9 @@
 ﻿using Castle.Core.Configuration;
 using Microsoft.AspNetCore.Identity;
 using QuanLyNhaXe.DTOS;
+using QuanLyNhaXe.DTVS;
 using QuanLyNhaXe.Models;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,11 +11,11 @@ namespace QuanLyNhaXe.Services
 {
     public interface IAuthoServicecs
     {
-        Task<bool> ThemChucVu(InputChucVu inputChucVu);
+        Task<MessageReponse> ThemChucVu(InputChucVu inputChucVu);
 
-        Task<bool> XoaChucVu(string MSCV);
-
-        Task<ChucVuUser> SuaChucVu(string id, EditChucVu editChucVu);
+        Task<MessageReponse> XoaChucVu(string MSCV);
+        Task<ChucVuView> GetCVByMSCV(string MSCV);
+        Task<MessageReponse> SuaChucVu(string id, EditChucVu editChucVu);
     }
     public class AuthoService : IAuthoServicecs
     {
@@ -27,71 +29,101 @@ namespace QuanLyNhaXe.Services
      
         }
 
-        public async Task<bool> ThemChucVu(InputChucVu inputChucVu)
+        public async Task<MessageReponse> ThemChucVu(InputChucVu inputChucVu)
         {
-            if (inputChucVu.MucDoTruyCap == 0)
-                inputChucVu.MucDoTruyCap = 1;
+            int count;
             if (inputChucVu == null)
-                return false;
+                return new MessageReponse {
+                    rs = false,
+                    message = "Vui lòng nhập đầy đủ thông tin"
+                };
             var check = _myDbContext.chucVuUsers.Where(cv => cv.TenChucVu == inputChucVu.TenChucVu).FirstOrDefault();
             if (check != null)
-                return false;
-            int count = _myDbContext.chucVuUsers.Select(cv => cv.MSChucVu).Count();
-            count++;
+                return new MessageReponse {
+                    rs = false,
+                    message = "Đã tồn tại chức vụ này rồi"
+                };
+            var msCuoi = _myDbContext.chucVuUsers.Max(cv => cv.MSChucVu);
+            if (msCuoi == null)
+                count = 1;
+            else
+            {
+                count = Convert.ToInt32(msCuoi.Substring(4));
+                count++;
+            }
             var rs = await _myDbContext.chucVuUsers.AddAsync(new ChucVuUser
             {
                 MSChucVu = $"MS00{count}",
                 TenChucVu = inputChucVu.TenChucVu,
                 VietTatChucVu = inputChucVu.VietTatChucVu,
-                MucDoTruyCap=inputChucVu.MucDoTruyCap
-            }) ;
+                MucDoTruyCap=Convert.ToInt32(inputChucVu.MucDoTruyCap)
+            });
             await _myDbContext.SaveChangesAsync();
-            return true;
+            return new MessageReponse { 
+            rs=true,
+            message="Thêm Chức Vụ Mới Thành Công"
+            };
         }
 
-        public async Task<bool> XoaChucVu(string MSCV)
+        public async Task<MessageReponse> XoaChucVu(string MSCV)
         {
             if (MSCV == null)
-                return false;
+                return new MessageReponse
+                {
+                    rs = false,
+                    message=$"Vui lòng nhập đầy đủ thông tin"
+                };
             var rs = await _myDbContext.chucVuUsers.FindAsync(MSCV);
             if (rs==null)
-                return false;
+                return new MessageReponse
+                {
+                    rs = false,
+                    message = $"Không tồn tại thông tin chức vụ có MSCV:{MSCV}"
+                };
             _myDbContext.chucVuUsers.Remove(rs);
             await _myDbContext.SaveChangesAsync();
-            return true;
+            return new MessageReponse { 
+            rs=true,
+            message=$"Xóa thành công chức vụ có MSCX:{MSCV}"
+            };
         }
-        public async Task<ChucVuUser> SuaChucVu(string id, EditChucVu editchucVu)
+        public async Task<MessageReponse> SuaChucVu(string id, EditChucVu editchucVu)
         {
-            int tempCv;
+            int mucDoTruyCap =Convert.ToInt32(editchucVu.MucDoTruyCap);
             if (id == null || editchucVu == null)
-                return null;
+                return new MessageReponse { 
+                rs = false,
+                message="Thông tin nhập vào chưa chính xác hoặc không đủ"
+                };
             var rs = await _myDbContext.chucVuUsers.FindAsync(id);
             if (rs == null)
-                return null;
+                return new MessageReponse { 
+                rs=false,
+                message=$"Không tìm thấy chức vụ có MSCV:{id}"
+                };
             if (editchucVu.TenChucVu != null)
                 rs.TenChucVu = editchucVu.TenChucVu;
             if (editchucVu.VietTatChucVu != null)
                 rs.VietTatChucVu = editchucVu.VietTatChucVu;
-            if(editchucVu.MucDoTruyCap>0 || editchucVu.MucDoTruyCap < 3)
+            if(mucDoTruyCap!= rs.MucDoTruyCap)
             {
-                tempCv = editchucVu.MucDoTruyCap;
-                rs.MucDoTruyCap = editchucVu.MucDoTruyCap;
+                rs.MucDoTruyCap = mucDoTruyCap;
+                if (!SuaChucVuUser(rs.MSChucVu, rs.MucDoTruyCap))
+                    return new MessageReponse
+                    {
+                        rs = false,
+                        message = "Cập nhật mức độ truy cập không thành công cho các user"
+                    };
             }
-            else
-            {
-                tempCv = 3;
-                rs.MucDoTruyCap = 3;
-            }    
-               await _myDbContext.SaveChangesAsync();
-            if (!SuaChucVuUser(rs.MSChucVu,tempCv))
-                return null;
-            return rs;
+            await _myDbContext.SaveChangesAsync();
+            return new MessageReponse { 
+            rs=true,
+            message="Sửa chức vụ thành công"
+            };
         }
 
-        public bool SuaChucVuUser(string MSCV,int tempCv)
+        public bool SuaChucVuUser(string MSCV,int MucDoTruyCap)
         {
-            if (tempCv == -1)
-                return false;
             var nv = _myDbContext.NhanViens.Where(nv => nv.MSChucVu == MSCV).ToList();
             if (nv == null)
                 return false;
@@ -99,12 +131,24 @@ namespace QuanLyNhaXe.Services
             {
                 var user = _userManager.FindByNameAsync(iteam.MSNV);
                 {
-                    user.Result.MucDoTruyCap = iteam.ChucVuUser.MucDoTruyCap;
+                    user.Result.MucDoTruyCap = MucDoTruyCap;
                 }
             }
             _myDbContext.SaveChanges();
             return true;
         }
-        
+        public async Task<ChucVuView> GetCVByMSCV(string MSCV)
+        {
+            var cv = await _myDbContext.chucVuUsers.FindAsync(MSCV);
+            if (cv != null)
+                return new ChucVuView
+                {
+                    TenChucVu = cv.TenChucVu,
+                    VietTatChucVu = cv.VietTatChucVu,
+                    MucDoTruyCap = cv.MucDoTruyCap
+                };
+            else
+                return null;
+        }
     }
 }

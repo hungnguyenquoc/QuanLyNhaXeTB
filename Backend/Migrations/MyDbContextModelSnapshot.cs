@@ -235,6 +235,9 @@ namespace QuanLyNhaXe.Migrations
                     b.Property<string>("MSLoaiXe")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("SoGhe")
+                        .HasColumnType("int");
+
                     b.Property<string>("TenLoaiXe")
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")

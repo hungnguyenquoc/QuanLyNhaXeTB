@@ -1,3 +1,9 @@
+import { AddXeComponent } from './views/Add-Xe/Add-Xe.component';
+import { XeComponent } from './views/Xe/Xe.component';
+import { AddLoaiXeComponent } from './views/Add-LoaiXe/Add-LoaiXe.component';
+import { LoaiXeComponent } from './views/LoaiXe/LoaiXe.component';
+import { AddChucVuComponent } from './views/Add-ChucVu/Add-ChucVu.component';
+import { NhanVienComponent } from './views/NhanVien/nhanvien.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -7,6 +13,8 @@ import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 import { UserComponent } from './views/user/user.component';
+import { AddNhanVienComponent } from './views/Add-NhanVien/Add-NhanVien.component';
+import { ChucVuComponent } from './views/ChucVu/chucvu.component';
 
 const routes: Routes = [
   {
@@ -22,10 +30,77 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'dashboard',
+        path: 'Xe',
+        component: XeComponent,
         loadChildren: () =>
-          import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
+        import('./views/Xe/Xe.module').then((m) => m.XeModule)
       },
+      {
+        path: 'Add-Xe',
+        component: AddXeComponent,
+        loadChildren: () =>
+        import('./views/Xe/Xe.module').then((m) => m.XeModule)
+      },
+      {
+        path: 'Add-Xe/:id',
+        component: AddXeComponent,
+        loadChildren: () =>
+        import('./views/Xe/Xe.module').then((m) => m.XeModule)
+      },
+      {
+        path: 'LoaiXe',
+        component: LoaiXeComponent,
+        loadChildren: () =>
+        import('./views/LoaiXe/LoaiXe.module').then((m) => m.LoaiXeModule)
+      },
+      {
+        path: 'Add-LoaiXe',
+        component: AddLoaiXeComponent,
+        loadChildren: () =>
+        import('./views/LoaiXe/LoaiXe.module').then((m) => m.LoaiXeModule)
+      },
+      {
+        path: 'Add-LoaiXe/:id',
+        component: AddLoaiXeComponent,
+        loadChildren: () =>
+        import('./views/LoaiXe/LoaiXe.module').then((m) => m.LoaiXeModule)
+      },
+      {
+        path: 'ChucVu',
+        component: ChucVuComponent,
+        loadChildren: () =>
+        import('./views/ChucVu/chucvu.module').then((m) => m.ChucVuModule)
+      },
+      {
+        path: 'Add-ChucVu',
+        component: AddChucVuComponent,
+        loadChildren: () =>
+        import('./views/ChucVu/chucvu.module').then((m) => m.ChucVuModule)
+      },
+      {
+        path: 'Add-ChucVu/:id',
+        component: AddChucVuComponent,
+        loadChildren: () =>
+        import('./views/ChucVu/chucvu.module').then((m) => m.ChucVuModule)
+      },
+      {
+        path: 'NhanVien',
+        component: NhanVienComponent,
+        loadChildren: () =>
+        import('./views/NhanVien/nhanvien.module').then((m) => m.NhanVienModule)
+      },
+      {
+        path: 'Add-NhanVien/:id',
+        component: AddNhanVienComponent,
+        loadChildren: () =>
+        import('./views/NhanVien/nhanvien.module').then((m) => m.NhanVienModule)
+      },
+      {
+        path: 'Add-NhanVien',
+        component: AddNhanVienComponent,
+        loadChildren: () =>
+        import('./views/NhanVien/nhanvien.module').then((m) => m.NhanVienModule)
+        },
       {
         path: 'theme',
         loadChildren: () =>

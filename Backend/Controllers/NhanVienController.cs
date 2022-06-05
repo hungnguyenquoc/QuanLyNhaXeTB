@@ -42,10 +42,10 @@ namespace QuanLyNhaXe.Controllers
                 UserName = p.MSNV,
                 ChucVu=p.ChucVuUser.TenChucVu,
                 HoTen = p.HoTen,
-                NgaySinh = p.NgaySinh.Value.ToString("dd-MM-yyyy"), //Lấy giá trị xong convert
+                NgaySinh = p.NgaySinh.Value.ToString("yyyy-MM-dd"), //Lấy giá trị xong convert
                 GioiTinh=p.GioiTinh,
                 FileSize=p.ImageUser.FileSize,
-                ImagePath=p.ImageUser.ImagePath
+                ImagePath=p.ImageUser.ImagePath 
             }).ToListAsync();
         }
 
@@ -83,7 +83,7 @@ namespace QuanLyNhaXe.Controllers
                 if (nhanVien != null)
                 {
                     var result = await _userService.DangKyUser(nhanVien.MSNV, nhanVien);
-                    if (!result) return BadRequest("Tại Sao Lại Sai");
+                    if (!result) return BadRequest("Thông tin nhập vào không hợp lệ");
                     return Ok(dangKy);
                 }
                 else
@@ -169,7 +169,7 @@ namespace QuanLyNhaXe.Controllers
                 else
                 {
                    await _userService.EditChucVuUser(edit);
-                   return Ok($"Cập thành công nhân viên có Tên là : {edit.HoTen}");
+                   return Ok(editUser);
                 }    
             }
             return BadRequest(error: new { message = "Có Lỗi Xảy Ra Trong Dữ Liệu" });

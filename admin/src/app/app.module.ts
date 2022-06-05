@@ -1,10 +1,16 @@
+import { XeModule } from './views/Xe/Xe.module';
+import { LoaiXeModule } from './views/LoaiXe/LoaiXe.module';
+import { ChucVuModule } from './views/ChucVu/chucvu.module'
+import { UserModule } from './views/user/user.module';
+
 import { DataService } from './Services/data.service';
 import { ServerHttpService } from './Services/server-http.service';
 import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+import { ReactiveFormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms'
 import {
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface,
@@ -59,7 +65,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, UserComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, UserComponent ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -89,6 +95,10 @@ const APP_CONTAINERS = [
     CardModule,
     HttpClientModule,
     FormsModule,
+    UserModule,
+    ChucVuModule,
+    LoaiXeModule,
+    XeModule
   ],
   providers: [
     {
@@ -101,7 +111,8 @@ const APP_CONTAINERS = [
     },
     IconSetService,
     ServerHttpService,
-    DataService
+    DataService,
+    Title
   ],
   bootstrap: [AppComponent],
 })

@@ -20,6 +20,9 @@ namespace QuanLyNhaXe.Models
         [MaxLength(30,ErrorMessage ="Tối Đa 30 Ký Tự")]
         public string TenLoaiXe { get; set; }
         [Required]
+        [Display(Name = "Số Ghế")]
+        public int SoGhe { get; set; }
+        [Required]
         [Display(Name = "Mã Xe")]
         //Colect Navigate (Quan hệ nhiều) không có thay đổi gì cả
         public virtual List<Xe> Xes { get; set; }

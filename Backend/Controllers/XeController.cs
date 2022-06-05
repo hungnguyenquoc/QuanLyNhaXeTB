@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuanLyNhaXe.DTOS;
+using QuanLyNhaXe.DTVS;
 using QuanLyNhaXe.Models;
 using QuanLyNhaXe.Services;
 using System;
@@ -24,28 +25,37 @@ namespace QuanLyNhaXe.Controllers
         }
         // GET: api/<XeController>
         [HttpGet]
-        public IEnumerable<Xe> Get()
+        public IEnumerable<XeView> Get()
         {
-            return _conText.Xes.Select(xe => new Xe
+            var listXe = _conText.Xes.Select(xe => new XeView
             {
-                BienSoXe=xe.BienSoXe,
-                NgayVaoBai=xe.NgayVaoBai,
-                SoChuyenDi=xe.SoChuyenDi,
-                LoaiXe=xe.LoaiXe
+                BienSoXe = xe.BienSoXe,
+                TenLoaiXe=xe.LoaiXe.TenLoaiXe,
+                SoChuyenDi = xe.SoChuyenDi,
+                Status=xe.Status
             }).ToList();
+            return listXe;
         }
 
         // GET api/<XeController>/5
         [HttpGet("{BSXE}")]
         public async Task<IActionResult> Get(string BSXE)
         {
-            if (BSXE == null)
-                return BadRequest(error: new { message = "Vui lòng nhập BSXE để tìm kiếm" });
-            var rs = await _conText.Xes.FindAsync(BSXE);
-            if (rs == null)
-                return BadRequest(error: new { message = $"Không tìm thấy thông tin có Biển Số là : {BSXE}" });
+            var kqXe = new XeView();
+            var kq = new MessageReponse();
+            var xe = await _conText.Xes.FindAsync(BSXE);
+            if(xe==null)
+            {
+                kq.rs = false;
+                kq.message = $"Không tồn tại loại xe có biển số: {BSXE}";
+                return NotFound(kq);
+            }
             else
-                return Ok(rs);
+            {
+                kqXe.BienSoXe = xe.BienSoXe;
+                kqXe.TenLoaiXe = xe.LoaiXe.TenLoaiXe;
+                return Ok(kqXe);
+            }    
         }
 
         // POST api/<XeController>
@@ -56,9 +66,9 @@ namespace QuanLyNhaXe.Controllers
             {
                 var rs = await _xeService.ThemXe(inputXe);
                 if (rs)
-                    return Ok($"Thêm thành công xe có thông tin \n {inputXe.BienSoXe} , {inputXe.TenLoaiXe} ");
+                    return Ok(rs);
                 else
-                    return BadRequest(" Thêm xe mới không thành công ");
+                    return BadRequest(rs);
             }
             return BadRequest(error: new { message = "Có Vấn Đề Xảy Ra Khi Cập Nhật Dữ Liệu" });
         }
@@ -70,9 +80,9 @@ namespace QuanLyNhaXe.Controllers
             {
                 var rs = await _xeService.SuaXe(BSXE,editxe);
                 if (rs)
-                    return Ok($"Sửa thông tin xe có biển số : {BSXE} thành công ");
+                    return Ok(rs);
                 else
-                    return BadRequest($" Sửa thông tin xe với biển số : {BSXE} không thành công ");
+                    return BadRequest(rs);
             }
             return BadRequest(error: new { message = "Có Vấn Đề Xảy Ra Khi Cập Nhật Dữ Liệu" });
         }

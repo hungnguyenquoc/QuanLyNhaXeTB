@@ -11,5 +11,7 @@ namespace QuanLyNhaXe.DTOS
         [Required]
         [Display(Name = "Tên Loại Xe ")]
         public string TenLoaiXe { get; set; }
+
+        public string SoGhe { get; set; }
     }
 }

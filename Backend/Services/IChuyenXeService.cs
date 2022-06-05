@@ -102,7 +102,7 @@ namespace QuanLyNhaXe.Services
                 if (editChuyenXe.Gia != null)
                     cx.gia = editChuyenXe.Gia;
                 if (editChuyenXe.GioDi != null)
-                    cx.GioDi = DateTime.ParseExact(editChuyenXe.GioDi, "dd/MM/yyyy", null);
+                    cx.GioDi = DateTime.ParseExact(editChuyenXe.GioDi, "yyyy-MM-dd", null);
                 if (editChuyenXe.NgayDi != null)
                     cx.NgayDi = DateTime.ParseExact(editChuyenXe.NgayDi, "HH:mm", null);
                 await _context.SaveChangesAsync();
@@ -154,7 +154,7 @@ namespace QuanLyNhaXe.Services
                 return null;
             }
             List<ChuyenXeView> MyList = new List<ChuyenXeView>();
-            var data = _context.ChuyenXes.Where(cx => cx.MaTD == maTD && cx.NgayDi == ngayDi1&& cx.loaiXe.TenLoaiXe == tenLX).ToList();
+            var data = _context.ChuyenXes.Where(cx => cx.MaTD == maTD && DateTime.Compare(cx.NgayDi.Date,ngayDi1.Date) == 0 && cx.loaiXe.TenLoaiXe.Equals(tenLX)).ToList();
             foreach (var item in data)
             {
                 MyList.Add(new ChuyenXeView

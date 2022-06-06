@@ -53,9 +53,9 @@ namespace QuanLyNhaXe.Models
                 entity.HasIndex(x => x.MSLoaiXe)
                 .IsUnique(true);
             });
-            modelBuilder.Entity<ThongTinChuyenXe>(entity =>
+            modelBuilder.Entity<GheNgoi>(entity =>
             {
-                entity.HasOne(entity => entity.chuyenXe).WithOne(cx => cx.thongTinChuyenXe).OnDelete(DeleteBehavior.NoAction);
+                entity.HasOne(entity => entity.ChuyenXe).WithMany(cx => cx.GheNgois).OnDelete(DeleteBehavior.Cascade);
             });
         }
         public DbSet<NhanVien> NhanViens { get; set; }
@@ -73,6 +73,6 @@ namespace QuanLyNhaXe.Models
 
         public DbSet<ChuyenXe> ChuyenXes { get; set; }
 
-        public DbSet<ThongTinChuyenXe> ThongTinChuyenXes { get; set; }
+        public DbSet<GheNgoi> GheNgois { get; set; }
     }
 }

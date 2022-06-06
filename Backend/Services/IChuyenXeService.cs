@@ -17,6 +17,8 @@ namespace QuanLyNhaXe.Services
         Task<MessageReponse> XoaChuyenXe(string MSCX);
 
         IEnumerable<ChuyenXeView> SearchChuyenXe(string maTD, string ngayDi,string tenLX);
+
+        IEnumerable<GheXeView> ListGhe(string maCX);
     }
     public class ChuyenXeService : IChuyenXeService
     {
@@ -29,13 +31,24 @@ namespace QuanLyNhaXe.Services
 
         public async Task<MessageReponse> ThemChuyenXe(InputChuyenXe inputChuyenXe)
         {
-            int count = 0;
-            var msCX = _context.ChuyenXes.Select(cx => cx.MaCX).Max();
-            if (msCX != null)
+            int count;
+            var chuyenXe = _context.ChuyenXes.Count();
+            if (chuyenXe == 0)
             {
-                count = Convert.ToInt32(msCX.Substring(4));
-                count++;
+                count = 1;
             }
+            else
+            {
+                count = chuyenXe;
+            }    
+           for(int i = 0;i< chuyenXe; i++)
+            {
+                var cx = await _context.ChuyenXes.FindAsync($"MSCX00{count}");
+                if (cx == null)
+                    break;
+                else
+                    count++;
+            }    
             if (inputChuyenXe == null)
                 return new MessageReponse
                 {
@@ -68,6 +81,44 @@ namespace QuanLyNhaXe.Services
                     MaLoaiXe = lx.MSLoaiXe,
                 };
                 await _context.AddAsync(cx);
+                List<GheNgoi> ListGhe = new List<GheNgoi>();
+                int j = 1;
+                int tongghe = cx.loaiXe.SoGhe;
+                var ghe = _context.GheNgois.Count();
+                int msCuoi;
+                if (ghe == 0)
+                {
+                    msCuoi = 1;
+                }
+                else
+                {
+                    msCuoi = _context.GheNgois.Max(ghe => ghe.MSghe);
+                }
+                for (int i = 1; i <= tongghe; i++)
+                {
+                    if (i > tongghe / 2)
+                    {
+                        ListGhe.Add(new GheNgoi
+                        {
+                            
+                            MaCX= cx.MaCX,
+                            TenGhe = $"{j}B",
+                            status = 0,
+                        });
+                        j++;
+                    }
+                    else
+                    {
+                        ListGhe.Add(new GheNgoi
+                        {
+                           
+                            MaCX = cx.MaCX,
+                            TenGhe = $"{i}A",
+                            status = 0,
+                        });
+                    }
+                }
+                AddGhe(ListGhe);
                 await _context.SaveChangesAsync();
                 return new MessageReponse
                 {
@@ -166,9 +217,33 @@ namespace QuanLyNhaXe.Services
                     TenTD = item.tuyenDuong.TenTD
                 });
             }
-            if (MyList.Count <= 0)
+            if (MyList.Count == 0)
                 return null;
             return MyList;
+        }
+        public IEnumerable<GheXeView> ListGhe(string maCX)
+        {
+            if (maCX == null)
+                return null;
+            List<GheXeView> ListGhe = new List<GheXeView>();
+            var data = _context.GheNgois.Where(gx => gx.MaCX == maCX).ToList();
+            foreach (var item in data)
+            {
+                ListGhe.Add(new GheXeView
+                {
+                    TenGhe = item.TenGhe,
+                    TrangThai = item.status
+                });
+            }
+            if (ListGhe.Count == 0)
+                return null;
+            return ListGhe;
+        }
+        public bool AddGhe(List<GheNgoi> ghexe)
+        {
+            _context.GheNgois.AddRange(ghexe);
+            _context.SaveChanges();
+            return true;
         }
     }
 }

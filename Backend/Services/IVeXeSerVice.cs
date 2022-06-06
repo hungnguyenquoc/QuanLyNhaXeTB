@@ -44,7 +44,6 @@ namespace QuanLyNhaXe.Services
                 {
                     soGhe = inputVeXe.soGhe,
                     SDT = inputVeXe.SDT,
-                    Status = inputVeXe.Status,
                     NgaySinh = DateTime.ParseExact(inputVeXe.NgaySinhKH, "yyyy", null),
                     tenKH = inputVeXe.tenKH,
                     MaCX=inputVeXe.MaCX,

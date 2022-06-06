@@ -18,10 +18,17 @@ export const navItems: INavData[] = [
   {
     name: 'Quản Lý Loại Xe',
     url: '/LoaiXe',
+    iconComponent: { name: 'cil-locomotive' }
   },
   {
     name: 'Quản Lý Xe',
     url: '/Xe',
+    iconComponent: { name: 'cil-car-alt' }
+  },
+  {
+    name: 'Quản Tuyến Đường',
+    url: '/TuyenDuong',
+    iconComponent: { name: 'cil-compress' }
   },
   {
     name: 'Components',

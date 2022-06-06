@@ -1,3 +1,4 @@
+import { AddTuyenDuongComponent } from './views/Add-TuyenDuong/Add-TuyenDuong.component';
 import { AddXeComponent } from './views/Add-Xe/Add-Xe.component';
 import { XeComponent } from './views/Xe/Xe.component';
 import { AddLoaiXeComponent } from './views/Add-LoaiXe/Add-LoaiXe.component';
@@ -15,6 +16,7 @@ import { RegisterComponent } from './views/pages/register/register.component';
 import { UserComponent } from './views/user/user.component';
 import { AddNhanVienComponent } from './views/Add-NhanVien/Add-NhanVien.component';
 import { ChucVuComponent } from './views/ChucVu/chucvu.component';
+import { TuyenDuongComponent } from './views/TuyenDuong/TuyenDuong.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,24 @@ const routes: Routes = [
       title: 'Home'
     },
     children: [
+      {
+        path: 'TuyenDuong',
+        component: TuyenDuongComponent,
+        loadChildren: () =>
+        import('./views/TuyenDuong/TuyenDuong.module').then((m) => m.TuyenDuongModule)
+      },
+      {
+        path: 'Add-TuyenDuong',
+        component: AddTuyenDuongComponent,
+        loadChildren: () =>
+        import('./views/TuyenDuong/TuyenDuong.module').then((m) => m.TuyenDuongModule)
+      },
+      {
+        path: 'Add-TuyenDuong/:id',
+        component: AddTuyenDuongComponent,
+        loadChildren: () =>
+        import('./views/TuyenDuong/TuyenDuong.module').then((m) => m.TuyenDuongModule)
+      },
       {
         path: 'Xe',
         component: XeComponent,

@@ -15,9 +15,6 @@ namespace QuanLyNhaXe.DTOS
         [Display(Name = "Số Ghế")]
         public string soGhe { get; set; }
         [Required]
-        [Display(Name = "Trạng Thái Ghế")] //0 là còn trống , 1 là đã có người 
-        public int Status { get; set; }
-        [Required]
         [Display(Name = "Tình Trạng Thanh Toán")]
         public int ThanhToan { get; set; } // 0 là chưa , 1 là đã thanh toán
         [Required]

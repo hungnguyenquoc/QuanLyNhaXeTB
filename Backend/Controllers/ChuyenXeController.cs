@@ -30,6 +30,7 @@ namespace QuanLyNhaXe.Controllers
         public IEnumerable<ChuyenXeView> Get()
         {
             var kq = _context.ChuyenXes.Select(cx=>new ChuyenXeView { 
+            MSCX=cx.MaCX,
             Gia=cx.gia,
             GioDi=cx.GioDi.ToShortTimeString(),
             NgayDi=cx.NgayDi.Date.ToString(),
@@ -53,6 +54,11 @@ namespace QuanLyNhaXe.Controllers
                 TenTuyenDuong=cx.tuyenDuong.TenTD,
                 LoaiXe= cx.loaiXe.TenLoaiXe
                 });
+        }
+        [HttpGet("Ghe/{MSCX}")]
+        public IEnumerable<GheXeView> GetListGhe(string MSCX)
+        {
+            return _chuyenXeService.ListGhe(MSCX);
         }
         /// <summary>
         /// Thêm Chuyến Xe

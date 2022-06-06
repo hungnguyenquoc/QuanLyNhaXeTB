@@ -33,9 +33,8 @@ namespace QuanLyNhaXe.Models
         public virtual LoaiXe loaiXe { get; set; }
         [ForeignKey("MaTD")]
         public virtual TuyenDuong tuyenDuong { get; set; }
-
-        public virtual ThongTinChuyenXe thongTinChuyenXe { get; set; }
-
         public virtual List<Vexe> veXes { get; set; }
+
+        public virtual List<GheNgoi> GheNgois { get; set; }
     }
 }

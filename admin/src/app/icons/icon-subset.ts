@@ -29,6 +29,7 @@ import {
   cilBookmark,
   cilCalculator,
   cilCalendar,
+  cilCarAlt,
   cilChart,
   cilChartPie,
   cilCheck,
@@ -37,6 +38,7 @@ import {
   cilCloudDownload,
   cilCode,
   cilCommentSquare,
+  cilCompress,
   cilCreditCard,
   cilCursor,
   cilDollar,
@@ -55,6 +57,7 @@ import {
   cilListNumbered,
   cilLocationPin,
   cilLockLocked,
+  cilLocomotive,
   cilMagnifyingGlass,
   cilMap,
   cilMediaPlay,
@@ -180,6 +183,9 @@ export const iconSubset = {
   cilUserFemale,
   cilUserFollow,
   cilUserUnfollow,
+  cilLocomotive,
+  cilCarAlt,
+  cilCompress 
 };
 
 export enum IconSubset {

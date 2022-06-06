@@ -1,3 +1,4 @@
+import { TuyenDuongModule } from './views/TuyenDuong/TuyenDuong.module';
 import { XeModule } from './views/Xe/Xe.module';
 import { LoaiXeModule } from './views/LoaiXe/LoaiXe.module';
 import { ChucVuModule } from './views/ChucVu/chucvu.module'
@@ -98,7 +99,8 @@ const APP_CONTAINERS = [
     UserModule,
     ChucVuModule,
     LoaiXeModule,
-    XeModule
+    XeModule,
+    TuyenDuongModule
   ],
   providers: [
     {

@@ -129,7 +129,7 @@ namespace QuanLyNhaXe.Services
                 _context.TuyenDuongs.Remove(td);
                 await _context.SaveChangesAsync();
                 return new MessageReponse {
-                    rs = false,
+                    rs = true,
                     message=$"Xóa tuyến đường {td.TenTD} thành công"
                 };
             }    

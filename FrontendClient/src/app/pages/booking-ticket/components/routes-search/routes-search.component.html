@@ -16,6 +16,7 @@
             <option  *ngFor="let chuyenXe of chuyenXe"
                      (click)="getDataTuyenDuong(chuyenXe.maTD)"
                      [value]="chuyenXe.maTD"
+                     placeholder="Mã tuyến đường"
             >
               {{chuyenXe.maTD}}
             </option>
@@ -23,9 +24,6 @@
         </div>
         <div class="col-md-3">
           <div class="input-group mb-3">
-            <!-- <ng-container *ngFor="let chuyenXe of chuyenXe">
-              <input type="date" [value]="chuyenXe.ngayDi | date:'yyyy-MM-dd'" (input)="chuyenXe.ngayDi = parseDate($any($event).target.value)" />
-            </ng-container> -->
             <input type="datetime" class="form-control" (change)="layThongTinNgayDi($any($event).target.value)">
           </div>
         </div>
@@ -36,6 +34,9 @@
     <table class="table">
       <thead>
         <tr>
+          <th></th>
+          <th scope="col">STT</th>
+          <th scope="col">Tuyến đường</th>
           <th scope="col">Mã chuyến xe</th>
           <th scope="col">Ngày</th>
           <th scope="col">Giờ khởi hành</th>
@@ -44,24 +45,26 @@
       </thead>
       <tbody>
         <tr>
+          <th>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          </th>
           <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td colspan="2">Larry the Bird</td>
-          <td>@twitter</td>
+          <td>Đà Lạt - Nha Trang</td>
+          <td>CX001</td>
+          <td>29/07/2022</td>
+          <td>7h30</td>
+          <td>Còn vé</td>
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="card-footer">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Trở lại</a></li>
+        <li class="page-item"><a class="page-link" routerLink="/booking-ticket/route-result">Tiếp tục</a></li>
+      </ul>
+    </nav>
   </div>
 </div>
 

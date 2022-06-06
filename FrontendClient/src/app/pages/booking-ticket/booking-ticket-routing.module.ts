@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { RoutesSearchComponent } from './components/routes-search/routes-search.component';
 import { RoutesResultComponent } from './components/routes-result/routes-result.component';
+import { InfoCustomerComponent } from './components/info-customer/info-customer.component';
+import { SelectChairComponent } from './components/select-chair/select-chair.component';
 
 const routes: Routes = [
   {
@@ -12,6 +14,14 @@ const routes: Routes = [
   {
     path: 'route-result',
     component: RoutesResultComponent
+  },
+  {
+    path: 'info-customer',
+    component: InfoCustomerComponent
+  },
+  {
+    path: 'select-chair',
+    component: SelectChairComponent
   }
 ];
 

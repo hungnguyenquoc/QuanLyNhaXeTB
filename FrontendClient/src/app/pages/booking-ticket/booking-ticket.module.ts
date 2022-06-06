@@ -5,6 +5,9 @@ import { RoutesSearchComponent } from './components/routes-search/routes-search.
 import { BookingTicketComponent } from './booking-ticket.component';
 import { RouterModule } from '@angular/router';
 import { RoutesResultComponent } from './components/routes-result/routes-result.component';
+import { NavbarBookingComponent } from './components/navbar-booking/navbar-booking.component';
+import { InfoCustomerComponent } from './components/info-customer/info-customer.component';
+import { SelectChairComponent } from './components/select-chair/select-chair.component';
 
 
 
@@ -12,7 +15,10 @@ import { RoutesResultComponent } from './components/routes-result/routes-result.
   declarations: [
     BookingTicketComponent,
     RoutesSearchComponent,
-    RoutesResultComponent
+    RoutesResultComponent,
+    NavbarBookingComponent,
+    InfoCustomerComponent,
+    SelectChairComponent
   ],
   imports: [
     CommonModule,

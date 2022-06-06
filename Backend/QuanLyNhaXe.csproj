@@ -25,6 +25,14 @@
     <Compile Remove="Migrations\20211111075009_UpXeVaGhe.Designer.cs" />
     <Compile Remove="Migrations\20211111075254_UpdataXeVaGhe.cs" />
     <Compile Remove="Migrations\20211111075254_UpdataXeVaGhe.Designer.cs" />
+    <Compile Remove="Migrations\20220517023752_EditPropertieseNgaySinhKH.cs" />
+    <Compile Remove="Migrations\20220517023752_EditPropertieseNgaySinhKH.Designer.cs" />
+    <Compile Remove="Migrations\20220606073409_DeleteGhe.cs" />
+    <Compile Remove="Migrations\20220606073409_DeleteGhe.Designer.cs" />
+    <Compile Remove="Migrations\20220606103830_EditTableGheXeColumMSGHE.cs" />
+    <Compile Remove="Migrations\20220606103830_EditTableGheXeColumMSGHE.Designer.cs" />
+    <Compile Remove="Migrations\20220606110231_NewGhe.cs" />
+    <Compile Remove="Migrations\20220606110231_NewGhe.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuanLyNhaXe.DTOS;
+using QuanLyNhaXe.DTVS;
 using QuanLyNhaXe.Models;
 using QuanLyNhaXe.Services;
 using System;
@@ -26,9 +27,28 @@ namespace QuanLyNhaXe.Controllers
 
         // GET: api/<TuyenDuongController>
         [HttpGet]
-        public IEnumerable<TuyenDuong> Get()
+        public IEnumerable<TuyenDuongView> Get()
         {
-            return _context.TuyenDuongs.Select(td => td).ToList();
+            return _context.TuyenDuongs.Select(td => new TuyenDuongView
+            {
+            MSTD=td.MSTD,
+            TenTD=td.TenTD,
+            DiemDi=td.DiemDi,
+            DiemDen=td.DiemDen
+            }).ToList();
+        }
+        [HttpGet("{MSTD}")]
+        public async Task<IActionResult> Get(string MSTD)
+        {
+            var cx = await _context.TuyenDuongs.FindAsync(MSTD);
+            if (cx == null)
+                return BadRequest($"Không có chuyến xe có MSTD : {MSTD}");
+            else
+                return Ok(new TuyenDuongView
+                {
+                    DiemDi=cx.DiemDi,
+                    DiemDen=cx.DiemDen
+                });
         }
 
         // GET api/<TuyenDuongController>/5
@@ -61,7 +81,7 @@ namespace QuanLyNhaXe.Controllers
             if (ModelState.IsValid)
             {
                 if (kq.rs)
-                    return Ok(kq.message);
+                    return Ok(kq);
                 else
                     return BadRequest(kq.message);
             }
@@ -76,7 +96,7 @@ namespace QuanLyNhaXe.Controllers
             {
                 var kq = await _tuyenDuongService.SuaTuyenDuong(MSTD, editTuyenDuong);
                 if (kq.rs)
-                    return Ok(kq.message);
+                    return Ok(kq);
                 else
                     return BadRequest(kq.message);
             }
@@ -92,9 +112,9 @@ namespace QuanLyNhaXe.Controllers
             {
                 var kq = await _tuyenDuongService.XoaTuyenDuong(MSTD);
                 if (kq.rs)
-                    return Ok(kq.message);
+                    return Ok(kq);
                 else
-                    return BadRequest(kq.message);
+                    return BadRequest(kq);
             }
             else
                 return BadRequest("Đã xảy ra lỗi trong qua trình thay đổi dữ liệu");

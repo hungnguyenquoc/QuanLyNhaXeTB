@@ -10,5 +10,7 @@ namespace QuanLyNhaXe.DTOS
     {
         [Display(Name ="Tên Loại Xe")]
         public string TenLoaiXe { get; set; }
+
+        public string SoGhe { get; set; }
     }
 }

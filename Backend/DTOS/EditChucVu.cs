@@ -16,6 +16,6 @@ namespace QuanLyNhaXe.DTOS
         [MaxLength(5, ErrorMessage = "Tối Đa 5 Ký Tự")]
         public string VietTatChucVu { get; set; }
 
-        public int MucDoTruyCap { get; set; }
+        public string MucDoTruyCap { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using QuanLyNhaXe.DTOS;
+using QuanLyNhaXe.DTVS;
 using QuanLyNhaXe.Models;
 using QuanLyNhaXe.Services;
 using System;
@@ -25,19 +25,19 @@ namespace QuanLyNhaXe.Controllers
             _chuyenXeService = chuyenXeService;
         }
 
-        // Search Data
-        [HttpGet("SearchChuyenXe/{maTD}/{ngayDi}")]
-        public async Task<ActionResult<ChuyenXe>> SearchChuyenXe(string maTD, string ngayDi)
-        {
-            var data = await _context.ChuyenXes.Where(x => x.MaTD == maTD && x.NgayDi.ToString("yyyy-MM-dd") == ngayDi ).ToListAsync();
-            return Ok(data);
-        }
-
-        //// GET: api/<ChuyenXeController>
+        // GET: api/<ChuyenXeController>
         [HttpGet]
-        public IEnumerable<ChuyenXe> Get()
+        public IEnumerable<ChuyenXeView> Get()
         {
-            return _context.ChuyenXes.Include(x => x.tuyenDuong).Include(x => x.thongTinChuyenXe).ToList();
+            var kq = _context.ChuyenXes.Select(cx=>new ChuyenXeView { 
+            MSCX=cx.MaCX,
+            Gia=cx.gia,
+            GioDi=cx.GioDi.ToShortTimeString(),
+            NgayDi=cx.NgayDi.Date.ToString(),
+            TenLX=cx.loaiXe.TenLoaiXe,
+            TenTD=cx.tuyenDuong.TenTD
+            }).ToList();
+            return kq;
         }
         // GET api/<ChuyenXeController>/5
         [HttpGet("{MSCX}")]
@@ -47,14 +47,18 @@ namespace QuanLyNhaXe.Controllers
             if (cx == null)
                 return BadRequest($"Không có chuyến xe có MSCX : {MSCX}");
             else
-                return Ok(new
-                {
-                    gia = cx.gia,
-                    GioDi = cx.GioDi,
-                    NgayDi = cx.NgayDi,
-                    TenTuyenDuong = cx.tuyenDuong.TenTD,
-                    LoaiXe = cx.loaiXe.TenLoaiXe
+                return Ok(new { 
+                gia=cx.gia,
+                GioDi=cx.GioDi,
+                NgayDi=cx.NgayDi,
+                TenTuyenDuong=cx.tuyenDuong.TenTD,
+                LoaiXe= cx.loaiXe.TenLoaiXe
                 });
+        }
+        [HttpGet("Ghe/{MSCX}")]
+        public IEnumerable<GheXeView> GetListGhe(string MSCX)
+        {
+            return _chuyenXeService.ListGhe(MSCX);
         }
         /// <summary>
         /// Thêm Chuyến Xe
@@ -109,6 +113,16 @@ namespace QuanLyNhaXe.Controllers
             {
                 return BadRequest("Quá trình xử lý cơ sở dữ liệu bị lỗi");
             }    
+        }
+        // Search Data
+        [HttpGet("SearchChuyenXe1/{maTD}/{ngayDi}/{tenLX}")]
+        public IActionResult SearchChuyenXe1(string maTD, string ngayDi,string tenLX)
+        {
+            var kq = _chuyenXeService.SearchChuyenXe(maTD, ngayDi,tenLX);
+            if (kq != null)
+                return Ok(kq);
+            else
+                return NotFound("Không tìm thấy thông tin chuyến xe");
         }
     }
 }

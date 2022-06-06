@@ -205,6 +205,30 @@ namespace QuanLyNhaXe.Migrations
                     b.ToTable("ChuyenXe");
                 });
 
+            modelBuilder.Entity("QuanLyNhaXe.Models.GheNgoi", b =>
+                {
+                    b.Property<int>("MSghe")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("MaCX")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TenGhe")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("status")
+                        .HasColumnType("int");
+
+                    b.HasKey("MSghe");
+
+                    b.HasIndex("MaCX");
+
+                    b.ToTable("GheNgoi");
+                });
+
             modelBuilder.Entity("QuanLyNhaXe.Models.ImageUser", b =>
                 {
                     b.Property<long>("Id")
@@ -234,6 +258,9 @@ namespace QuanLyNhaXe.Migrations
                 {
                     b.Property<string>("MSLoaiXe")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("SoGhe")
+                        .HasColumnType("int");
 
                     b.Property<string>("TenLoaiXe")
                         .IsRequired()
@@ -286,35 +313,6 @@ namespace QuanLyNhaXe.Migrations
                         .IsUnique();
 
                     b.ToTable("NhanVien");
-                });
-
-            modelBuilder.Entity("QuanLyNhaXe.Models.ThongTinChuyenXe", b =>
-                {
-                    b.Property<string>("MaSoTT")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("BienSoXe")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(9)");
-
-                    b.Property<string>("MaCx")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("MsTX")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("MaSoTT");
-
-                    b.HasIndex("BienSoXe");
-
-                    b.HasIndex("MaCx")
-                        .IsUnique();
-
-                    b.HasIndex("MsTX");
-
-                    b.ToTable("ThongTinChuyenXe");
                 });
 
             modelBuilder.Entity("QuanLyNhaXe.Models.TuyenDuong", b =>
@@ -430,9 +428,6 @@ namespace QuanLyNhaXe.Migrations
                     b.Property<string>("SDT")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
 
                     b.Property<int>("ThanhToan")
                         .HasColumnType("int");
@@ -556,6 +551,14 @@ namespace QuanLyNhaXe.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("QuanLyNhaXe.Models.GheNgoi", b =>
+                {
+                    b.HasOne("QuanLyNhaXe.Models.ChuyenXe", "ChuyenXe")
+                        .WithMany("GheNgois")
+                        .HasForeignKey("MaCX")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("QuanLyNhaXe.Models.ImageUser", b =>
                 {
                     b.HasOne("QuanLyNhaXe.Models.NhanVien", "NhanVien")
@@ -570,27 +573,6 @@ namespace QuanLyNhaXe.Migrations
                     b.HasOne("QuanLyNhaXe.Models.ChucVuUser", "ChucVuUser")
                         .WithMany("NhanViens")
                         .HasForeignKey("MSChucVu")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("QuanLyNhaXe.Models.ThongTinChuyenXe", b =>
-                {
-                    b.HasOne("QuanLyNhaXe.Models.Xe", "xe")
-                        .WithMany("thongTinChuyenXes")
-                        .HasForeignKey("BienSoXe")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("QuanLyNhaXe.Models.ChuyenXe", "chuyenXe")
-                        .WithOne("thongTinChuyenXe")
-                        .HasForeignKey("QuanLyNhaXe.Models.ThongTinChuyenXe", "MaCx")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("QuanLyNhaXe.Models.NhanVien", "nhanVien")
-                        .WithMany("thongTinChuyenXes")
-                        .HasForeignKey("MsTX")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

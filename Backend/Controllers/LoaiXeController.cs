@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuanLyNhaXe.DTOS;
+using QuanLyNhaXe.DTVS;
 using QuanLyNhaXe.Models;
 using QuanLyNhaXe.Services;
 using System;
@@ -29,21 +30,40 @@ namespace QuanLyNhaXe.Controllers
             return _myDbConText.LoaiXes.Select(lx => new LoaiXe
             {
                 MSLoaiXe = lx.MSLoaiXe,
-                TenLoaiXe = lx.TenLoaiXe,               
+                TenLoaiXe = lx.TenLoaiXe,
+                SoGhe=lx.SoGhe
             }).ToList();
         }
 
         // GET api/<LoaiXeController>/5
         [HttpGet("{MSLX}")]
-        public async Task<IActionResult> Get (string MSLX)
+        public async Task<IActionResult> GetLxByMSLX(string MSLX)
         {
-            if (MSLX == null)
-                return BadRequest(error: new { message = " Chưa nhập MSLX đề tìm kiếm " });
-            var rs = await _myDbConText.LoaiXes.FindAsync(MSLX);
-            if (rs == null)
-                return BadRequest(error: new { message = $"Không lấy được thông tin loai xe có MSLX: {MSLX}" });
+            var kq = new MessageReponse();
+            var kqlx = new LoaiXeView();
+            if (MSLX==null)
+            {
+                kq.rs = false;
+                kq.message = "Cần nhập đầy đủ thông tin để lấy dữ liệu";
+                return BadRequest(kq);
+            }
             else
-                return Ok(rs);
+            {
+                var lx = await _myDbConText.LoaiXes.FindAsync(MSLX);
+                if(lx!=null)
+                {
+                    kqlx.MSLX = lx.MSLoaiXe;
+                    kqlx.TenLoaiXe = lx.TenLoaiXe;
+                    kqlx.SoGhe = lx.SoGhe;
+                    return Ok(kqlx);
+                }
+                else
+                {
+                    kq.rs = false;
+                    kq.message = $"Không tìm thấy thông tin loại xe có MSLX:{MSLX}";
+                    return NotFound(kq);
+                }    
+            }
         }
 
         // POST api/<LoaiXeController>
@@ -56,13 +76,13 @@ namespace QuanLyNhaXe.Controllers
         {
             if(ModelState.IsValid)
             {
-                var rs = await _loaiXeService.ThemLoaiXe(inputLoaiXe);
-                if (rs)
-                    return Ok($"Thêm thành công loại xe có tên {inputLoaiXe.TenLoaiXe} ");
+                var kq = await _loaiXeService.ThemLoaiXe(inputLoaiXe);
+                if (kq.rs)
+                    return Ok(kq);
                 else
-                    return BadRequest($" Thêm không thành công loại xe có tên {inputLoaiXe.TenLoaiXe} ");
+                    return BadRequest(kq);
             }
-            return BadRequest(error: new { message = "Có Vấn Đề Xảy Ra Khi Cập Nhật Dữ Liệu" });
+            return BadRequest("Có lỗi xảy ra trong quá trình xác thực dữ liệu");
         }
 
         // PUT api/<LoaiXeController>/5
@@ -76,11 +96,11 @@ namespace QuanLyNhaXe.Controllers
         {
             if(ModelState.IsValid)
             {
-                var rs = await _loaiXeService.SuaLoaiXe(MSLX, editLoaiXe);
-                if (rs)
-                    return Ok($"Cập thành công loại xe có tên: {editLoaiXe.TenLoaiXe}");
+                var kq = await _loaiXeService.SuaLoaiXe(MSLX, editLoaiXe);
+                if (kq.rs)
+                    return Ok(kq);
                 else
-                    return BadRequest($"Cập nhật không thành công loại xe có tên: {editLoaiXe.TenLoaiXe}");
+                    return BadRequest(kq);
             }
             return BadRequest(error: new { message = "Có vấn đề xảy ra khi cập nhật dữ liệu" });
         }
@@ -95,8 +115,11 @@ namespace QuanLyNhaXe.Controllers
         {
             if(ModelState.IsValid)
             {
-                await _loaiXeService.XoaLoaiXe(MSLX);
-                return Ok($"Xóa loại xe có tên {MSLX}");
+                var kq = await _loaiXeService.XoaLoaiXe(MSLX);
+                if (kq.rs)
+                    return Ok(kq);
+                else
+                    return BadRequest(kq);
             }
             return BadRequest(error: new { message = "Dữ liệu cập nhật không thành công" });
         }

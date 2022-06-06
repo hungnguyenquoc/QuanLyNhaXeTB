@@ -39,6 +39,5 @@ namespace QuanLyNhaXe.Models
 
         public virtual ImageUser ImageUser { get; set; }
 
-        public virtual List<ThongTinChuyenXe> thongTinChuyenXes { get; set; }
     }
 }

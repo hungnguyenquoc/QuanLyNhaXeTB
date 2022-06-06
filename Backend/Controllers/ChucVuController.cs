@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuanLyNhaXe.DTOS;
+using QuanLyNhaXe.DTVS;
 using QuanLyNhaXe.Models;
 using QuanLyNhaXe.Services;
 using System;
@@ -30,8 +31,8 @@ namespace QuanLyNhaXe.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize]
-        [Authorize(Policy ="Mức 1")]
+        //[Authorize]
+        //[Authorize(Policy ="Mức 1")]
         public IEnumerable<ChucVuUser> Get()
         {
             return _myDbContext.chucVuUsers.Select(p => new ChucVuUser
@@ -41,6 +42,20 @@ namespace QuanLyNhaXe.Controllers
                 VietTatChucVu = p.VietTatChucVu,
                 MucDoTruyCap = p.MucDoTruyCap
             }).ToList();
+        }
+        [HttpGet("{MSCV}")]
+        public async Task<IActionResult> Get(string MSCV)
+        {
+            var kq = new MessageReponse();
+            var nv = await _authoServices.GetCVByMSCV(MSCV);
+            if (nv == null)
+            {
+                kq.rs = false;
+                kq.message = $"Chức vụ có MSCV {MSCV} không tồn tại";
+                return NotFound(kq);
+            }
+            else
+                return Ok(nv);
         }
         // POST api/<ChucVuController>
         /// <summary>
@@ -54,11 +69,11 @@ namespace QuanLyNhaXe.Controllers
         {
             if(ModelState.IsValid)
             {
-                var resul = await _authoServices.ThemChucVu(inputChucVu);
-                if (!resul)
-                    return BadRequest(error: new { message = "Thêm không thành công vì có thể đã có chức vụ này" });
+                var kq = await _authoServices.ThemChucVu(inputChucVu);
+                if (kq.rs)
+                    return Ok(kq);
                 else
-                    return Ok($"Thêm thành công chức vụ {inputChucVu.TenChucVu}");
+                    return BadRequest(kq);
             }
             return BadRequest(error: new { message = $"Thêm mới chức vụ {inputChucVu.TenChucVu} không thành công" });
         }
@@ -74,12 +89,12 @@ namespace QuanLyNhaXe.Controllers
         {
             if(ModelState.IsValid)
             {
-                var rs=await _authoServices.SuaChucVu(MSCV, edittChucVu);
-                if (rs == null)
-                    return BadRequest(error: new { message = $"Cập Nhật Không Thành Công {edittChucVu.TenChucVu}" });
+                var kq = await _authoServices.SuaChucVu(MSCV, edittChucVu);
+                if (kq.rs)
+                    return Ok(kq);
                 else
                 {
-                    return Ok($"Cập Nhật Thành Công Chức Vụ Có Tên là: {rs.TenChucVu}");
+                    return BadRequest(kq);
                 }
             }
             return BadRequest(error: new { message = $"Cập Nhật Không Thành Công {edittChucVu.TenChucVu}" });
@@ -95,8 +110,13 @@ namespace QuanLyNhaXe.Controllers
         {
             if(ModelState.IsValid)
             {
-                await _authoServices.XoaChucVu(id);
-                return Ok($"Xóa Thành Công Chức Vụ Có MSCV = {id} ");
+                var kq = await _authoServices.XoaChucVu(id);
+                if (kq.rs)
+                {
+                    return Ok(kq);
+                }
+                else
+                    return BadRequest(kq);
             }
             return BadRequest(error: new { message = "Có Lỗi Xảy Ra Khi Thực Hiện Chức Năng Này" });
         }

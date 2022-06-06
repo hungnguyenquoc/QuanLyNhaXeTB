@@ -82,29 +82,28 @@ namespace QuanLyNhaXe.Services
         /// <returns></returns>
         public async Task<NhanVien> DangKyNhanVien(DangKy dangKy)
         {
+            int count;
             var nhanVien = new NhanVien();
             var checkCV = _myDbContext.chucVuUsers.Where(cCV => cCV.TenChucVu == dangKy.ChucVu).FirstOrDefault();
             if (checkCV == null)
                 return null;
-            int count = _myDbContext.NhanViens.Count(nv => nv.ChucVuUser.TenChucVu == dangKy.ChucVu); // Sửa
+            var nvCuoi = _myDbContext.NhanViens.Max(nv=>nv.MSNV);
+            if (nvCuoi == null)
+                count = 1;
+            else
+            {
+                count = Convert.ToInt32(nvCuoi.Substring(4));
+                count++;
+            }        
             if (dangKy == null)
                 return null;
             else
             {
-                count++;
-                if (count >= 10)
-                {
-                    nhanVien.MSNV = $"{checkCV.VietTatChucVu}0{count}";
-                }
-                else
-                {
-                    nhanVien.MSNV = $"{ checkCV.VietTatChucVu}00{count}";
-                }
+                nhanVien.MSNV = $"MSNV00{count}";    
                 nhanVien.HoTen = dangKy.HoTen;
-                nhanVien.NgaySinh = DateTime.ParseExact(dangKy.NgaySinh, "dd/MM/yyyy", null); 
+                nhanVien.NgaySinh = DateTime.ParseExact(dangKy.NgaySinh, "yyyy-MM-dd", null); 
                 nhanVien.SoDienThoai = dangKy.SoDienThoai;
                 nhanVien.MSChucVu = checkCV.MSChucVu; //Sửa
-                nhanVien.ImageUser.ImagePath = Path.Combine(_environment.WebRootPath, "user-image", fileName);
                 await _myDbContext.AddAsync(nhanVien);
                 await _myDbContext.SaveChangesAsync();
                 return nhanVien;
@@ -235,7 +234,7 @@ namespace QuanLyNhaXe.Services
                     result.SoDienThoai = editUser.SoDienThoai;
                 if (editUser.NgaySinh != null)
                 {
-                    result.NgaySinh = DateTime.ParseExact(editUser.NgaySinh, "dd/MM/yyyy", null);
+                    result.NgaySinh = DateTime.ParseExact(editUser.NgaySinh, "yyyy-MM--dd", null);
                 }
             }
             await _myDbContext.SaveChangesAsync();

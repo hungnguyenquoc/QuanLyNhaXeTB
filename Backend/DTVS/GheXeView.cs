@@ -7,6 +7,7 @@ namespace QuanLyNhaXe.DTVS
 {
     public class GheXeView
     {
+        public int MSGhe { get; set; }
         public string TenGhe { get; set; }
 
         public int TrangThai { get; set; }

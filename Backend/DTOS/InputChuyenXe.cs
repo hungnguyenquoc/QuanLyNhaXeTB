@@ -22,6 +22,6 @@ namespace QuanLyNhaXe.DTOS
         public string TenTD { get; set; } // Khóa ngoại của bảng TuyenDuong
         [Required]
         [Display(Name = "Tên Loại Xe")]
-        public string TenLoaiXe { get; set; } // Khóa ngoại của bảng LoaiXe
+        public string tenLX { get; set; } // Khóa ngoại của bảng LoaiXe
     }
 }

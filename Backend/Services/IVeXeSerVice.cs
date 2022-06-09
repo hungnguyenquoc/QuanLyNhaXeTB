@@ -34,21 +34,22 @@ namespace QuanLyNhaXe.Services
                 };
             else
             {
-                if (inputVeXe.isRoundTrip && inputVeXe.NgayVe == null)
-                    return new MessageReponse
-                    {
-                        rs = false,
-                        message = "Vui lòng nhập đầy đủ thông tin ngày về của vé có khứ hồi"
-                    };
+                //if (inputVeXe.isRoundTrip && inputVeXe.NgayDi == null)
+                //    return new MessageReponse
+                //    {
+                //        rs = false,
+                //        message = "Vui lòng nhập đầy đủ thông tin ngày về của vé có khứ hồi"
+                //    };
                 await _context.VeXes.AddAsync(new Vexe
                 {
                     soGhe = inputVeXe.soGhe,
                     SDT = inputVeXe.SDT,
-                    NgaySinh = DateTime.ParseExact(inputVeXe.NgaySinhKH, "yyyy", null),
+                    NgaySinh = DateTime.ParseExact(inputVeXe.NgaySinhKH, "yyyy-MM-dd", null),
                     tenKH = inputVeXe.tenKH,
                     MaCX=inputVeXe.MaCX,
-                    isRoundTrip=false,
-                    ThanhToan=inputVeXe.ThanhToan
+                    NgayDi= DateTime.ParseExact(inputVeXe.NgayDi, "d/M/yyyy", null),
+                    isRoundTrip =false,
+                    ThanhToan=0
                 });
                 await _context.SaveChangesAsync();
                 return new MessageReponse

@@ -46,6 +46,7 @@ import {
   cilEnvelopeClosed,
   cilEnvelopeOpen,
   cilFile,
+  cilGarage,
   cilHome,
   cilInbox,
   cilIndentDecrease,
@@ -72,6 +73,7 @@ import {
   cilPeople,
   cilPrint,
   cilPuzzle,
+  cilRectangle,
   cilReportSlash,
   cilSave,
   cilSettings,
@@ -185,7 +187,9 @@ export const iconSubset = {
   cilUserUnfollow,
   cilLocomotive,
   cilCarAlt,
-  cilCompress 
+  cilCompress,
+  cilGarage,
+  cilRectangle 
 };
 
 export enum IconSubset {

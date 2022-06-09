@@ -58,7 +58,7 @@ namespace QuanLyNhaXe.Services
             else
             {
                 var td = _context.TuyenDuongs.Where(td => td.TenTD == inputChuyenXe.TenTD).FirstOrDefault();
-                var lx = _context.LoaiXes.Where(lx => lx.TenLoaiXe == inputChuyenXe.TenLoaiXe).FirstOrDefault();
+                var lx = _context.LoaiXes.Where(lx => lx.TenLoaiXe == inputChuyenXe.tenLX).FirstOrDefault();
                 if (td == null)
                     return new MessageReponse
                     {
@@ -69,7 +69,7 @@ namespace QuanLyNhaXe.Services
                     return new MessageReponse
                     {
                         rs = false,
-                        message = $"Hiện tại không có loại xe {inputChuyenXe.TenLoaiXe}"
+                        message = $"Hiện tại không có loại xe {inputChuyenXe.tenLX}"
                     };
                 var cx = new ChuyenXe
                 {
@@ -210,6 +210,7 @@ namespace QuanLyNhaXe.Services
             {
                 MyList.Add(new ChuyenXeView
                 {
+                    MSCX=item.MaCX,
                     Gia = item.gia,
                     NgayDi = item.NgayDi.ToShortDateString(),
                     GioDi = item.GioDi.ToShortTimeString(),
@@ -226,11 +227,12 @@ namespace QuanLyNhaXe.Services
             if (maCX == null)
                 return null;
             List<GheXeView> ListGhe = new List<GheXeView>();
-            var data = _context.GheNgois.Where(gx => gx.MaCX == maCX).ToList();
+            var data = _context.GheNgois.Where(gx => gx.MaCX == maCX).OrderByDescending(gx=>gx.TenGhe.Length).ToList();
             foreach (var item in data)
             {
                 ListGhe.Add(new GheXeView
                 {
+                    MSGhe=item.MSghe,
                     TenGhe = item.TenGhe,
                     TrangThai = item.status
                 });

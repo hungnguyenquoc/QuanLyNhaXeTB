@@ -29,5 +29,13 @@ public put(link:string,id:string,body:any){
 public delete(link:string,id:string){
   return this.http.delete(link+'/'+id).toPromise();
 }
-
+public getListChuyenXe(link:string,mstD:string,ngaydi:string,tenLx:string){
+  return this.http.get(link+'/SearchChuyenXe1'+'/'+mstD+'/'+ngaydi+'/'+tenLx).toPromise();
+}
+public getGheXe(link: string,msCX: string,tenGhe: string){
+  return this.http.get(link+'/OneGhe'+'/'+msCX+'/'+tenGhe).toPromise();
+}
+public putGhe(link: string,body:any){
+  return this.http.put(link,body).toPromise();
+}
 }

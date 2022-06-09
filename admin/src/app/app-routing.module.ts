@@ -1,3 +1,8 @@
+import { AddVeXeComponent } from './views/Add-VeXe/Add-VeXe.component';
+import { VeXeModule } from './views/VeXe/VeXe.module';
+import { AddChuyenXeComponent } from './views/Add-ChuyenXe/Add-ChuyenXe.component';
+import { ChuyenXeModule } from './views/ChuyenXe/ChuyenXe.module';
+import { ChuyenXeComponent } from './views/ChuyenXe/ChuyenXe.component';
 import { AddTuyenDuongComponent } from './views/Add-TuyenDuong/Add-TuyenDuong.component';
 import { AddXeComponent } from './views/Add-Xe/Add-Xe.component';
 import { XeComponent } from './views/Xe/Xe.component';
@@ -17,6 +22,7 @@ import { UserComponent } from './views/user/user.component';
 import { AddNhanVienComponent } from './views/Add-NhanVien/Add-NhanVien.component';
 import { ChucVuComponent } from './views/ChucVu/chucvu.component';
 import { TuyenDuongComponent } from './views/TuyenDuong/TuyenDuong.component';
+import { VeXeComponent } from './views/VeXe/VeXe.component';
 
 const routes: Routes = [
   {
@@ -31,6 +37,40 @@ const routes: Routes = [
       title: 'Home'
     },
     children: [
+      {
+        path: 'VeXe',
+        component: VeXeComponent,
+        loadChildren: () =>
+        import('./views/VeXe/VeXe.module').then((m) => m.VeXeModule)
+      },
+      {
+        path: 'Add-VeXe',
+        component: AddVeXeComponent,
+      },
+      {
+        path: 'Add-VeXe/:id',
+        component: AddVeXeComponent,
+        // loadChildren: () =>
+        // import('./views/ChuyenXe/ChuyenXe.module').then((m) => m.ChuyenXeModule)
+      },
+      {
+        path: 'ChuyenXe',
+        component: ChuyenXeComponent,
+        loadChildren: () =>
+        import('./views/ChuyenXe/ChuyenXe.module').then((m) => m.ChuyenXeModule)
+      },
+      {
+        path: 'Add-ChuyenXe',
+        component: AddChuyenXeComponent,
+        // loadChildren: () =>
+        // import('./views/ChuyenXe/ChuyenXe.module').then((m) => m.ChuyenXeModule)
+      },
+      {
+        path: 'Add-ChuyenXe/:id',
+        component: AddChuyenXeComponent,
+        // loadChildren: () =>
+        // import('./views/ChuyenXe/ChuyenXe.module').then((m) => m.ChuyenXeModule)
+      },
       {
         path: 'TuyenDuong',
         component: TuyenDuongComponent,

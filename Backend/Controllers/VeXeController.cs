@@ -51,7 +51,7 @@ namespace QuanLyNhaXe.Controllers
             {
                 var kq = await _veXeSerVice.ThemVeXe(inputVeXe);
                 if (kq.rs)
-                    return Ok(kq.message);
+                    return Ok(kq);
                 else
                     return BadRequest(kq.message);
             }

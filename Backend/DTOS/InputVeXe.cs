@@ -27,7 +27,7 @@ namespace QuanLyNhaXe.DTOS
         [Required]
         [Display(Name = "Năm Sinh Khách Hàng")]
         public string NgaySinhKH { get; set; }
-        public string ? NgayVe { get; set; }
+        public string NgayDi { get; set; }
         [Display(Name = "Khứ Hồi")]
         public bool isRoundTrip { get; set; }
     }

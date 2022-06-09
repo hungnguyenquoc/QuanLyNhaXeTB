@@ -50,15 +50,70 @@ namespace QuanLyNhaXe.Controllers
                 return Ok(new { 
                 gia=cx.gia,
                 GioDi=cx.GioDi,
-                NgayDi=cx.NgayDi,
+                NgayDi=cx.NgayDi.ToShortDateString(),
                 TenTuyenDuong=cx.tuyenDuong.TenTD,
                 LoaiXe= cx.loaiXe.TenLoaiXe
                 });
         }
-        [HttpGet("Ghe/{MSCX}")]
-        public IEnumerable<GheXeView> GetListGhe(string MSCX)
+        [HttpGet("GheDuoi/{MSCX}")]
+        public IEnumerable<GheXeView> GetListGheDuoi(string MSCX)
         {
-            return _chuyenXeService.ListGhe(MSCX);
+            List<GheXeView> ListGheDuoi = new List<GheXeView>();
+            var kq =  _chuyenXeService.ListGhe(MSCX);
+            foreach(var item in kq)
+            {
+                if(item.TenGhe.Contains("A"))
+                {
+                    ListGheDuoi.Add(item);
+                }    
+            }
+            return ListGheDuoi;
+        }
+        [HttpGet("GheTren/{MSCX}")]
+        public IEnumerable<GheXeView> GetListGheTren(string MSCX)
+        {
+            List<GheXeView> ListGheDuoi = new List<GheXeView>();
+            var kq = _chuyenXeService.ListGhe(MSCX);
+            foreach (var item in kq)
+            {
+                if (item.TenGhe.Contains("B"))
+                {
+                    ListGheDuoi.Add(item);
+                }
+            }
+            return ListGheDuoi;
+        }
+        [HttpGet("OneGhe/{MSCX}/{tenGhe}")]
+        public IActionResult GetGhe(string MSCX,string tenGhe)
+        {
+            if (MSCX == null && tenGhe == null)
+                return BadRequest("Thông tin không hợp lệ");
+            else
+            {
+                var kq =  _context.GheNgois.Where(cx => cx.MaCX == MSCX && cx.TenGhe == tenGhe).FirstOrDefault();
+                return Ok(new GheXeView {
+                MSGhe=kq.MSghe,
+                TenGhe=kq.TenGhe,
+                TrangThai=kq.status
+                });
+            }    
+        }
+        [HttpPut("OneGhe")]
+        public async Task<IActionResult> EditGheXe([FromBody] EditGhe editGhe)
+        {
+            var kq = await _context.GheNgois.FindAsync(editGhe.msGhe);
+            if (kq == null)
+                return BadRequest("Không tìm thấy dữ liệu");
+            else
+            {
+                kq.status = editGhe.trangThai;
+                await _context.SaveChangesAsync();
+                return Ok(new GheXeView { 
+                MSGhe=kq.MSghe,
+                TenGhe=kq.TenGhe,
+                TrangThai=kq.status
+                });
+            }    
         }
         /// <summary>
         /// Thêm Chuyến Xe
@@ -73,7 +128,7 @@ namespace QuanLyNhaXe.Controllers
             {
                 var kq = await _chuyenXeService.ThemChuyenXe(inputChuyenXe);
                 if (kq.rs)
-                    return Ok(kq.message);
+                    return Ok(kq);
                 else
                     return BadRequest(kq.message);
             }
@@ -105,7 +160,7 @@ namespace QuanLyNhaXe.Controllers
             {
                 var kq = await _chuyenXeService.XoaChuyenXe(MSCX);
                 if (kq.rs)
-                    return Ok(kq.message);
+                    return Ok(kq);
                 else
                     return BadRequest(kq.message);
             }

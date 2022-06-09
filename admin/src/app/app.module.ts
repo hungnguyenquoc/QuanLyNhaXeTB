@@ -1,8 +1,10 @@
+import { ChuyenXeModule } from './views/ChuyenXe/ChuyenXe.module';
 import { TuyenDuongModule } from './views/TuyenDuong/TuyenDuong.module';
 import { XeModule } from './views/Xe/Xe.module';
 import { LoaiXeModule } from './views/LoaiXe/LoaiXe.module';
 import { ChucVuModule } from './views/ChucVu/chucvu.module'
 import { UserModule } from './views/user/user.module';
+import { VeXeModule } from './views/VeXe/VeXe.module';
 
 import { DataService } from './Services/data.service';
 import { ServerHttpService } from './Services/server-http.service';
@@ -100,7 +102,9 @@ const APP_CONTAINERS = [
     ChucVuModule,
     LoaiXeModule,
     XeModule,
-    TuyenDuongModule
+    TuyenDuongModule,
+    ChuyenXeModule,
+    VeXeModule
   ],
   providers: [
     {

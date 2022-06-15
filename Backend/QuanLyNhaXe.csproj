@@ -50,5 +50,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Aspose.Words">
+      <HintPath>C:\Users\ADMIN\Desktop\XuatBaoCaoWordBangMailMergeAspose\Dll\Aspose.Words.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
 </Project>

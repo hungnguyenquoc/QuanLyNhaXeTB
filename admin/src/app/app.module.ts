@@ -1,3 +1,6 @@
+import { FormVeXeViewModule } from './views/FormVeXeView/FormVeXeView.module';
+
+import { FormClientModule } from './views/Form-Client/Form-Client.module';
 import { ChuyenXeModule } from './views/ChuyenXe/ChuyenXe.module';
 import { TuyenDuongModule } from './views/TuyenDuong/TuyenDuong.module';
 import { XeModule } from './views/Xe/Xe.module';
@@ -104,7 +107,9 @@ const APP_CONTAINERS = [
     XeModule,
     TuyenDuongModule,
     ChuyenXeModule,
-    VeXeModule
+    VeXeModule,
+    FormClientModule,
+    FormVeXeViewModule
   ],
   providers: [
     {
@@ -124,3 +129,4 @@ const APP_CONTAINERS = [
 })
 export class AppModule {
 }
+

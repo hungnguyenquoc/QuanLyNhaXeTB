@@ -1,3 +1,5 @@
+import { FormVeXeViewComponent } from './views/FormVeXeView/FormVeXeView.component';
+import { FormClientComponent } from './views/Form-Client/Form-Client.component';
 import { AddVeXeComponent } from './views/Add-VeXe/Add-VeXe.component';
 import { VeXeModule } from './views/VeXe/VeXe.module';
 import { AddChuyenXeComponent } from './views/Add-ChuyenXe/Add-ChuyenXe.component';
@@ -23,6 +25,8 @@ import { AddNhanVienComponent } from './views/Add-NhanVien/Add-NhanVien.componen
 import { ChucVuComponent } from './views/ChucVu/chucvu.component';
 import { TuyenDuongComponent } from './views/TuyenDuong/TuyenDuong.component';
 import { VeXeComponent } from './views/VeXe/VeXe.component';
+import { FormClientModule } from './views/Form-Client/Form-Client.module';
+import { AddVeXeClientComponent } from './views/Add-VeXeClient/Add-VeXeClient.component';
 
 const routes: Routes = [
   {
@@ -36,12 +40,19 @@ const routes: Routes = [
     data: {
       title: 'Home'
     },
+    
     children: [
       {
         path: 'VeXe',
         component: VeXeComponent,
         loadChildren: () =>
         import('./views/VeXe/VeXe.module').then((m) => m.VeXeModule)
+      },
+      {
+        path: 'VeXeView',
+        component: FormVeXeViewComponent,
+        loadChildren: () =>
+        import('./views/FormVeXeView/FormVeXeView.module').then((m) => m.FormVeXeViewModule)
       },
       {
         path: 'Add-VeXe',
@@ -241,9 +252,16 @@ const routes: Routes = [
     component: RegisterComponent,
     data: {
       title: 'Register Page'
-    }
+    }   
   },
-  {path: '**', redirectTo: 'dashboard'}
+  {
+    path: 'Client',
+    component: FormClientComponent,
+  },
+  {
+    path: 'Add-VeXeClient/:id',
+    component: AddVeXeClientComponent,
+  },
 ];
 
 @NgModule({

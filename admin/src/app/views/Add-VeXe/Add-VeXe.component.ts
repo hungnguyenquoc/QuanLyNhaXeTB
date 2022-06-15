@@ -13,7 +13,7 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 })
 export class AddVeXeComponent implements OnInit {
 mscx:string;
-soGhe:string;
+Ghe:GheNgoi;
 formVe:boolean=false;
 listGhe!:GheNgoi[];
 listGheTren!:GheNgoi[];
@@ -85,7 +85,7 @@ private urltren='http://localhost:13730/api/ChuyenXe/GheTren';
   }
 
 
-getvalue(tenGhe:string,index:any,type:number){
+getvalue(gheNgoi:GheNgoi,index:any,type:number){
   console.log(index);
   if(type==1){
     this.listGheTrai.forEach((item, i) => {
@@ -150,5 +150,5 @@ getvalue(tenGhe:string,index:any,type:number){
       }
 
   this.formVe=true;
-  this.soGhe=tenGhe;
+  this.Ghe=gheNgoi;
 }}

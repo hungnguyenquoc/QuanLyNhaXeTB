@@ -38,4 +38,10 @@ public getGheXe(link: string,msCX: string,tenGhe: string){
 public putGhe(link: string,body:any){
   return this.http.put(link,body).toPromise();
 }
+public getVeXe(link: string,msCX:string,tenGhe:string){
+  return this.http.get(link+'/'+msCX+'/'+tenGhe).toPromise();
+}
+public getListVeXE(link: string,SDT:string){
+  return this.http.get(link+'/'+SDT).toPromise();
+}
 }

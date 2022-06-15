@@ -40,4 +40,9 @@ export const navItems: INavData[] = [
     url: '/VeXe',
     iconComponent: { name: 'cil-rectangle'}
   },
+  {
+    name: 'Vé Xe',
+    url: '/VeXeView',
+    //iconComponent: { name: 'cil-rectangle'}
+  },
 ];

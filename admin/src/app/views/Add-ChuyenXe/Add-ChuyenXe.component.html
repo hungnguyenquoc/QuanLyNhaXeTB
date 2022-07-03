@@ -18,6 +18,12 @@
               <label cLabel for="inputgioDi">Giờ Đi</label>
               <input  [(ngModel)]="chuyenXe.gioDi" name="gioDi"cFormControl id="gioDi" type="time"required="required" />
               </c-col>
+              <c-col [md]="5">
+                <label cLabel for="inputtenLX">Tên Loại Xe</label>
+                <select [(ngModel)]="chuyenXe.tenLX" name="tenLX" cSelect id="inputtenTD"required="required">
+                <option *ngFor="let item of loaiXes" [value]="item.tenLoaiXe">{{item.tenLoaiXe}}</option>
+                </select> 
+              </c-col>
     <c-col [xs]="12">
     </c-col>
     <c-col [xs]="12">

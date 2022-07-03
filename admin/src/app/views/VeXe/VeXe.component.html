@@ -28,6 +28,7 @@
         <th scope="col">Giờ Đi</th>
         <th scope="col">Giá Vé</th>
         <th scope="col">Biển Số Xe</th>
+        </tr>
         </thead>
         <tbody>
         <tr *ngFor="let item of chuyenXes ">
@@ -37,10 +38,10 @@
         <td>{{item.tenLX}}</td>
         <td>{{item.gioDi}}</td>
         <td>{{item.gia}} VNĐ</td>
-        <td>{{item.bsxe}}</td>
+        <td *ngIf="item.bsxe">{{item.bsxe}}</td>
         <td *ngIf="!item.bsxe">Chưa Có</td>
         <td *ngIf="item.status === 0"><button (click)="FormVe(item.mscx)" cButton color="success">Chọn</button></td>
         <td *ngIf="item.status === 1"><button cButton color="danger" disabled="">Chọn</button></td>
         <td *ngIf="item.status === 0"><button (click)="KhoiHanh(item.mscx)" cButton color="success">Khởi Hành</button></td>
         <td *ngIf="item.status === 1"><button cButton color="success" disabled="">Khởi Hành</button></td>
-        <td>
+          </tr>

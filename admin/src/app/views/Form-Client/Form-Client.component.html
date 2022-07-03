@@ -1,41 +1,89 @@
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<label cLabel for="inputtenTD">Tên Tuyến Đường</label>
-<select [(ngModel)]="maTD" name="tenTD" cSelect id="inputtenTD"required="required">
-<option *ngFor="let item of tuyenDuongs" [value]="item.mstd">{{item.tenTD}}</option>
-</select>
-<c-col [md]="4">
-  <label cLabel for="inputtenLX">Loại Xe</label>
-  <select [(ngModel)]="tenLX" name="tenLX" cSelect id="inputtenLX"required="required">
-  <option *ngFor="let item of loaiXes" [value]="item.tenLoaiXe">{{item.tenLoaiXe}}</option>
-  </select>
-  </c-col>
-  <c-col [md]="6">
-    <label cLabel for="inputngayDi">Ngày Đi</label>
-    <input  [(ngModel)]="time" name="ngayDi"cFormControl id="ngayDi" type="date"required="required" />
-  </c-col>
-  <button (click)="getListChuyenXe()"cButton color="success">Tìm Kiếm Chuyến Xe</button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">TRANG CHỦ <span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">ĐẶT VÉ</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- END NAVBAR -->
 
-  <div class="" *ngIf="!chuyenXes">
-    <h3>Chưa Có Thông Tin Chuyến Xe Nào</h3>
+<!-- BEGIN CARD SEARCH -->
+<div class="container">
+
+  <div class="card" style="width: 100%; margin-top: 5%;">
+    <div class="card-header">
+      <h3>THONG TIN CHUYEN XE</h3>
     </div>
-    <div class="" *ngIf="chuyenXes">
-      <table cTable>
-        <thead>
-        <tr>
-          <th scope="col">MSCX</th>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3">
+          <label cLabel for="inputtenTD">Tên Tuyến Đường</label>
+          <select [(ngModel)]="maTD" name="tenTD" cSelect id="inputtenTD" required="required">
+            <option *ngFor="let item of tuyenDuongs" [value]="item.mstd">{{item.tenTD}}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label cLabel for="inputtenLX">Loại Xe</label>
+          <select [(ngModel)]="tenLX" name="tenLX" cSelect id="inputtenLX" required="required">
+            <option *ngFor="let item of loaiXes" [value]="item.tenLoaiXe">{{item.tenLoaiXe}}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label cLabel for="inputngayDi">Ngày Đi</label>
+          <input [(ngModel)]="time" name="ngayDi" cFormControl id="ngayDi" type="date" required="required" />
+        </div>
+        <div class="col-md-3" style="margin-top: 2.4%">
+          
+          <button (click)="getListChuyenXe()" cButton color="success" style="width:70%">Tìm Kiếm Chuyến Xe</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-top:5%">
+  <div class="" *ngIf="!chuyenXes" style="text-align: center;">
+    <h3>Chưa Có Thông Tin Chuyến Xe Nào</h3>
+  </div>
+</div>
+<div class="container" *ngIf="chuyenXes" style="margin-top:5%">
+  <h3>Kết Quả Tìm Kiếm</h3>
+  <table class="table table-hover table-bordered">
+    <thead>
+     
+      <tr>
+        <th scope="col">MSCX</th>
         <th scope="col">Tên Tuyến Đường</th>
         <th scope="col">Ngày Đi</th>
         <th scope="col">Tên Loại Xe</th>
         <th scope="col">Giờ Đi</th>
         <th scope="col">Giá Vé</th>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of chuyenXes ">
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of chuyenXes ">
         <td>{{item.mscx}}</td>
         <td>{{item.tenTD}}</td>
         <td>{{item.ngayDi}}</td>
         <td>{{item.tenLX}}</td>
         <td>{{item.gioDi}}</td>
         <td>{{item.gia}} VNĐ</td>
-        <td><button (click)="FormVe(item.mscx)" cButton color="success">Chọn</button></td>
-        <td>
+        <td *ngIf="item.status===0"><button (click)="FormVe(item.mscx)" cButton color="success">Chọn</button></td>  
+        <td *ngIf="item.status===1"><button cButton color="danger" disabled="">Chọn</button></td>    
+      </tr>
+    </tbody>
+  </table>
+</div>

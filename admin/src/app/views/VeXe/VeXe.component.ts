@@ -1,3 +1,4 @@
+import { InputMSCX } from './../../../models/InputMSCX';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/Services/data.service';
@@ -5,6 +6,7 @@ import { ServerHttpService } from 'src/app/Services/server-http.service';
 import { ChuyenXe } from 'src/models/ChuyenXe';
 import { LoaiXe } from 'src/models/LoaiXe';
 import { TuyenDuong } from 'src/models/TuyenDuong';
+import { StringLiteralLike } from 'typescript/lib/tsserverlibrary';
 
 @Component({
   selector: 'app-VeXe',
@@ -18,10 +20,13 @@ export class VeXeComponent implements OnInit {
   maTD:string;
   time:string;
   tenLX:string;
+  MSCX:InputMSCX;
   private urlTD='http://localhost:13730/api/TuyenDuong';
   private urlLX='http://localhost:13730/api/LoaiXe';
   private urlCX='http://localhost:13730/api/ChuyenXe';
-  constructor(private rest : ServerHttpService ,private data : DataService,private route : Router ,private router:ActivatedRoute) { }
+  constructor(private rest : ServerHttpService ,private data : DataService,private route : Router ,private router:ActivatedRoute) {
+    this.MSCX = new InputMSCX();
+   }
 
   ngOnInit() {
   this.getListTD();
@@ -60,5 +65,16 @@ export class VeXeComponent implements OnInit {
   }
   FormVe(mscx:string){
     this.route.navigate(['Add-VeXe'+'/'+ mscx]);
+  }
+  KhoiHanh(mscx:string){
+    this.MSCX.mscx=mscx;
+    console.log(this.MSCX);
+    this.rest.putKhoiHanh(this.urlCX,this.MSCX).then(data=>{
+      console.log(data);
+      location.reload();
+    }).catch(error=>{
+      if(error!==null)
+      console.log(error);
+    });
   }
 }

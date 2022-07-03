@@ -189,7 +189,7 @@ export const iconSubset = {
   cilCarAlt,
   cilCompress,
   cilGarage,
-  cilRectangle 
+  cilRectangle,
 };
 
 export enum IconSubset {

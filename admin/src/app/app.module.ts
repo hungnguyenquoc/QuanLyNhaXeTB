@@ -1,3 +1,5 @@
+import { ThongKeModule } from './views/ThongKe/ThongKe.module';
+import { FormVeXeViewComponent } from './views/FormVeXeView/FormVeXeView.component';
 import { FormVeXeViewModule } from './views/FormVeXeView/FormVeXeView.module';
 
 import { FormClientModule } from './views/Form-Client/Form-Client.module';
@@ -109,7 +111,8 @@ const APP_CONTAINERS = [
     ChuyenXeModule,
     VeXeModule,
     FormClientModule,
-    FormVeXeViewModule
+    FormVeXeViewModule,
+    ThongKeModule
   ],
   providers: [
     {

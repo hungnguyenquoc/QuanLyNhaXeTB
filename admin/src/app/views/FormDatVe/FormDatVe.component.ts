@@ -1,4 +1,4 @@
-import { VeXeView } from './../../../models/VeXeView';
+import { VeXeView } from '../../../models/VeXeView';
 import { ServerHttpService } from 'src/app/Services/server-http.service';
 import { VeXe } from './../../../models/VeXe';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';

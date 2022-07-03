@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable , throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { AnyARecord } from 'dns';
 @Injectable({
   providedIn: 'root'
 })
@@ -43,5 +44,14 @@ public getVeXe(link: string,msCX:string,tenGhe:string){
 }
 public getListVeXE(link: string,SDT:string){
   return this.http.get(link+'/'+SDT).toPromise();
+}
+public getListVeXEByYear(link: string,nam:string){
+  return this.http.get(link+'/'+nam).toPromise();
+}
+public getListVeXEByMonth(link: string,thang:string){
+  return this.http.get(link+'/'+thang).toPromise();
+}
+public putKhoiHanh(link:string,body:any){
+  return this.http.put(link+'/KhoiHanh',body).toPromise();
 }
 }

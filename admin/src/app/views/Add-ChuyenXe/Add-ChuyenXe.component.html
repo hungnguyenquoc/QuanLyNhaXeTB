@@ -6,13 +6,7 @@
       <option *ngFor="let item of tuyenDuongs" [value]="item.tenTD">{{item.tenTD}}</option>
       </select>
       </c-col>
-      <c-col [md]="4">
-        <label cLabel for="inputtenLX">Loại Xe</label>
-        <select [(ngModel)]="chuyenXe.tenLX" name="tenLX" cSelect id="inputtenLX"required="required">
-        <option *ngFor="let item of loaiXes" [value]="item.tenLoaiXe">{{item.tenLoaiXe}}</option>
-        </select>
-        </c-col>
-        <c-col [md]="8">
+        <c-col [md]="6">
           <label cLabel for="inputgia">Giá Tiền</label>
           <input  [(ngModel)]="chuyenXe.gia" name="gia"cFormControl id="gia" type="text"required="required" />
           </c-col>
@@ -27,7 +21,7 @@
     <c-col [xs]="12">
     </c-col>
     <c-col [xs]="12">
-    <button (click)="addNV()" cButton type="submit">Save</button>
+    <button (click)="addNV()" cButton type="submit">Lưu</button>
     </c-col>
     </form>
 </div>

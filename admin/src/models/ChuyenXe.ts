@@ -5,4 +5,6 @@ export class ChuyenXe {
     tenLX:string;
     gioDi:string;
     gia:string;
+    status!:number;
+    bsxe!:string;
 }

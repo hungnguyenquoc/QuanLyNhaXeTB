@@ -1,3 +1,4 @@
+import { ThongKeComponent } from './views/ThongKe/ThongKe.component';
 import { FormVeXeViewComponent } from './views/FormVeXeView/FormVeXeView.component';
 import { FormClientComponent } from './views/Form-Client/Form-Client.component';
 import { AddVeXeComponent } from './views/Add-VeXe/Add-VeXe.component';
@@ -42,6 +43,12 @@ const routes: Routes = [
     },
     
     children: [
+      {
+        path: 'ThongKe',
+        component: ThongKeComponent,
+        loadChildren: () =>
+        import('./views/ThongKe/ThongKe.module').then((m) => m.ThongKeModule)
+      },
       {
         path: 'VeXe',
         component: VeXeComponent,

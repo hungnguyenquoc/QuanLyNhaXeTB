@@ -1,0 +1,75 @@
+<c-col [md]="10">
+  <label for="">Thống Kê</label>
+  <br>
+  <input type="radio" [(ngModel)]="kieuThongKe" value="1" id="theothang">
+  <label for="theothang">Tháng</label>
+  <input type="radio" [(ngModel)]="kieuThongKe" value="2" id="theonam">
+  <label for="theonam">Năm</label>
+  <br>
+  <input type="radio" [(ngModel)]="kieuThongKe" value="3" id="theonam">
+  <label for="theotime">Mốc thời gian chỉ định</label>
+  <br>
+  <input type="radio" [(ngModel)]="kieuThongKe" value="4" id="theonam">
+  <label for="theoTuyenDuong">Tuyến Đường</label>
+  <input type="radio" [(ngModel)]="kieuThongKe" value="5" id="theonam">
+  <label for="theoLaiXe">Loại Xe</label>
+</c-col>
+<div class="" *ngIf="kieuThongKe ==1">
+  <c-col [md]="4">
+    <select [(ngModel)]="thang" name="thang" cSelect id="thang"required="required">
+      <option *ngFor="let item of Theothang" [value]="item">Tháng {{item}}</option>
+      </select>
+  </c-col>
+</div>
+<div class="" *ngIf="kieuThongKe ==2">
+  <c-col [md]="4">
+    <input  [(ngModel)]="TheoNam" name="Nam"cFormControl id="Nam" type="text"required="required" />
+  </c-col>
+</div>
+<div class="" *ngIf="kieuThongKe ==3">
+  <c-col [md]="4">
+    <input  [(ngModel)]="iputDateTime.ngaybatdau" name="startday"cFormControl id="startday" type="date"required="required" />
+    <input  [(ngModel)]="iputDateTime.ngayketthuc" name="endday"cFormControl id="endday" type="date"required="required" />
+  </c-col>
+</div>
+<div class="" *ngIf="kieuThongKe ==4">
+  <c-col [md]="4">
+    <select [(ngModel)]="inputTD.tenTD" name="theoTD" cSelect id="theoTD"required="required">
+      <option *ngFor="let item of tuyenDuongs">{{item.tenTD}}</option>
+    </select>
+  </c-col>
+</div>
+<div class="" *ngIf="kieuThongKe ==5">
+  <c-col [md]="4">
+    <select [(ngModel)]="inputLX.tenLX" name="theoLX" cSelect id="theoLX"required="required">
+      <option *ngFor="let item of loaiXes">{{item.tenLoaiXe}}</option>
+    </select>
+  </c-col>
+</div>
+<c-col [md]="4">
+  <button (click)="ThongKe()"cButton color="success">Chọn</button>
+</c-col>
+<div class="" *ngIf="PhieuXeViews.length<=0">
+  <h3>Hiện chưa có vé xe nào thỏa mãn điệu kiện</h3>
+  </div>
+  <div class="" *ngIf="PhieuXeViews.length>0">
+    <table cTable>
+      <thead>
+      <tr>
+        <th scope="col">MSCX</th>
+      <th scope="col">Tên Tuyến Đường</th>
+      <th scope="col">Tên Khách Hàng</th>
+      <th scope="col">Giá Vé</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of PhieuXeViews ">
+      <td>{{item.mscx}}</td>
+      <td>{{item.tuyenDuong}}</td>
+      <td>{{item.tenKH}}</td>
+      <td>{{item.giaVe}} VNĐ</td>
+      </tr>
+      </tbody>
+      <tfoot>
+        <td (value)="TongTien"name="TongTien">Tổng Tiền: {{TongTien}} VNĐ</td>
+      </tfoot>
+      </table>

@@ -18,3 +18,32 @@
     border: 1px solid #333;
     display:inline-block;
 }
+
+.fs-title {
+   margin-bottom: 50px;
+}
+.detail-chair p{
+    font-weight: 600;
+}
+.detail-chair {
+    position: relative;
+}
+.detail-chair .up {
+    position: absolute;
+    right: 56.5%;
+    bottom: -10px;
+}
+.detail-chair .down {
+    position: absolute;
+    left: 56.5%;
+    bottom: -10px;
+}
+.bg-slider img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 600px;
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+    display: block;
+}
